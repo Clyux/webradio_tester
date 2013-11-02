@@ -1,6 +1,6 @@
 {
-  "name": "expressAngular",
-  "version": "0.0.0",
+  "name": "sept-web-radio",
+  "version": "0.0.1",
   "dependencies": {
     "angular": "1.0.8",
     "json3": "~3.2.4",
