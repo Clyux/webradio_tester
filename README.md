@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/alfirin/sept-web-radio.png)](https://travis-ci.org/alfirin/sept-web-radio)
+
 # Sept Web radio
 
 Start an awesome app with AngularJS on the front, Yeoman + Socket.io + Express + Node on the back. This
