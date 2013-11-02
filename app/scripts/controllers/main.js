@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('expressAngularApp')
+angular.module('septWebRadioApp')
   .controller('MainCtrl', ['$scope', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

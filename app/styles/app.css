@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/* CSS Document */
+
+div#logo {
+
+    width: 80px;
+    height: 103px;
+    padding: 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+}
+
+li {
+    margin-left: 2px;
+    margin-top: 65px;
+    float: left;
+    font-family: basicl, verdana, sans-serif;
+    font-size: 18pt;
+    color: #000000;
+}
+
+ul li a {
+    display: block;
+    float: left;
+    width: 150px;
+    color: black;
+    text-decoration: underline;
+    text-align: center;
+    padding: 5px;
+
+}
+
+.li {
+    position: relative;
+    display: block;
+    height: 300px;
+    width: 300px;
+    /* background: url(images/bouton.png) no-repeat; */
+    background-position: 0 0;
+    cursor: pointer;
+}
+
+ul li a:active {
+    background-color: #000;
+    color: #FFF;
+}
+
+ul li a:hover {
+    text-decoration: none;
+}
+
+ul li a:active {
+    background-color: #000;
+    color: #FFF;
+}
+
+h1 {
+    font-family: bacana, verdana, sans-serif;
+    font-size: 35pt;
+    margin-top: 90px;
+    margin-left: 50px;
+}
+
+p {
+    margin-left: 200px;
+    margin-top: 10px;
+    float: left;
+    display: block;
+    height: 363px; /* Placez ici la hauteur de votre image en pixel */
+    width: 310px; /* Placez ici la longeur de */
+    font-family: andale mono, monaco, sans-serif;
+    font-size: 12pt;
+    color: #000000;
+    text-align: justify;
+}
+
+h2 {
+    font-family: bacana, verdana, sans-serif;
+    font-size: 10pt;
+    margin-right: 200px;
+    margin-top: 65px;
+    float: left;
+    color: #000000;
+    text-align: justify;
+}
+
+img.triangle {
+    margin-top: 35px;
+    padding-right: 10px;
+}
+
+img.radio {
+    margin-left: 200px;
+    margin-top: 105px;
+}
+
+img.play {
+    margin-left: 620px;
+    margin-top: 30px;
+}
+
+.enought {
+    background: url("images/ENOUGHT.png");
+    margin-left: 200px;
+    margin-top: 20px;
+    size: 4%;
+
+}
+
+img.profil {
+    margin-top: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/*font-style | font-variant | font-weight | font-size | font-family
+
+     <h1><a href="STAGE.html"><strong> STAGE </strong></a></h1>
+     <h1><a href="REPLAY.html"><strong> REPLAY </strong></a></h1>
+     <h1><a href="TOPICAL.html"><strong> TOPICAL </strong></a></h1>
+     <h1><a href="STAGEDOOR.html"><strong> STAGE DOOR </strong></a></h1>
+     <h1><a href="BACKSTAGE.html"><strong> BACKSTAGE </strong></a></h1>
