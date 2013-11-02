@@ -17,9 +17,9 @@ Runs like a typical express app:
 
     node app.js
 
-### Development mode
+### Development/Production mode
 
-Edit the file config/config.js and change the environment to development. Then run
+Edit the file config/config.js and change the environment variables. Then run
 
     grunt server
 
