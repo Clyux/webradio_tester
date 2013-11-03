@@ -1,6 +1,10 @@
 {
   "name": "sept-web-radio",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/alfirin/sept-web*radio.git"
+  },
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*"
