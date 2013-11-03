@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/alfirin/sept-web-radio.png)](https://travis-ci.org/alfirin/sept-web-radio)
 
-# Sept Web radio
+# [Sept Web radio](http://sept-web-radio.herokuapp.com/)
+
+You can see the heroku project [here](http://sept-web-radio.herokuapp.com/)
 
 Start an awesome app with AngularJS on the front, Yeoman + Socket.io + Express + Node on the back. This
 project is an application for a web-radio using [Node.js](http://nodejs.org/‎),
