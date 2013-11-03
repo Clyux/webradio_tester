@@ -11,17 +11,6 @@ var path = require('path');
 var app = express();
 var developmentEnv = 'development' == app.get('env');
 
-app.configure(function () {
-  app.set('port', process.env.PORT || 3000);
-  app.set('view engine', 'ejs');
-  app.engine('html', require('ejs').renderFile);
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-});
-
 if (developmentEnv) {
   // development only
   console.log('Development Environment');
@@ -40,11 +29,32 @@ else {
   });
 }
 
+app.configure(function () {
+  // all environments
+  app.set('port', process.env.PORT || 3000);
+  app.set('view engine', 'jade');
+  app.set('view options', {
+    layout: false
+  });
+  app.engine('html', require('ejs').renderFile);
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+});
+
+// serve index and view partials
 app.get('/', routes.index);
 
+// redirect all others to the index (HTML5 history)
+app.get('*', routes.index);
+
 module.exports = app;
+
+/**
+ * Start Server
+ */
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
-

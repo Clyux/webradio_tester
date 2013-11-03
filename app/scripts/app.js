@@ -7,8 +7,8 @@ var septWebRadioApp = angular.module('septWebRadioApp', [
 
 septWebRadioApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
+      .when('/index', {
+        templateUrl: 'views/main/main.html',
         controller: 'MainCtrl'
       })
       .when('/stage', {
@@ -32,7 +32,7 @@ septWebRadioApp.config(function($routeProvider, $locationProvider) {
         controller: 'BackstageCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/index'
       });
 
     // configure html5 to get links working on jsfiddle
