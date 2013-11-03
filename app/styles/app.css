@@ -1,6 +1,10 @@
 @charset "UTF-8";
 /* CSS Document */
 
+body {
+    margin: 8px 8px;
+}
+
 div#logo {
 
     width: 80px;
@@ -40,7 +44,7 @@ ul li a {
     display: block;
     height: 300px;
     width: 300px;
-    /* background: url(images/bouton.png) no-repeat; */
+    /* background : url(../bouton.png) no-repeat; */
     background-position: 0 0;
     cursor: pointer;
 }
@@ -54,7 +58,7 @@ ul li a:hover {
     text-decoration: none;
 }
 
-ul li a:active {
+ul li1 a:active {
     background-color: #000;
     color: #FFF;
 }
@@ -71,8 +75,8 @@ p {
     margin-top: 10px;
     float: left;
     display: block;
-    height: 363px; /* Placez ici la hauteur de votre image en pixel */
-    width: 310px; /* Placez ici la longeur de */
+    height: 363px;
+    width: 310px;
     font-family: andale mono, monaco, sans-serif;
     font-size: 12pt;
     color: #000000;
@@ -105,7 +109,7 @@ img.play {
 }
 
 .enought {
-    background: url("images/ENOUGHT.png");
+    background: url("images/ENOUGH.png");
     margin-left: 200px;
     margin-top: 20px;
     size: 4%;
