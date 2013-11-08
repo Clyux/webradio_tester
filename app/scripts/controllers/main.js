@@ -2,44 +2,36 @@
 
 /* Controllers */
 
-var appControllers = angular.module('septWebRadioControllers', []);
+angular.module('septWebRadioControllers', []);
 
-appControllers.controller('MainCtrl', ['$scope',
-  function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  }]
+angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', function ($scope) {
+  $scope.awesomeThings = [
+    'HTML5 Boilerplate',
+    'AngularJS',
+    'Karma'
+  ];
+}]);
+
+angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', function ($scope) {
+  $scope.title = 'Stage';
+}]
 );
 
-appControllers.controller('StageCtrl', ['$scope',
-  function ($scope) {
-    $scope.title = 'Stage';
-  }]
+angular.module('septWebRadioControllers').controller('ReplayCtrl', ['$scope', function ($scope) {
+  $scope.title = 'Replay';
+}]
 );
 
-appControllers.controller('ReplayCtrl', ['$scope',
-  function ($scope) {
-    $scope.title = 'Replay';
-  }]
+angular.module('septWebRadioControllers').controller('TopicalCtrl', ['$scope', function ($scope) {
+  $scope.title = 'Topical';
+}]
+);
+angular.module('septWebRadioControllers').controller('DoorCtrl', ['$scope', function ($scope) {
+  $scope.title = 'Door';
+}]
 );
 
-appControllers.controller('TopicalCtrl', ['$scope',
-  function ($scope) {
-    $scope.title = 'Topical';
-  }]
-);
-
-appControllers.controller('DoorCtrl', ['$scope',
-  function ($scope) {
-    $scope.title = 'Door';
-  }]
-);
-
-appControllers.controller('BackstageCtrl', ['$scope',
-  function ($scope) {
-    $scope.title = 'Back Stage';
-  }]
+angular.module('septWebRadioControllers').controller('BackstageCtrl', ['$scope', function ($scope) {
+  $scope.title = 'Back Stage';
+}]
 );
