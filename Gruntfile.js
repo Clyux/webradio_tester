@@ -20,6 +20,16 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    bower: {
+      install: {
+        options: {
+          targetDir: '<%= yeoman.app %>/bower_components',
+          install: true,
+          verbose: true,
+          cleanTargetDir: true
+        }
+      }
+    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -283,6 +293,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'bower',
       'concurrent:server',
       'express:livereload',
       'open',
@@ -299,6 +310,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'bower',
     'useminPrepare',
     'concurrent:dist',
     'concat',

@@ -9,30 +9,27 @@ project is an application for a web-radio using [Node.js](http://nodejs.org/‎)
 [AngularJS](http://angularjs.org/), [Yeoman](http://yeoman.io/), ... apps that use
 web sockets to add real-time functionality.
 
-### Install all the node modules
-
+### Install the Application
     npm install
-Then for the bower components
-    bower install
+
+This command will run grunt at the end. So make sure you have Grunt installed.
+To do so, just type
+    npm install -g grunt-cli
 
 ### Running the app
 
 Runs like a typical express app:
-
     node app.js
 
 ### Development/Production mode
 
 Edit the file config/config.js and change the environment variables. Then run
-
     grunt server
 
 ### Running tests
-
-grunt test
+    grunt test
 
 ### Package the app for production environment
-
     grunt
 
 ### Receiving updates from upstream
