@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Jimmy Grand -- Back-end Eng --
+
+# THANKS
+
+    Jade Ronat-Mallie
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, jQuery, Modernizr
+    Yeoman, Node.js, AngularJS

@@ -9,12 +9,11 @@ project is an application for a web-radio using [Node.js](http://nodejs.org/‎)
 [AngularJS](http://angularjs.org/), [Yeoman](http://yeoman.io/), ... apps that use
 web sockets to add real-time functionality.
 
-### Install the Application
+### Install modules for the application
     npm install
 
-This command will run grunt at the end. So make sure you have Grunt installed.
-To do so, just type
-    npm install -g grunt-cli
+Then in order to package the application and download the bower dependencies run
+    grunt
 
 ### Running the app
 
