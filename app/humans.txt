@@ -3,13 +3,14 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Jimmy Grand -- Back-end Eng --
 
 # THANKS
 
-    <name>
+    Jade Ronat-Mallie
 
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
     Normalize.css, jQuery, Modernizr
+    Yeoman, Node.js, AngularJS

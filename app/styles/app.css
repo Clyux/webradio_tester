@@ -1,6 +1,11 @@
 @charset "UTF-8";
 /* CSS Document */
 
+/*For Boostrap UI*/
+.nav, .pagination, .carousel a {
+    cursor: pointer;
+}
+
 body {
     margin: 8px 8px;
 }

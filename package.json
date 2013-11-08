@@ -3,13 +3,12 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "http://github.com/alfirin/sept-web*radio.git"
+    "url": "http://github.com/alfirin/sept-web-radio.git"
   },
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
-    "bower": "~1.2.x",
-    "jade": "~0.31.2"
+    "bower": "~1.2.x"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -25,18 +24,21 @@
     "grunt-contrib-htmlmin": "~0.1.3",
     "grunt-contrib-imagemin": "~0.1.4",
     "grunt-contrib-watch": "~0.4.0",
-    "grunt-usemin": "~0.1.11",
+    "grunt-usemin": "~2.0.0",
     "grunt-svgmin": "~0.2.0",
     "grunt-rev": "~0.1.0",
-    "grunt-karma": "~0.4.3",
+    "grunt-karma": "~0.7.1",
     "grunt-open": "~0.2.0",
     "grunt-concurrent": "~0.3.0",
     "matchdep": "~0.1.2",
     "connect-livereload": "~0.2.0",
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
-    "grunt-express": "~1.0.0-beta2",
-    "karma": "~0.10.2"
+    "grunt-express": "~1.2.1",
+    "karma" : "~0.10",
+    "karma-junit-reporter" : "~0.1",
+    "karma-jasmine" : "~0.1",
+    "karma-ng-scenario" : "~0.1"
   },
   "engines": {
     "node": ">=0.8.0"

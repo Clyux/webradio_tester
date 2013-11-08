@@ -2,10 +2,11 @@
 
 var septWebRadioApp = angular.module('septWebRadioApp', [
   'ngRoute',
-  'septWebRadioControllers'
+  'septWebRadioControllers',
+  'ui.bootstrap'
 ]);
 
-septWebRadioApp.config(function($routeProvider, $locationProvider) {
+septWebRadioApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/index', {
         templateUrl: 'views/main/main.html',
@@ -37,4 +38,5 @@ septWebRadioApp.config(function($routeProvider, $locationProvider) {
 
     // configure html5 to get links working on jsfiddle
     $locationProvider.html5Mode(true);
-});
+  }
+);
