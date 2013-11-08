@@ -15,6 +15,9 @@ web sockets to add real-time functionality.
 Then in order to package the application and download the bower dependencies run
     grunt
 
+For that make sure you have grunt installed:
+    npm install -g grunt-cli
+
 ### Running the app
 
 Runs like a typical express app:
