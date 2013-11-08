@@ -30,12 +30,13 @@
     "grunt-karma": "~0.7.1",
     "grunt-open": "~0.2.0",
     "grunt-concurrent": "~0.3.0",
-    "matchdep": "~0.1.2",
-    "connect-livereload": "~0.2.0",
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
     "grunt-express": "~1.2.1",
+    "grunt-cli" : "~0.1",
     "grunt-bower-task" : "~0.3",
+    "matchdep": "~0.1.2",
+    "connect-livereload": "~0.2.0",
     "karma" : "~0.10",
     "karma-junit-reporter" : "~0.1",
     "karma-jasmine" : "~0.1",
@@ -45,8 +46,8 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "postinstall": "grunt",
-    "test": "grunt test",
+    "postinstall": "./node_modules/grunt-cli/bin/grunt",
+    "test": "./node_modules/grunt-cli/bin/grunt test",
     "start": "node app.js"
   }
 }
