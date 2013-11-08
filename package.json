@@ -46,8 +46,8 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "postinstall": "./node_modules/grunt-cli/bin/grunt",
-    "test": "./node_modules/grunt-cli/bin/grunt test",
+    "postinstall": "./node_modules/.bin/grunt",
+    "test": "./node_modules/.bin/grunt test",
     "start": "node app.js"
   }
 }
