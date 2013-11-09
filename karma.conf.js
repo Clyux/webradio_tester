@@ -19,7 +19,7 @@ module.exports = function(config) {
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       //'node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js',
-      'app/scripts/**/*.js',
+      'dist/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/unit/**/*.js'
     ],
