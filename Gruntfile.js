@@ -317,6 +317,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'env:dev',
     'clean:server',
+    'bower',
     'concurrent:test',
     'express:test',
     'karma'
