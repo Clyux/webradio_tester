@@ -20,6 +20,16 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    env : {
+      dev : {
+        NODE_ENV : 'development',
+        DEST     : 'app'
+      },
+      build : {
+        NODE_ENV : 'production',
+        DEST     : 'dist'
+      }
+    },
     bower: {
       install: {
         options: {
@@ -302,6 +312,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
+    'env:dev',
     'clean:server',
     'concurrent:test',
     'express:test',

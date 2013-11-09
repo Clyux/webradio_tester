@@ -34,6 +34,7 @@
     "grunt-ngmin": "~0.0.2",
     "grunt-express": "~1.2.1",
     "grunt-bower-task": "~0.3",
+    "grunt-env": "~0.4",
     "matchdep": "~0.1.2",
     "connect-livereload": "~0.2.0",
     "karma": "~0.10",
