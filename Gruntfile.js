@@ -291,12 +291,6 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'dist/scripts/modules.js': [
-            'dist/scripts/modules.js'
-          ],
-          'dist/scripts/plugins.js': [
-            'dist/scripts/plugins.js'
-          ],
           'dist/scripts/scripts.js': [
             'dist/scripts/scripts.js'
           ]
