@@ -36,7 +36,7 @@ module.exports = function (grunt) {
           targetDir: '<%= yeoman.app %>/bower_components',
           install: true,
           verbose: true,
-          cleanTargetDir: true
+          cleanTargetDir: false
         }
       }
     },

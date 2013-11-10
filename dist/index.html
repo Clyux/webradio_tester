@@ -14,9 +14,9 @@
 
       <base href="/">
 
-      <link rel="stylesheet" href="styles/dd25967e.main.css"/>
+      <link rel="stylesheet" href="styles/35db328a.main.css"/>
 </head>
-  <body>
+  <body ng-controller="MainCtrl">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -26,10 +26,13 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <div ng-include="" src="'views/templates/header.tpl.html'"></div>
+    <div ng-include="" src="'views/templates/header.tpl.html'" ng-controller="MainCtrl"></div>
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="wrapper">
+        <!-- Add your site or application content here -->
+        <div class="container" ng-view=""></div>
+        <div id="dz-root"></div>
+    </div>
 
     <div ng-include="" src="'views/templates/footer.tpl.html'"></div>
 
@@ -46,8 +49,11 @@
 
     <script src="scripts/8fbfff53.plugins.js"></script>
 
+    <script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+
     <script src="scripts/08a8890a.modules.js"></script>
 
-    <script src="scripts/31884b85.scripts.js"></script>
+    <script src="scripts/888c14ed.scripts.js"></script>
+
 </body>
 </html>

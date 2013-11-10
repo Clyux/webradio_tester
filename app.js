@@ -5,6 +5,8 @@
 var config = require('./config/config.js');
 var express = require('express');
 var routes = require('./routes');
+var deezer = require('./routes/deezer.js');
+var api = require('./routes/api.js');
 var http = require('http');
 var path = require('path');
 
@@ -42,6 +44,9 @@ app.configure(function () {
 
 // serve index and view partials
 app.get('/', routes.index);
+
+app.get('/deezer/get_channel', deezer.getChannel);
+app.get('/get_app_configuration', api.getAppUrl);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

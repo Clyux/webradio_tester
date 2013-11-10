@@ -20,7 +20,7 @@
       <link rel="stylesheet" href="styles/app.css">
       <!-- endbuild -->
 </head>
-  <body>
+  <body ng-controller='MainCtrl'>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -30,10 +30,13 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <div ng-include src="'views/templates/header.tpl.html'"></div>
+    <div ng-include src="'views/templates/header.tpl.html'" ng-controller='MainCtrl'></div>
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="wrapper">
+        <!-- Add your site or application content here -->
+        <div class="container" ng-view=""></div>
+        <div id="dz-root"></div>
+    </div>
 
     <div ng-include src="'views/templates/footer.tpl.html'"></div>
 
@@ -53,6 +56,8 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <!-- endbuild -->
 
+    <script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+
     <!-- build:js scripts/modules.js -->
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -62,7 +67,9 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/services/services.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <!-- endbuild -->
+
 </body>
 </html>

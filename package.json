@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
+    "request": "~2.27",
     "bower": "~1.2.x"
   },
   "devDependencies": {
