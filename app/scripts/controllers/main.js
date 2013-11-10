@@ -9,12 +9,62 @@ angular.module('septWebRadioControllers', ['septWebRadioServices']);
 angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'initApplication',
   function ($scope, initApplication) {
 
+    $scope.connexionButtonLabel = 'Log In';
+
     initApplication.then(function (data) {
       DZ.init({
         appId: data.appId,
         channelUrl: data.url
       });
+
+      // Then see if the user is logged
+      DZ.getLoginStatus(function (response) {
+        updateUserStatus(response);
+        $scope.$apply();
+      });
     });
+
+    function updateUserStatus(response) {
+      switch (response.status) {
+        case 'connected':
+          $scope.connexionButtonLabel = 'Log Out';
+          if (response.authResponse) {
+            $scope.deezerSession = response;
+            DZ.api('/user/me', function (response) {
+              $scope.deezerUser = response;
+              $scope.$apply();
+            });
+          } else {
+            // No auth
+            authorizeCurrentUser();
+          }
+          break;
+        case 'not_authorized':
+          authorizeCurrentUser();
+          break;
+        case 'notConnected':
+        case 'unknown':
+          initSession();
+          break;
+        default:
+          initSession();
+          break;
+      }
+    }
+
+    function authorizeCurrentUser() {
+      $scope.connexionButtonLabel = 'Authorize';
+      $scope.deezerSession = null;
+      $scope.deezerUser = null;
+      $scope.$apply();
+    }
+
+    function initSession() {
+      $scope.connexionButtonLabel = 'Log In';
+      $scope.deezerSession = null;
+      $scope.deezerUser = null;
+      $scope.$apply();
+    }
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -22,21 +72,18 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
       'Karma'
     ];
 
-    $scope.connexionButtonLabel = 'Connexion';
-
-    $scope.connexion = function () {
-      DZ.login(function (response) {
-        if (response.authResponse) {
-          console.log('Welcome! Fetching your information.... ');
-          DZ.api('/user/me', function (response) {
-            console.log('Good to see you, ' + response.name + '.');
-            $scope.connexionButtonLabel = 'Déconnexion';
-            $scope.$apply();
-          });
-        } else {
-          console.log('User cancelled login or did not fully authorize.');
-        }
-      }, {perms: 'basic_access,email,manage_library,delete_library'});
+    $scope.logInClick = function () {
+      // If the user is connected
+      if ($scope.deezerSession) {
+        // Log out
+        DZ.logout();
+        initSession();
+      } else {
+        // Try to connect the user.
+        DZ.login(function (response) {
+          updateUserStatus(response);
+        }, {perms: 'basic_access,email,manage_library,delete_library'});
+      }
     };
   }]);
 
