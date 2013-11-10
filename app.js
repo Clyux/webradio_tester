@@ -1,3 +1,7 @@
+'use strict';
+
+/* jshint unused:false */
+
 /**
  * Module dependencies.
  */
@@ -11,7 +15,7 @@ var http = require('http');
 var path = require('path');
 
 var app = express();
-var developmentEnv = 'development' == app.get('env');
+var developmentEnv = 'development' === app.get('env');
 
 if (developmentEnv) {
   // development only
