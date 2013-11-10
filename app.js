@@ -46,7 +46,7 @@ app.configure(function () {
 app.get('/', routes.index);
 
 app.get('/deezer/get_channel', deezer.getChannel);
-app.get('/get_app_configuration', api.getAppUrl);
+app.get('/init_application', api.initApplication);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

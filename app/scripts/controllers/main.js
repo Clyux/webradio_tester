@@ -6,17 +6,13 @@
 
 angular.module('septWebRadioControllers', ['septWebRadioServices']);
 
-angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'getAppConfiguration',
-  function ($scope, getAppConfiguration) {
+angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'initApplication',
+  function ($scope, initApplication) {
 
-    getAppConfiguration.then(function (data) {
-      //this will execute when the
-      //AJAX call completes.
-      //console.log(data);
-
+    initApplication.then(function (data) {
       DZ.init({
-        appId: '127403',
-        channelUrl: data
+        appId: data.appId,
+        channelUrl: data.url
       });
     });
 
@@ -26,12 +22,16 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'get
       'Karma'
     ];
 
+    $scope.connexionButtonLabel = 'Connexion';
+
     $scope.connexion = function () {
       DZ.login(function (response) {
         if (response.authResponse) {
           console.log('Welcome! Fetching your information.... ');
           DZ.api('/user/me', function (response) {
             console.log('Good to see you, ' + response.name + '.');
+            $scope.connexionButtonLabel = 'Déconnexion';
+            $scope.$apply();
           });
         } else {
           console.log('User cancelled login or did not fully authorize.');

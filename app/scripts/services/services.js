@@ -12,9 +12,9 @@ angular.module('septWebRadioServices', []);
  }]);
  });*/
 
-angular.module('septWebRadioServices').service('getAppConfiguration', ['$http',
+angular.module('septWebRadioServices').service('initApplication', ['$http',
   function ($http) {
-    return $http.get('get_app_configuration').then(function (result) {
+    return $http.get('init_application').then(function (result) {
       return result.data;
     });
   }]
