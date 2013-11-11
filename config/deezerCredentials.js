@@ -5,5 +5,6 @@
  */
 
 module.exports = {
-  appId: '127423'
+  appId: '127423',
+  localhostAppId: '127403'
 };

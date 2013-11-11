@@ -6,16 +6,6 @@
     cursor: pointer;
 }
 
-body {
-    margin: 8px 8px;
-}
-
-div#logo {
-    width: 80px;
-    height: 103px;
-    padding: 0;
-}
-
 .ul-navigation {
     padding: 0;
     margin: 0;
@@ -41,26 +31,16 @@ div#logo {
 
 }
 
-.li {
-    position: relative;
-    display: block;
-    height: 300px;
-    width: 300px;
-    /* background : url(../bouton.png) no-repeat; */
-    background-position: 0 0;
-    cursor: pointer;
-}
-
-ul li a:active {
+.ul-navigation li a:active {
     background-color: #000;
     color: #FFF;
 }
 
-ul li a:hover {
+.ul-navigation li a:hover {
     text-decoration: none;
 }
 
-ul li a:active {
+.ul-navigation li a:active {
     background-color: #000;
     color: #FFF;
 }
@@ -123,18 +103,47 @@ img.profil {
     padding-left: 10px;
 }
 
-.navigation {
-    margin-top: 40px;
+.main_wrapper {
+    margin: 8px 8px;
 }
 
-.top-menu {
+.top {
+    height: 150px;
     position: relative;
-    height: 20px;
 }
 
-.connexion {
+.header_logo {
+    display: inline;
+    width: 250px;
+    height: 150px;
+}
+
+.login {
+    display: inline;
+    height: 20px;
     position: absolute;
-    left: 957px;
+    top: 0;
+    left: 928px;
+}
+
+.navigation {
+    display: inline;
+    position: absolute;
+    top: 50px;
+    left: 270px;
+}
+
+.header_black_line {
+    display: inline;
+    position: absolute;
+    top: 90px;
+    left: 250px;
+    right: 0;
+}
+
+.header_black_image {
+    width: 900px;
+    height: 17px;
 }
 
 .connexion_button {
@@ -174,7 +183,15 @@ img.profil {
 }
 
 .container {
+    position: relative;
+    padding: 0 0;
     margin-left: 250px;
+    width: 100%;
+}
+
+.content_wrapper {
+    width: 900px;
+    position: absolute;
 }
 
 /*font-style | font-variant | font-weight | font-size | font-family

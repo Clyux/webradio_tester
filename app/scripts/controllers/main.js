@@ -11,7 +11,7 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
 
     $scope.connexionButtonLabel = 'Log In';
 
-    initApplication.then(function (data) {
+    initApplication.getInitApplication().then(function (data) {
       DZ.init({
         appId: data.appId,
         channelUrl: data.url
@@ -87,9 +87,25 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
     };
   }]);
 
-angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', function ($scope) {
-  $scope.title = 'Stage';
-}]
+angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', '$http', 'deezerSearch',
+  function ($scope, $http, deezerSearch) {
+    $scope.title = 'Stage';
+
+    $scope.isSearching = false;
+
+    $scope.search = undefined;
+    $scope.selectedItem = undefined;
+
+    $scope.searches = function ($search) {
+      return deezerSearch.autoCompleteSearch($search).then(function (response) {
+        return response;
+      });
+    };
+
+    $scope.onSelectSearch = function ($item) {
+      $scope.selectedItem = $item;
+    };
+  }]
 );
 
 angular.module('septWebRadioControllers').controller('ReplayCtrl', ['$scope', function ($scope) {

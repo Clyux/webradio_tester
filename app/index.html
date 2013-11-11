@@ -14,6 +14,8 @@
 
       <base href="/">
 
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
       <!-- build:css({.tmp,app}) styles/main.css -->
       <link rel="stylesheet" href="styles/normalize.css">
       <link rel="stylesheet" href="styles/main.css">
@@ -30,16 +32,20 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <div ng-include src="'views/templates/header.tpl.html'" ng-controller='MainCtrl'></div>
+    <div class="main_wrapper">
 
-    <div class="wrapper">
-        <!-- Add your site or application content here -->
-        <div class="container" ng-view=""></div>
+        <div ng-include src="'views/templates/header.tpl.html'" ng-controller='MainCtrl'></div>
+
+        <div class="content_wrapper">
+            <!-- Add your site or application content here -->
+            <div class="container" ng-view=""></div>
+        </div>
+
+        <div id="dz-root"></div>
+
+        <div ng-include src="'views/templates/footer.tpl.html'"></div>
+
     </div>
-
-    <div id="dz-root"></div>
-
-    <div ng-include src="'views/templates/footer.tpl.html'"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -54,7 +60,7 @@
 
     <!-- build:js scripts/plugins.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <!-- endbuild -->
 
     <script src="http://cdn-files.deezer.com/js/min/dz.js"></script>

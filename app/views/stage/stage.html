@@ -1,5 +1,14 @@
-<img class="radio" src="images/sept.png" border="0" width=30% height=30%/
-><br/>
+<div class='container-fluid'>
+    <pre>Searching: {{search | json}}</pre>
+    <input type="text" ng-model="search" typeahead="search.title for search in searches($viewValue)"
+           typeahead-loading="isSearching" typeahead-on-select="onSelectSearch($item)" />
+    <img src="images/ajax-loader.gif"  ng-show="isSearching">
+</div>
+
+<img ng-src="{{ selectedItem.album.cover }}" width="100" height="100"/>
+
+<img class="radio" src="images/sept.png" border="0" width=30% height=30%/>
+<br/>
 <img class="play" src="images/pause.png" border="0" width=2% height=2%/>
 <br/>
 <input type="image" src="images/ENOUGH.png" class="enough" value="OK">

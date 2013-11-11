@@ -10,13 +10,15 @@ function getAppConfiguration(req, res) {
   var protocol = req.protocol;
   var host = req.host;
   var port = '';
+  var appId = deezerCredentials.appId;
 
   if (host === 'localhost') {
     port = ':3000';
+    appId = deezerCredentials.localhostAppId;
   }
 
   var url = protocol + '://' + host + port + '/deezer/get_channel';
-  res.send({url: url, appId: deezerCredentials.appId});
+  res.send({url: url, appId: appId});
 }
 
 exports.initApplication = function (req, res) {

@@ -1,28 +1,27 @@
 <div class="top">
-
     <header>
-        <div class="image">
-            <a href="/"><img src="images/logo.png" border="0" align="left" width="20%" height="20%"></a>
-        </div>
-        <div class="top-menu">
-            <div class="connexion">
+        <div>
+            <div class="header_logo">
+                <a href="/"><img src="images/logo.png" width="250px" height="150px"></a>
+            </div>
+            <div class="login">
                 <button type="button" class="connexion_button" ng-click="logInClick()">{{ connexionButtonLabel }}</button>
             </div>
         </div>
+
+        <div class="navigation">
+            <nav>
+                <ul class="ul-navigation">
+                    <li><a href="/stage">STAGE</a></li>
+                    <li><a href="replay">REPLAY</a></li>
+                    <li><a href="topical">TOPICAL</a></li>
+                    <li><a href="door">DOOR</a></li>
+                    <li><a href="backstage">BACKSTAGE</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header_black_line">
+            <img src="images/barre.png" class="header_black_image">
+        </div>
     </header>
-
-    <div class="navigation">
-        <nav>
-            <ul class="ul-navigation">
-                <li><a href="/stage">STAGE</a></li>
-                <li><a href="replay">REPLAY</a></li>
-                <li><a href="topical">TOPICAL</a></li>
-                <li><a href="door">DOOR</a></li>
-                <li><a href="backstage">BACKSTAGE</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <img src="images/barre.png" border="0" align="right" width="80%" height="80%">
-
 </div>
