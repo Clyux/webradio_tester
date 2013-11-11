@@ -23,7 +23,6 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
 
       // Then see if the user is logged
       DZ.getLoginStatus(function (response) {
-        console.log(response);
         updateUserStatus(response);
         $scope.$apply();
       });
