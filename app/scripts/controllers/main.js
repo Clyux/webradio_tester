@@ -10,15 +10,20 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
   function ($scope, initApplication) {
 
     $scope.connexionButtonLabel = 'Log In';
+    $scope.appId = '';
+    $scope.channelUrl = '';
 
     initApplication.getInitApplication().then(function (data) {
+      $scope.appId = data.appId;
+      $scope.channelUrl = data.url;
       DZ.init({
-        appId: data.appId,
-        channelUrl: data.url
+        appId: $scope.appId,
+        channelUrl: $scope.channelUrl
       });
 
       // Then see if the user is logged
       DZ.getLoginStatus(function (response) {
+        console.log(response);
         updateUserStatus(response);
         $scope.$apply();
       });
@@ -54,23 +59,17 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
 
     function authorizeCurrentUser() {
       $scope.connexionButtonLabel = 'Authorize';
-      $scope.deezerSession = null;
-      $scope.deezerUser = null;
+      $scope.deezerSession = undefined;
+      $scope.deezerUser = undefined;
       $scope.$apply();
     }
 
     function initSession() {
       $scope.connexionButtonLabel = 'Log In';
-      $scope.deezerSession = null;
-      $scope.deezerUser = null;
+      $scope.deezerSession = undefined;
+      $scope.deezerUser = undefined;
       $scope.$apply();
     }
-
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
 
     $scope.logInClick = function () {
       // If the user is connected
