@@ -9,8 +9,7 @@ angular.module('septWebRadioApp', [
 angular.module('septWebRadioApp').config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/index', {
-      templateUrl: 'views/main/main.html',
-      controller: 'MainCtrl'
+      templateUrl: 'views/main/main.html'
     })
     .when('/stage', {
       templateUrl: 'views/stage/stage.html',

@@ -63,11 +63,16 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
       $scope.$apply();
     }
 
-    function initSession() {
+    function initSession(haveToApply) {
+      haveToApply = typeof haveToApply !== 'undefined' ? haveToApply : true;
+
       $scope.connexionButtonLabel = 'Log In';
       $scope.deezerSession = undefined;
       $scope.deezerUser = undefined;
-      $scope.$apply();
+
+      if (haveToApply) {
+        $scope.$apply();
+      }
     }
 
     $scope.logInClick = function () {
@@ -75,7 +80,7 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'ini
       if ($scope.deezerSession) {
         // Log out
         DZ.logout();
-        initSession();
+        initSession(false);
       } else {
         // Try to connect the user.
         DZ.login(function (response) {

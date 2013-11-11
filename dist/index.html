@@ -18,7 +18,7 @@
 
       <link rel="stylesheet" href="styles/04617ff7.main.css"/>
 </head>
-  <body ng-controller="MainCtrl">
+  <body>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -28,9 +28,9 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <div class="main_wrapper">
+    <div class="main_wrapper" ng-controller="MainCtrl">
 
-        <div ng-include="" src="'views/templates/header.tpl.html'" ng-controller="MainCtrl"></div>
+        <div ng-include="" src="'views/templates/header.tpl.html'"></div>
 
         <div class="content_wrapper">
             <!-- Add your site or application content here -->
@@ -60,7 +60,7 @@
 
     <script src="scripts/08a8890a.modules.js"></script>
 
-    <script src="scripts/113e4179.scripts.js"></script>
+    <script src="scripts/23ff7ab5.scripts.js"></script>
 
 </body>
 </html>
