@@ -4,21 +4,20 @@
  * Created by jimmy on 09/11/13.
  */
 
-var deezerCredentials = require('../config/deezerCredentials');
+var soundCloudCredentials = require('../config/soundCloudCredentials');
 
 function getAppConfiguration(req, res) {
   var protocol = req.protocol;
   var host = req.host;
   var port = '';
-  var appId = deezerCredentials.appId;
+  var clientId = soundCloudCredentials.clientId;
 
   if (host === 'localhost') {
     port = ':3000';
-    appId = deezerCredentials.localhostAppId;
+    clientId = soundCloudCredentials.localhostClientIdId;
   }
-
-  var url = protocol + '://' + host + port + '/deezer/get_channel';
-  res.send({url: url, appId: appId});
+  var url = protocol + '://' + host + port + '/soundcloud/auth/callback';
+  res.send({url: url, clientId: clientId});
 }
 
 exports.initApplication = function (req, res) {

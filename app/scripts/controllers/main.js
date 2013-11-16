@@ -1,97 +1,31 @@
 'use strict';
 
-/* global DZ */
-
 /* Controllers */
 
 angular.module('septWebRadioControllers', ['septWebRadioServices']);
 
-angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'initApplication',
-  function ($scope, initApplication) {
+angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'soundCloudServices',
+  function ($scope, applicationServices, soundCloudServices) {
 
-    $scope.connexionButtonLabel = 'Log In';
-    $scope.appId = '';
-    $scope.channelUrl = '';
+    $scope.connexionButtonLabel = undefined;
 
-    initApplication.getInitApplication().then(function (data) {
-      $scope.appId = data.appId;
-      $scope.channelUrl = data.url;
-      DZ.init({
-        appId: $scope.appId,
-        channelUrl: $scope.channelUrl
-      });
-
-      // Then see if the user is logged
-      DZ.getLoginStatus(function (response) {
-        updateUserStatus(response);
-        $scope.$apply();
-      });
+    applicationServices.getInitApplication().then(function (data) {
+      // Check if the user is connected
+      if (data) {
+        // The user is connected
+      }
+      $scope.connexionButtonLabel = soundCloudServices.getConnexionLabel();
     });
 
-    function updateUserStatus(response) {
-      switch (response.status) {
-        case 'connected':
-          $scope.connexionButtonLabel = 'Log Out';
-          if (response.authResponse) {
-            $scope.deezerSession = response;
-            DZ.api('/user/me', function (response) {
-              $scope.deezerUser = response;
-              $scope.$apply();
-            });
-          } else {
-            // No auth
-            authorizeCurrentUser();
-          }
-          break;
-        case 'not_authorized':
-          authorizeCurrentUser();
-          break;
-        case 'notConnected':
-        case 'unknown':
-          initSession();
-          break;
-        default:
-          initSession();
-          break;
-      }
-    }
-
-    function authorizeCurrentUser() {
-      $scope.connexionButtonLabel = 'Authorize';
-      $scope.deezerSession = undefined;
-      $scope.deezerUser = undefined;
-      $scope.$apply();
-    }
-
-    function initSession(haveToApply) {
-      haveToApply = typeof haveToApply !== 'undefined' ? haveToApply : true;
-
-      $scope.connexionButtonLabel = 'Log In';
-      $scope.deezerSession = undefined;
-      $scope.deezerUser = undefined;
-
-      if (haveToApply) {
-        $scope.$apply();
-      }
-    }
-
-    $scope.logInClick = function () {
-      // If the user is connected
-      if ($scope.deezerSession) {
-        // Log out
-        DZ.logout();
-        initSession(false);
-      } else {
-        // Try to connect the user.
-        DZ.login(function (response) {
-          updateUserStatus(response);
-        }, {perms: 'basic_access,email,manage_library,delete_library'});
-      }
+    $scope.logInLogOutClick = function () {
+      soundCloudServices.logInLogOut().then(function () {
+        $scope.connexionButtonLabel = soundCloudServices.getConnexionLabel();
+      });
     };
   }]);
 
-angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', '$http', 'deezerSearch',
-  function ($scope, $http, deezerSearch) {
+angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', '$http', 'soundcloudSearch',
+  function ($scope, $http, soundcloudSearch) {
     $scope.title = 'Stage';
 
     $scope.isSearching = false;
@@ -100,7 +34,7 @@ angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', '$h
     $scope.selectedItem = undefined;
 
     $scope.searches = function ($search) {
-      return deezerSearch.autoCompleteSearch($search).then(function (response) {
+      return soundcloudSearch.autoCompleteSearch($search).then(function (response) {
         return response;
       });
     };

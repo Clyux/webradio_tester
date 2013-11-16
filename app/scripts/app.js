@@ -2,6 +2,7 @@
 
 angular.module('septWebRadioApp', [
   'ngRoute',
+  'ngCookies',
   'septWebRadioControllers',
   'ui.bootstrap'
 ]);
