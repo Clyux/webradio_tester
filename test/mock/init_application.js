@@ -5,8 +5,8 @@
 
 angular.module('mockedGetInitApplication', [])
   .value('defaultInitJSON', {
-    clientId: "123456789abcdef",
-    url: "http://localhost:3000/soundcloud/auth/callback"
+    "url": "http://localhost:3000/soundcloud/auth/callback",
+    "clientId": "fsfg613gdf54gf31gf1dgfdf"
   })
   .value('defaultDeezerJSONs', {
     notConnectedUserJSON: {

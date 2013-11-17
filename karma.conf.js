@@ -20,6 +20,8 @@ module.exports = function(config) {
       'app/bower_components/angular-mocks/angular-mocks.js',
       'test/libs/**/*.js',
       //'node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js',
+      'app/scripts/services/index.js',
+      'app/scripts/controllers/index.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/unit/**/*.js'
@@ -53,6 +55,22 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+
+    // For the code coverage
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'app/scripts/**/*.js': ['coverage']
+    },
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    }
   });
 };
