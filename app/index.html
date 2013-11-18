@@ -32,13 +32,16 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <div class="main_wrapper"  ng-controller='MainCtrl'>
+    <div class="global_wrapper"  ng-controller='MainCtrl'>
 
         <div ng-include src="'views/templates/header.tpl.html'"></div>
 
-        <div class="content_wrapper">
+        <div class="main_wrapper">
+
+            <div class="left_bar_wrapper"></div>
+
             <!-- Add your site or application content here -->
-            <div class="container" ng-view=""></div>
+            <div class="content_wrapper" ng-view=""></div>
         </div>
 
         <div ng-include src="'views/templates/footer.tpl.html'"></div>
