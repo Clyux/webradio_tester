@@ -203,7 +203,7 @@ img.profil {
     display: inline;
     position: absolute;
     left: 250px;
-    min-height: 800px;
+    min-width: 785px;
 }
 
 
