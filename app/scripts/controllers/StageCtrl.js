@@ -4,18 +4,22 @@
 
 angular.module('septWebRadioControllers');
 
-angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', '$http', 'soundcloudSearch',
-  function ($scope, $http, soundcloudSearch) {
+angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', 'soundcloudSearch', 'limitToFilter',
+  function ($scope, soundcloudSearch, limitToFilter) {
     $scope.title = 'Stage';
 
     $scope.isSearching = false;
 
     $scope.search = undefined;
     $scope.selectedItem = undefined;
+    $scope.searchedItems = undefined;
 
     $scope.searches = function ($search) {
       return soundcloudSearch.autoCompleteSearch($search).then(function (response) {
-        return response;
+
+        $scope.searchedItems = response;
+
+        return limitToFilter(response, 5);
       });
     };
 

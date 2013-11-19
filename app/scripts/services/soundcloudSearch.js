@@ -7,16 +7,16 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('soundcloudSearch', ['$http', '$q', 'limitToFilter',
-    function ($http, $q, limitToFilter) {
+  .service('soundcloudSearch', ['$http', '$q',
+    function ($http, $q) {
 
       this.autoCompleteSearch = function ($search) {
         // Create the promise
         var deferred = $q.defer();
 
         SC.get('/tracks', { q: $search }, function (response) {
-          var tracks = limitToFilter(response, 5);
-          deferred.resolve(tracks);
+          //var tracks = limitToFilter(response, 5);
+          deferred.resolve(response);
         });
 
         // Get the promise object
