@@ -204,6 +204,11 @@ img.profil {
     position: absolute;
     left: 250px;
     min-width: 785px;
+    right: 0;
 }
 
-
+.searchedItems{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}

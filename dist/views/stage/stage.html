@@ -1,22 +1,13 @@
 <div class="container-fluid">
-    <pre>Searching: {{search | json}}</pre>
-    <input type="text" ng-model="search" typeahead="search.permalink for search in searches($viewValue)" typeahead-loading="isSearching" typeahead-on-select="onSelectSearch($item)">
-    <img src="images/ajax-loader.gif" ng-show="isSearching">
+  <pre>Searching: {{search | json}}</pre>
+  <input type="text" ng-model="search" typeahead="search.permalink for search in searches($viewValue)" typeahead-loading="isSearching" typeahead-on-select="onSelectSearch($item)">
+  <img src="images/ajax-loader.gif" ng-show="isSearching">
 </div>
 
-<ul class="phones">
-    <li ng-repeat="item in searchedItems" class="">
-        <a href="#"><img ng-src="{{item.artwork_url}}"></a>
-        <a href="#">{{item.title}}</a>
-        <p>{{item.description}}</p>
-    </li>
+
+<ul class="grid" masonry="true">
+  <li ng-repeat="item in searchedItems">
+    <span>{{item.title}}</span>
+    <a href="#"><img ng-src="{{item.artwork_url}}"></a>
+  </li>
 </ul>
-
-<img ng-src="{{ selectedItem.artwork_url}}" width="100" height="100">
-
-<img class="radio" src="images/sept.png" border="0" width="30%" height="30%/">
-<br>
-<img class="play" src="images/pause.png" border="0" width="2%" height="2%/">
-<br>
-<input type="image" src="images/ENOUGH.png" class="enough" value="OK">
-<input type="image" src="images/20.png" class="20'" value="OK">
