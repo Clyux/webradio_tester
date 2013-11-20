@@ -132,6 +132,28 @@ describe('Application Services', function () {
         expect(soundCloudServices.me).toHaveBeenCalled();
       }));
 
+      it('should return the user when the user is connected', inject(function () {
+        var user = {user: 'User Name'};
+        var meDefer;
+        spyOn(soundCloudServices, 'me').andCallFake(function () {
+          meDefer = q.defer();
+          return meDefer.promise;
+        });
+
+        $cookieStore.put('SC_Token', 'myBeautifulToken');
+
+        var promise = applicationServices.getInitApplication();
+
+        // Call the back-end
+        $httpBackend.flush();
+
+        callDeferred(meDefer, scope, user);
+
+        promise.then(function(result){
+          expect(result).toBe(user);
+        });
+      }));
+
       it('should not be connected', inject(function () {
         expect(applicationServices.isConnected()).toBeFalsy();
 

@@ -26,9 +26,6 @@ angular.module('septWebRadioControllers')
             .then(function (response) {
               $scope.searchedItems = limitToFilter(response, 20);
               $scope.isSearching = false;
-            }, function (error) {
-              $scope.error = error;
-              $scope.isSearching = false;
             });
         } else {
           // There is nothing to search

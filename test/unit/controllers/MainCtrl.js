@@ -2,7 +2,7 @@
 
 /* jasmine specs for controllers go here */
 
-describe('controllers', function () {
+describe('Main', function () {
   beforeEach(module('septWebRadioApp', 'septWebRadioServices'));
 
   function callDeferred(deferred, scope, resolve) {
@@ -12,7 +12,7 @@ describe('controllers', function () {
   }
 
   // The main controller test
-  describe('Main Controller', function () {
+  describe('Controller', function () {
 
     var scope, applicationServicesMock, controller, q, initAppDeferred, isConnected, applicationServices;
     var logInDeferred;
@@ -38,7 +38,7 @@ describe('controllers', function () {
     });
 
     // init controller for test
-    beforeEach(inject(function ($controller, $rootScope, _applicationServices_, $q) {
+    beforeEach(inject(function ($rootScope, _applicationServices_, $q) {
       scope = $rootScope.$new();
       q = $q;
       applicationServices = _applicationServices_;

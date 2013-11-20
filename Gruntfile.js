@@ -20,14 +20,14 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    env : {
-      dev : {
-        NODE_ENV : 'development',
-        DEST     : 'app'
+    env: {
+      dev: {
+        NODE_ENV: 'development',
+        DEST: 'app'
       },
-      build : {
-        NODE_ENV : 'production',
-        DEST     : 'dist'
+      build: {
+        NODE_ENV: 'production',
+        DEST: 'dist'
       }
     },
     bower: {
@@ -96,7 +96,16 @@ module.exports = function (grunt) {
           }
         ]
       },
-      server: '.tmp'
+      server: {
+        files: [
+          {
+            src: [
+              '.tmp',
+              'coverage'
+            ]
+          }
+        ]
+      }
     },
     jshint: {
       options: {

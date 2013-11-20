@@ -5,6 +5,5 @@
 angular.module('septWebRadioControllers');
 
 angular.module('septWebRadioControllers').controller('DoorCtrl', ['$scope', function ($scope) {
-  $scope.title = 'Door';
 }]
 );
