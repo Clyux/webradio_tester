@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/alfirin/sept-web-radio.png)](https://travis-ci.org/alfirin/sept-web-radio)
 
+[![Coverage Status](https://coveralls.io/repos/alfirin/sept-web-radio/badge.png)](https://coveralls.io/r/alfirin/sept-web-radio)
+
 # Sept Web radio
 
 You can see the heroku deployment project [here](http://sept-web-radio.herokuapp.com/).
