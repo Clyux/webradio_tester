@@ -2,10 +2,11 @@
 
 angular.module('septWebRadioApp', [
   'ngRoute',
+  'ngAnimate',
   'ngCookies',
+  'ui.bootstrap',
   'septWebRadioControllers',
-  'masonryDirectives',
-  'ui.bootstrap'
+  'wu.masonry'
 ]);
 
 angular.module('septWebRadioApp').config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {

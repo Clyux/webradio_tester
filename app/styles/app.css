@@ -207,8 +207,31 @@ img.profil {
     right: 0;
 }
 
-.searchedItems{
+.searchedItems {
     padding: 0;
     margin: 0;
     list-style-type: none;
+}
+
+.input-search {
+    width: 400px;
+    padding: 8px 8px;
+    margin: 15px 0;
+    background: rgba(253, 253, 253, 0.71);
+}
+
+.masonry {
+    border: solid 1px #ccc;
+    min-height: 500px;
+    padding: 10px 10px;
+    background: rgba(253, 253, 253, 0.71);
+}
+
+.masonry .masonry-brick {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border: solid 1px #ccc;
+    margin: 0 0 10px 10px;
+    background: #eee;
 }

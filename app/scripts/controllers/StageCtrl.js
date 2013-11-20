@@ -4,27 +4,37 @@
 
 angular.module('septWebRadioControllers');
 
-angular.module('septWebRadioControllers').controller('StageCtrl', ['$scope', 'soundcloudSearch', 'limitToFilter',
-  function ($scope, soundcloudSearch, limitToFilter) {
-    $scope.title = 'Stage';
+angular.module('septWebRadioControllers')
+  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'limitToFilter',
+    function ($scope, soundcloudSearch, limitToFilter) {
+      $scope.title = 'Stage';
 
-    $scope.isSearching = false;
+      $scope.isSearching = false;
+      $scope.searchedTerm = undefined;
+      $scope.searchedItems = [];
 
-    $scope.search = undefined;
-    $scope.selectedItem = undefined;
-    $scope.searchedItems = undefined;
+      $scope.search = function () {
+        // If there is a term to search
+        if ($scope.searchedTerm && $scope.searchedTerm !== '' && $scope.searchedTerm.length >= 2) {
+          $scope.isSearching = true;
 
-    $scope.searches = function ($search) {
-      return soundcloudSearch.autoCompleteSearch($search).then(function (response) {
+          // Remove all the items for the list.
+          $scope.searchedItems.splice(0, $scope.searchedItems.length);
 
-        $scope.searchedItems = response;
-
-        return limitToFilter(response, 5);
-      });
-    };
-
-    $scope.onSelectSearch = function ($item) {
-      $scope.selectedItem = $item;
-    };
-  }]
-);
+          // Search the terms
+          soundcloudSearch.autoCompleteSearch($scope.searchedTerm)
+            .then(function (response) {
+              $scope.searchedItems = limitToFilter(response, 20);
+              $scope.isSearching = false;
+            }, function (error) {
+              $scope.error = error;
+              $scope.isSearching = false;
+            });
+        } else {
+          // There is nothing to search
+          $scope.isSearching = false;
+          $scope.searchedItems = [];
+        }
+      };
+    }]
+  );

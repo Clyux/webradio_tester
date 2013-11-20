@@ -1,13 +1,11 @@
-<div class="container-fluid">
-  <pre>Searching: {{search | json}}</pre>
-  <input type="text" ng-model="search" typeahead="search.permalink for search in searches($viewValue)" typeahead-loading="isSearching" typeahead-on-select="onSelectSearch($item)">
-  <img src="images/ajax-loader.gif" ng-show="isSearching">
+<div>
+    <input ng-model="searchedTerm" ng-change="search()" class="input-search">
+    <img src="images/ajax-loader.gif" ng-show="isSearching">
 </div>
 
-
-<ul class="grid" masonry="true">
-  <li ng-repeat="item in searchedItems">
-    <span>{{item.title}}</span>
-    <a href="#"><img ng-src="{{item.artwork_url}}"></a>
-  </li>
-</ul>
+<div class="masonry" masonry="{transitionTransition: '0.8s'}" column-width="15">
+    <div class="masonry-brick" ng-repeat="item in searchedItems">
+        <span>{{item.title}}</span>
+        <img ng-src="{{item.artwork_url}}">
+    </div>
+</div>
