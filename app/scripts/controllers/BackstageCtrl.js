@@ -4,6 +4,6 @@
 
 angular.module('septWebRadioControllers');
 
-angular.module('septWebRadioControllers').controller('BackstageCtrl', ['$scope', function ($scope) {
+angular.module('septWebRadioControllers').controller('BackstageCtrl', [function () {
 }]
 );

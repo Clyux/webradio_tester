@@ -4,6 +4,6 @@
 
 angular.module('septWebRadioControllers');
 
-angular.module('septWebRadioControllers').controller('ReplayCtrl', ['$scope', function ($scope) {
+angular.module('septWebRadioControllers').controller('ReplayCtrl', [function () {
 }]
 );

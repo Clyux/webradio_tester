@@ -4,6 +4,6 @@
 
 angular.module('septWebRadioControllers');
 
-angular.module('septWebRadioControllers').controller('TopicalCtrl', ['$scope', function ($scope) {
+angular.module('septWebRadioControllers').controller('TopicalCtrl', [function () {
 }]
 );
