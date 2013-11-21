@@ -65,7 +65,7 @@ module.exports = function(config) {
     singleRun: false,
 
     // For the code coverage
-    reporters: ['progress', 'coverage'],
+    reporters: ['coverage'],
 
     preprocessors: {
       // source files, that you wanna generate coverage for
@@ -77,8 +77,7 @@ module.exports = function(config) {
     // optionally, configure the reporter
     coverageReporter: {
       type : 'lcov',
-      dir : 'coverage/',
-      file : 'lcov.info'
+      dir : 'coverage/'
     }
   });
 };
