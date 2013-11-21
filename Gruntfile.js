@@ -282,6 +282,11 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
+    coveralls: {
+      options: {
+        coverage_dir: 'coverage'
+      }
+    },
     cdnify: {
       dist: {
         html: ['<%= yeoman.dist %>/{,*/}*.html']
@@ -334,7 +339,8 @@ module.exports = function (grunt) {
     'bower',
     'concurrent:test',
     'express:test',
-    'karma'
+    'karma',
+    'coveralls'
   ]);
 
   grunt.registerTask('build', [
