@@ -19,7 +19,7 @@ angular.module('septWebRadioControllers')
           // Search the terms
           soundcloudSearch.autoCompleteSearch($scope.searchedTerm)
             .then(function (response) {
-              $scope.searchedItems = utilities.mergeList($scope.searchedItems, response);
+              $scope.searchedItems = utilities.unionWithId($scope.searchedItems, response);
               $scope.isSearching = false;
             });
         } else {

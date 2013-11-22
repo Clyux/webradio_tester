@@ -32,6 +32,7 @@ module.exports = function(config) {
       'app/scripts/services/index.js',
       'app/scripts/controllers/index.js',
       'app/scripts/directives/index.js',
+      'app/scripts/factories/index.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/unit/**/*.js'

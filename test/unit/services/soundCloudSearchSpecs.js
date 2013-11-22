@@ -4,12 +4,14 @@ describe('Sound Cloud Search Services', function () {
   beforeEach(module('septWebRadioApp'));
 
   var $httpBackend, $cookieStore, q, scope;
+  var soundcloudSearch;
 
-  beforeEach(inject(function ($rootScope, _$httpBackend_, _$cookieStore_, $q) {
+  beforeEach(inject(function ($rootScope, _$httpBackend_, _$cookieStore_, $q, _soundcloudSearch_) {
     scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
     $cookieStore = _$cookieStore_;
     q = $q;
+    soundcloudSearch = _soundcloudSearch_;
   }));
 
   function callDeferred(deferred, scope, resolve) {
@@ -20,11 +22,6 @@ describe('Sound Cloud Search Services', function () {
 
   describe('soundCloudSearch', function () {
 
-    var soundcloudSearch;
-
-    beforeEach(inject(function (_soundcloudSearch_) {
-      soundcloudSearch = _soundcloudSearch_;
-    }));
 
     it('should init the variables', inject(function () {
       expect(soundcloudSearch.searching).toBeFalsy();
@@ -35,9 +32,10 @@ describe('Sound Cloud Search Services', function () {
       spyOn(SC, 'get').andCallThrough();
       expect(SC.get).not.toHaveBeenCalled();
 
-      soundcloudSearch.autoCompleteSearch();
+      var request = 'abcde';
+      soundcloudSearch.autoCompleteSearch(request);
 
-      expect(SC.get).toHaveBeenCalled();
+      expect(SC.get).toHaveBeenCalledWith('/tracks', { q: request }, soundcloudSearch.resolveGetTracks);
     }));
 
     it('should set searching to true', inject(function () {
@@ -51,11 +49,11 @@ describe('Sound Cloud Search Services', function () {
     }));
 
     it('should set searching to false', inject(function () {
-      var meDefer;
+      var getDefer;
 
       spyOn(SC, 'get').andCallFake(function () {
-        meDefer = q.defer();
-        return meDefer.promise;
+        getDefer = q.defer();
+        return getDefer.promise;
       });
 
       expect(soundcloudSearch.searching).toBeFalsy();
@@ -64,9 +62,9 @@ describe('Sound Cloud Search Services', function () {
 
       expect(soundcloudSearch.searching).toBeTruthy();
 
-      callDeferred(meDefer, scope);
+      callDeferred(getDefer, scope);
 
-      promise.then(function(result){
+      promise.then(function (result) {
         expect(soundcloudSearch.searching).toBeFalsy();
       });
     }));
@@ -93,5 +91,35 @@ describe('Sound Cloud Search Services', function () {
       var promise2 = soundcloudSearch.autoCompleteSearch();
       expect(deferred.reject).toHaveBeenCalled();
     }));
+
+
+    it('should set searching to false', inject(function () {
+      spyOn(SC, 'get').andCallFake(function (meth, params, callBack) {
+        callBack();
+      });
+
+      expect(soundcloudSearch.searching).toBeFalsy();
+
+      var promise1 = soundcloudSearch.autoCompleteSearch('abcd');
+
+      expect(soundcloudSearch.searching).toBeFalsy();
+    }));
   });
+
+
+  describe('resolveGetTracks', function () {
+    it('should set searching to false', inject(function () {
+      var promise1 = soundcloudSearch.autoCompleteSearch('abcd');
+
+      soundcloudSearch.searching = true;
+      expect(soundcloudSearch.searching).toBeTruthy();
+
+      spyOn(soundcloudSearch.deferred, 'resolve');
+
+      soundcloudSearch.resolveGetTracks();
+
+      expect(soundcloudSearch.searching).toBeFalsy();
+    }));
+  });
+
 });

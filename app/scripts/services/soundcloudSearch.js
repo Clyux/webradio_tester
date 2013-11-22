@@ -13,10 +13,10 @@ angular.module('septWebRadioServices')
       var self = this;
       this.searching = false;
       this.deferred = undefined;
-      this.maxItems = 24;
+      this.maxItems = 25;
 
       this.autoCompleteSearch = function ($search) {
-        if (self.searching){
+        if (self.searching) {
           self.deferred.reject();
         }
 
@@ -25,10 +25,7 @@ angular.module('septWebRadioServices')
         // Create the promise
         self.deferred = $q.defer();
 
-        SC.get('/tracks', { q: $search }, function (response) {
-          self.deferred.resolve(limitToFilter(response, self.maxItems));
-          self.searching = false;
-        });
+        SC.get('/tracks', { q: $search }, self.resolveGetTracks);
 
         // Get the promise object
         var promise = self.deferred.promise;
@@ -37,6 +34,11 @@ angular.module('septWebRadioServices')
         });
         // And return the promise object
         return promise;
+      };
+
+      this.resolveGetTracks = function (response) {
+        self.deferred.resolve(limitToFilter(response, self.maxItems));
+        self.searching = false;
       };
     }]
   );

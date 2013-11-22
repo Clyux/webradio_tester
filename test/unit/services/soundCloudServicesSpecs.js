@@ -29,6 +29,7 @@ describe('Sound Cloud Services', function () {
     it('should init the variables', inject(function () {
       expect(soundCloudServices.soundCloudUser).toBeUndefined();
       expect(soundCloudServices.soundCloudToken).toBeUndefined();
+      expect(soundCloudServices.meDeferred).toBeUndefined();
     }));
 
 
@@ -205,7 +206,33 @@ describe('Sound Cloud Services', function () {
         soundCloudServices.soundCloudUser = undefined;
       });
 
+      describe('meCallBack', function () {
+        it('should set the user inside the session and the service', inject(function () {
+          var mockUser = {user:'User Name'};
 
+          soundCloudServices.me();
+
+          soundCloudServices.meCallBack(mockUser);
+
+          expect(soundCloudServices.soundCloudUser).toBe(mockUser);
+
+          var newUserFromCookie = $cookieStore.get('SC_User');
+          expect(newUserFromCookie).toEqual(mockUser);
+        }));
+
+
+        it('should call the deferred method with the new user', inject(function () {
+          var mockUser = {user:'User Name'};
+
+          soundCloudServices.me();
+
+          spyOn(soundCloudServices.meDeferred, 'resolve');
+
+          soundCloudServices.meCallBack(mockUser);
+
+          expect(soundCloudServices.meDeferred.resolve).toHaveBeenCalledWith(mockUser);
+        }));
+      });
     });
 
   });
