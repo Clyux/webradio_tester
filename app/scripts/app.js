@@ -6,6 +6,7 @@ angular.module('septWebRadioApp', [
   'ngCookies',
   'ui.bootstrap',
   'septWebRadioControllers',
+  'septWebRadioDirectives',
   'wu.masonry'
 ]);
 

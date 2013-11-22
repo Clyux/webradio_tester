@@ -1,12 +1,10 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
 describe('Main', function () {
   beforeEach(module('septWebRadioApp', 'septWebRadioServices'));
 
   function callDeferred(deferred, scope, resolve) {
-    // Call the
+    // Resolve the promise
     deferred.resolve(resolve);
     scope.$apply();
   }

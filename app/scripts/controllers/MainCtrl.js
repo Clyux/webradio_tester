@@ -2,8 +2,6 @@
 
 /* Main Controller  */
 
-angular.module('septWebRadioControllers');
-
 angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices',
   function ($scope, applicationServices) {
 

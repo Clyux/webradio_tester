@@ -1,7 +1,5 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
 describe('Sound Cloud Services', function () {
   beforeEach(module('septWebRadioApp', 'mockedGetInitApplication'));
 
@@ -15,7 +13,7 @@ describe('Sound Cloud Services', function () {
   }));
 
   function callDeferred(deferred, scope, resolve) {
-    // Call the
+    // Resolve the promise
     deferred.resolve(resolve);
     scope.$apply();
   }
@@ -84,7 +82,7 @@ describe('Sound Cloud Services', function () {
       }));
 
       it('should set the token', inject(function () {
-        var token = "fgdfg623gdf";
+        var token = 'fgdfg623gdf';
         spyOn(SC, 'accessToken').andReturn(token);
         spyOn(SC, 'connect').andCallFake(function(callback){
           callback();
@@ -98,7 +96,7 @@ describe('Sound Cloud Services', function () {
       }));
 
       it('should set the cookie SC_Token', inject(function () {
-        var token = "fgdfg623gdf";
+        var token = 'fgdfg623gdf';
         spyOn(SC, 'accessToken').andReturn(token);
         spyOn(SC, 'connect').andCallFake(function(callback){
           callback();

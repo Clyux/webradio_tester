@@ -2,8 +2,6 @@
 
 /* Stage Controller */
 
-angular.module('septWebRadioControllers');
-
 angular.module('septWebRadioControllers')
   .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'limitToFilter',
     function ($scope, soundcloudSearch, limitToFilter) {

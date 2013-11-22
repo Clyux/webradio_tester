@@ -9,7 +9,7 @@ describe('my app', function() {
   });
 
   it('should automatically redirect to /index when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/index");
+    expect(browser().location().url()).toBe('/index');
   });
 
   describe('index', function() {

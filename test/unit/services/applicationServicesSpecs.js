@@ -1,7 +1,5 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
 describe('Application Services', function () {
   beforeEach(module('septWebRadioApp', 'mockedGetInitApplication'));
 
@@ -15,7 +13,7 @@ describe('Application Services', function () {
   }));
 
   function callDeferred(deferred, scope, resolve) {
-    // Call the
+    // Resolve the promise
     deferred.resolve(resolve);
     scope.$apply();
   }

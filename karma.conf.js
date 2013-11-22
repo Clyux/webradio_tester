@@ -13,22 +13,25 @@ module.exports = function(config) {
     files: [
       'app/bower_components/jquery/jquery.js',
       'app/bower_components/angular/angular.js',
+      /* Plugins.js */
       'app/bower_components/modernizr/modernizr.js',
       'app/bower_components/underscore/underscore-min.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'app/bower_components/imagesloaded/index.js',
-      'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-masonry/index.js',
-      'app/bower_components/angular-bootstrap/ui-bootstrap.min.js',
+      /* Modules.js */
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/bower_components/angular-route/angular-route.js',
+      'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'test/libs/**/*.js',
       //'node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js',
+      'app/scripts/app.js',
       'app/scripts/services/index.js',
       'app/scripts/controllers/index.js',
+      'app/scripts/directives/index.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/unit/**/*.js'
@@ -65,7 +68,7 @@ module.exports = function(config) {
     singleRun: false,
 
     // For the code coverage
-    reporters: ['coverage'],
+    reporters: ['progress', 'coverage'],
 
     preprocessors: {
       // source files, that you wanna generate coverage for

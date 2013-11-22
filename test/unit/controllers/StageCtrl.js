@@ -1,12 +1,10 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
 describe('Stage', function () {
   beforeEach(module('septWebRadioApp', 'septWebRadioServices'));
 
   function callDeferred(deferred, scope, resolve) {
-    // Call the
+    // Resolve the promise
     deferred.resolve(resolve);
     scope.$apply();
   }
@@ -53,7 +51,7 @@ describe('Stage', function () {
 
       it('should not call the search method', function () {
         expect(soundcloudSearchMock.autoCompleteSearch).not.toHaveBeenCalled();
-        scope.searchedTerm = "";
+        scope.searchedTerm = '';
         scope.search();
         expect(soundcloudSearchMock.autoCompleteSearch).not.toHaveBeenCalled();
 
@@ -61,11 +59,11 @@ describe('Stage', function () {
         scope.search();
         expect(soundcloudSearchMock.autoCompleteSearch).not.toHaveBeenCalled();
 
-        scope.searchedTerm = "a";
+        scope.searchedTerm = 'a';
         scope.search();
         expect(soundcloudSearchMock.autoCompleteSearch).not.toHaveBeenCalled();
 
-        scope.searchedTerm = "_";
+        scope.searchedTerm = '_';
         scope.search();
         expect(soundcloudSearchMock.autoCompleteSearch).not.toHaveBeenCalled();
 
@@ -75,21 +73,21 @@ describe('Stage', function () {
 
       it('should call the search method', function () {
         expect(soundcloudSearchMock.autoCompleteSearch).not.toHaveBeenCalled();
-        scope.searchedTerm = "ab";
+        scope.searchedTerm = 'ab';
         scope.search();
 
         expect(soundcloudSearchMock.autoCompleteSearch).toHaveBeenCalled();
       });
 
       it('should init the variables when searching', function () {
-        scope.searchedTerm = "ab";
+        scope.searchedTerm = 'ab';
         scope.search();
         expect(scope.isSearching).toBeTruthy();
         expect(scope.searchedItems).toMatch([]);
       });
 
       it('should put inside the model the returned values', function () {
-        scope.searchedTerm = "ab";
+        scope.searchedTerm = 'ab';
         scope.search();
 
         var result = {obj1:'obj 1', obj2:'obj 2'};
@@ -100,7 +98,7 @@ describe('Stage', function () {
       });
 
       it('should put to false isSearching', function () {
-        scope.searchedTerm = "ab";
+        scope.searchedTerm = 'ab';
         expect(scope.isSearching).toBeFalsy();
         scope.search();
         expect(scope.isSearching).toBeTruthy();

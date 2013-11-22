@@ -31,7 +31,6 @@ module.exports = function(config) {
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
-
   // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -42,10 +41,9 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['Firefox'],
 
-
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false,
+    singleRun: true,
 
     plugins : [
       //'karma-junit-reporter',
@@ -63,12 +61,6 @@ module.exports = function(config) {
     urlRoot: '_karma_',
 
     // If browser does not capture in given timeout [ms], kill it
-    captureTimeout: 7000,
-
-    /*junitReporter : {
-      outputFile: 'test_out/e2e.xml',
-      suite: 'e2e'
-    }*/
-
+    captureTimeout: 7000
   });
 };
