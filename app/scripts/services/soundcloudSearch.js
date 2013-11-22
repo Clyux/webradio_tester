@@ -7,15 +7,15 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('soundcloudSearch', ['$http', '$q',
-    function ($http, $q) {
+  .service('soundcloudSearch', ['$http', '$q', 'limitToFilter',
+    function ($http, $q, limitToFilter) {
 
       var self = this;
       this.searching = false;
       this.deferred = undefined;
+      this.maxItems = 24;
 
       this.autoCompleteSearch = function ($search) {
-
         if (self.searching){
           self.deferred.reject();
         }
@@ -26,7 +26,7 @@ angular.module('septWebRadioServices')
         self.deferred = $q.defer();
 
         SC.get('/tracks', { q: $search }, function (response) {
-          self.deferred.resolve(response);
+          self.deferred.resolve(limitToFilter(response, self.maxItems));
           self.searching = false;
         });
 

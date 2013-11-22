@@ -7,6 +7,7 @@ angular.module('septWebRadioApp', [
   'ui.bootstrap',
   'septWebRadioControllers',
   'septWebRadioDirectives',
+  'septWebRadioFactories',
   'wu.masonry'
 ]);
 

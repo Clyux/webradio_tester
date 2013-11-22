@@ -3,8 +3,8 @@
 /* Stage Controller */
 
 angular.module('septWebRadioControllers')
-  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'limitToFilter',
-    function ($scope, soundcloudSearch, limitToFilter) {
+  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities',
+    function ($scope, soundcloudSearch, utilities) {
       $scope.title = 'Stage';
 
       $scope.isSearching = false;
@@ -19,8 +19,7 @@ angular.module('septWebRadioControllers')
           // Search the terms
           soundcloudSearch.autoCompleteSearch($scope.searchedTerm)
             .then(function (response) {
-              var tracks = limitToFilter(response, 20);
-              $scope.searchedItems = tracks;
+              $scope.searchedItems = utilities.mergeList($scope.searchedItems, response);
               $scope.isSearching = false;
             });
         } else {
