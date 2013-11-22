@@ -236,62 +236,93 @@ img.profil {
     background: #eee;
 }
 
-/*
-  We're using CSS transitions for when
-  the enter and move events are triggered
-  for the element that has the .masonry-brick
-  class
-*/
-.masonry-brick.ng-enter {
-    -webkit-transition:0.5s linear all;
-    -moz-transition:0.5s linear all;
-    -o-transition:0.5s linear all;
-    transition:0.5s linear all;
-    opacity:0;
+.masonry-animation.ng-enter-active {
+    -webkit-animation: 0.8s my_animation_enter;
+    -moz-animation: 0.8s my_animation_enter;
+    -ms-transition: 0.8s my_animation_enter;
+    -o-animation: 0.8s my_animation_enter;
+    animation: 0.8s my_animation_enter;
 }
 
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
-.masonry-brick.ng-enter.ng-enter-active {
-    opacity:1;
+.masonry-animation.ng-leave {
+    -webkit-animation: 0.8s my_animation;
+    -moz-animation: 0.8s my_animation;
+    -ms-transition: 0.8s my_animation;
+    -o-animation: 0.8s my_animation;
+    animation: 0.8s my_animation;
 }
 
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .masonry-brick class
-*/
-.masonry-brick.ng-leave {
-    -webkit-animation:0.5s my_animation;
-    -moz-animation:0.5s my_animation;
-    -o-animation:0.5s my_animation;
-    animation:0.5s my_animation;
+/* Enter */
+@keyframes my_animation_enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
+
+@-webkit-keyframes my_animation_enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes my_animation_enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes my_animation_enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Leave */
 
 @keyframes my_animation {
-    from { opacity:1; }
-    to { opacity:0; }
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
-/*
-  Unfortunately each browser vendor requires
-  its own definition of keyframe animation code...
-*/
 @-webkit-keyframes my_animation {
-    from { opacity:1; }
-    to { opacity:0; }
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 @-moz-keyframes my_animation {
-    from { opacity:1; }
-    to { opacity:0; }
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 @-o-keyframes my_animation {
-    from { opacity:1; }
-    to { opacity:0; }
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }

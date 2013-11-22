@@ -4,7 +4,7 @@
 </div>
 
 <div class="masonry" masonry="{transitionDuration: '0.5s'}" column-width="15">
-    <div class="masonry-brick" ng-repeat="item in searchedItems">
+    <div class="masonry-brick masonry-animation" ng-repeat="item in searchedItems">
         <span>{{item.title}}</span>
         <img ng-src="{{item.artwork_url}}"/>
     </div>
