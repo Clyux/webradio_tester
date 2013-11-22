@@ -1,9 +1,9 @@
 <div>
-    <input delayed-input="" call-back="search()" delayed-time="650" ng-model="searchedTerm" class="input-search">
+    <input delayed-input="" call-back="search()" delayed-time="300" ng-model="searchedTerm" class="input-search">
     <img src="images/ajax-loader.gif" ng-show="isSearching">
 </div>
 
-<div class="masonry" masonry="{transitionTransition: '0.8s'}" column-width="15">
+<div class="masonry" masonry="{transitionDuration: '0.5s'}" column-width="15">
     <div class="masonry-brick" ng-repeat="item in searchedItems">
         <span>{{item.title}}</span>
         <img ng-src="{{item.artwork_url}}">
