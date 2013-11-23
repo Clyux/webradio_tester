@@ -202,16 +202,12 @@ img.profil {
 .content_wrapper {
     display: inline;
     position: absolute;
-    left: 250px;
     min-width: 785px;
+    left: 250px;
     right: 0;
 }
 
-.searchedItems {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-}
+/* Stage page */
 
 .input-search {
     width: 400px;
@@ -229,13 +225,46 @@ img.profil {
 
 .masonry .masonry-brick {
     display: inline-block;
-    width: 150px;
-    height: 150px;
+    position: relative;
+    width: 170px;
+    height: 170px;
     border: solid 1px #ccc;
-    margin: 0 0 10px 10px;
+    margin: 0 10px 10px 0;
     background: #eee;
+    padding: 3px 3px;
 }
 
+.masonry .masonry-brick img {
+    position: relative;
+    top: 60px;
+    width: 100px;
+    height: 100px;
+    border: solid 1px #ccc;
+    padding: 1px 1px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.masonry .masonry-brick .title_name {
+    position: absolute;
+    top: 0;
+    width: 164px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.masonry .masonry-brick .author_name {
+    position: absolute;
+    top: 30px;
+    width: 164px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Css animations for search in stage page */
 .masonry-animation.ng-enter-active {
     -webkit-animation: 0.8s my_animation_enter;
     -moz-animation: 0.8s my_animation_enter;

@@ -3,9 +3,10 @@
     <img src="images/ajax-loader.gif" ng-show="isSearching">
 </div>
 
-<div class="masonry" masonry="{transitionDuration: '0.5s'}" column-width="15">
+<div class="masonry" masonry="{transitionDuration: '0.5s'}" column-width="180">
     <div class="masonry-brick masonry-animation" ng-repeat="item in searchedItems">
-        <span>{{item.title}}</span>
+        <div class="title_name">{{item.title}}</div>
+        <div class="author_name">{{item.user.username}}</div>
         <img ng-src="{{item.artwork_url}}">
     </div>
 </div>
