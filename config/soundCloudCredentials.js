@@ -6,5 +6,5 @@
 
 module.exports = {
   clientId: 'ce5d783419dc34dd43bd4a08b559e454',
-  localhostClientIdId: '169198e13943cce802e8a7cae7a6e89a'
+  localhostClientId: '169198e13943cce802e8a7cae7a6e89a'
 };

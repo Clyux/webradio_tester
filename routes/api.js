@@ -14,7 +14,7 @@ function getAppConfiguration(req, res) {
 
   if (host === 'localhost') {
     port = ':3000';
-    clientId = soundCloudCredentials.localhostClientIdId;
+    clientId = soundCloudCredentials.localhostClientId;
   }
   var url = protocol + '://' + host + port + '/soundcloud/auth/callback';
   res.send({url: url, clientId: clientId});

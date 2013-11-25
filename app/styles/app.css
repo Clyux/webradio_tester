@@ -265,14 +265,6 @@ img.profil {
 }
 
 /* Css animations for search in stage page */
-.masonry-animation.ng-enter-active {
-    -webkit-animation: 0.8s my_animation_enter;
-    -moz-animation: 0.8s my_animation_enter;
-    -ms-transition: 0.8s my_animation_enter;
-    -o-animation: 0.8s my_animation_enter;
-    animation: 0.8s my_animation_enter;
-}
-
 .masonry-animation.ng-leave {
     -webkit-animation: 0.8s my_animation;
     -moz-animation: 0.8s my_animation;

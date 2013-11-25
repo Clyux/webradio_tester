@@ -1,8 +1,8 @@
 {
-  "name": "imagesloaded.pkgd",
+  "name": "imagesloaded",
   "_cacheHeaders": {
-    "Last-Modified": "Wed, 16 Oct 2013 23:33:25 GMT",
-    "Content-Length": "25125",
+    "Last-Modified": "Sat, 23 Nov 2013 17:47:10 GMT",
+    "Content-Length": "25136",
     "Content-Type": "application/x-javascript"
   },
   "main": "index.js",
