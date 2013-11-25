@@ -13,7 +13,7 @@ angular.module('septWebRadioServices')
       var self = this;
       this.searching = false;
       this.deferred = undefined;
-      this.maxItems = 25;
+      this.maxItems = 30;
 
       this.autoCompleteSearch = function ($search) {
         if (self.searching) {

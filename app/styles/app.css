@@ -1,10 +1,12 @@
 @charset "UTF-8";
 /* CSS Document */
 
-/*For Boostrap UI*/
+/* For Boostrap UI */
 .nav, .pagination, .carousel a {
     cursor: pointer;
 }
+
+/* Common */
 
 .ul-navigation {
     padding: 0;
@@ -103,10 +105,32 @@ img.profil {
     padding-left: 10px;
 }
 
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+.clearfix {
+    clear: both;
+    float: none;
+}
+
+.inline {
+    display: inline;
+}
+
+/* Global */
 .global_wrapper {
     position: relative;
     margin: 8px 8px;
 }
+
+/* Top */
 
 .top_wrapper {
     height: 150px;
@@ -125,15 +149,15 @@ img.profil {
     height: 20px;
     position: absolute;
     top: 0;
-    left: 928px;
+    left: 953px;
 }
 
 .navigation {
     display: inline;
     position: absolute;
     top: 50px;
-    left: 270px;
-    width: 770px;
+    left: 250px;
+    width: 810px;
 }
 
 .header_black_line {
@@ -143,7 +167,7 @@ img.profil {
     left: 250px;
     right: 0;
     float: left;
-    min-width: 785px;
+    min-width: 807px;
 }
 
 .header_black_image {
@@ -151,8 +175,7 @@ img.profil {
     height: 17px;
 }
 
-.connexion_button {
-    width: 100px;
+.black_button {
     border: 1px solid #616261;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -175,7 +198,7 @@ img.profil {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#7d7e7d, endColorstr=#0e0e0e);
 }
 
-.connexion_button:hover {
+.black_button:hover {
     border: 1px solid #4a4b4a;
     background-color: #646464;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#646464), to(#282828));
@@ -185,6 +208,10 @@ img.profil {
     background-image: -o-linear-gradient(top, #646464, #282828);
     background-image: linear-gradient(to bottom, #646464, #282828);
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#646464, endColorstr=#282828);
+}
+
+.connexion_button {
+    width: 100px;
 }
 
 .main_wrapper {
@@ -202,18 +229,28 @@ img.profil {
 .content_wrapper {
     display: inline;
     position: absolute;
-    min-width: 785px;
+    min-width: 807px;
     left: 250px;
     right: 0;
 }
 
 /* Stage page */
 
+.search_toolbar {
+    height: 40px;
+    margin: 0 0 5px 0;
+}
+
 .input-search {
     width: 400px;
     padding: 8px 8px;
-    margin: 15px 0;
     background: rgba(253, 253, 253, 0.71);
+    height: 16px;
+}
+
+.add_to_playlist {
+    width: 150px;
+    height: 36px;
 }
 
 .masonry {
@@ -239,11 +276,6 @@ img.profil {
     top: 60px;
     width: 100px;
     height: 100px;
-    border: solid 1px #ccc;
-    padding: 1px 1px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .masonry .masonry-brick .title_name {
