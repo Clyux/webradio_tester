@@ -1,5 +1,7 @@
 'use strict';
 
+/* global _ */
+
 /* Stage Controller */
 
 angular.module('septWebRadioControllers')
@@ -30,15 +32,26 @@ angular.module('septWebRadioControllers')
         }
       };
 
-      $scope.items = ['item1', 'item2', 'item3'];
+      $scope.dropped = function (dragEl) { // function referenced by the drop target
+        //this is application logic, for the demo we just want to color the grid squares
+        //the directive provides a native dom object, wrap with jqlite
+        var drag = angular.element(dragEl);
 
-      $scope.open = function () {
+        var id = '' + drag.attr('data-item-id');
+
+        var item = _.find($scope.searchedItems, function (listItem) {
+          return id === listItem.id;
+        });
+        $scope.open(item);
+      };
+
+      $scope.open = function (item) {
         var modalInstance = $modal.open({
           templateUrl: 'myModalContent.html',
           controller: ModalInstanceCtrl,
           resolve: {
-            items: function () {
-              return $scope.items;
+            item: function () {
+              return item;
             }
           }
         });
@@ -50,21 +63,14 @@ angular.module('septWebRadioControllers')
         });
       };
 
-      var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
-
-        $scope.items = items;
-        $scope.selected = {
-          item: $scope.items[0]
-        };
-
+      var ModalInstanceCtrl = function ($scope, $modalInstance, item) {
+        $scope.item = item;
         $scope.ok = function () {
-          $modalInstance.close($scope.selected.item);
+          $modalInstance.close($scope.item);
         };
-
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
         };
       };
-
     }]
   );

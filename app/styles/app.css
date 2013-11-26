@@ -248,11 +248,6 @@ img.profil {
     height: 16px;
 }
 
-.add_to_playlist {
-    width: 150px;
-    height: 36px;
-}
-
 .masonry {
     border: solid 1px #ccc;
     min-height: 500px;
@@ -378,4 +373,33 @@ img.profil {
     to {
         opacity: 0;
     }
+}
+
+.swr-over {
+    /* applied to a drop target when a draggable object is over it */
+    opacity: 0.5;
+}
+
+.add_to_playlist {
+    width: 150px;
+    height: 36px;
+    transition: width 1s;
+    -webkit-transition: width 1s;
+}
+
+.swr-target {
+    /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
+    width: 200px;
+}
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+    cursor: move;
+    border: 1px solid black;
 }
