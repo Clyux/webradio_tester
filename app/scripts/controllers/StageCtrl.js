@@ -37,10 +37,10 @@ angular.module('septWebRadioControllers')
         //the directive provides a native dom object, wrap with jqlite
         var drag = angular.element(dragEl);
 
-        var id = '' + drag.attr('data-item-id');
+        var id = parseInt(drag.attr('data-item-id'));
 
         var item = _.find($scope.searchedItems, function (listItem) {
-          return id === listItem.id;
+          return id === parseInt(listItem.id);
         });
         $scope.open(item);
       };
