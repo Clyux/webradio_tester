@@ -2,12 +2,13 @@
     <input delayed-input call-back="search()" delayed-time="300" ng-model="searchedTerm" class="input-search"/>
     <img src="images/ajax-loader.gif" ng-show="isSearching">
     <button class="black_button add_to_playlist" ng-click="open()"
-            data-swr-drop-target="true" data-on-drop="dropped(dragEl)">Add to Playlist</button>
+            data-swr-drop-target="true" data-on-drop="dropped(dragEl)">Add to Playlist
+    </button>
 </div>
 
 <div class="masonry" masonry="{transitionDuration: '0.9s'}">
-    <div class="masonry-brick masonry-animation" ng-repeat="item in searchedItems"
-         data-swr-draggable="true" data-item-id="{{item.id}}">
+    <div class="masonry-brick masonry-animation scale-animation" ng-repeat="item in searchedItems"
+         data-swr-draggable="true" data-item-id="{{item.id}}" data-swr-select-div>
         <div class="title_name">{{item.title}}</div>
         <div class="author_name">{{item.user.username}}</div>
         <img class="img-polaroid center-block" ng-src="{{item.artwork_url}}"/>

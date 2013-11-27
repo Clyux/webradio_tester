@@ -8,23 +8,26 @@ angular.module('septWebRadioDirectives')
       return {
         restrict: 'A',
         link: function (scope, el) {
-
-          angular.element(el).attr('draggable', 'true');
-          var id = angular.element(el).attr('id');
+          var element = angular.element(el);
+          element.attr('draggable', 'true');
+          var id = element.attr('id');
           if (!id) {
             id = uuid.new();
-            angular.element(el).attr('id', id);
+            element.attr('id', id);
           }
 
           el.bind('dragstart', function (e) {
             e.dataTransfer = e.originalEvent.dataTransfer;
             e.dataTransfer.setData('text', id);
 
+            angular.element(e.target).addClass('swr-start');
+
             $rootScope.$emit('SWR-DRAG-START');
           });
 
-          el.bind('dragend', function (event) {
-            $rootScope.$emit('SWR-DRAG-END', event);
+          el.bind('dragend', function (e) {
+            angular.element(e.target).removeClass('swr-start');
+            $rootScope.$emit('SWR-DRAG-END', e);
           });
         }
       };
@@ -40,10 +43,11 @@ angular.module('septWebRadioDirectives')
           onDrop: '&'
         },
         link: function (scope, el) {
-          var id = angular.element(el).attr('id');
+          var element = angular.element(el);
+          var id = element.attr('id');
           if (!id) {
             id = uuid.new();
-            angular.element(el).attr('id', id);
+            element.attr('id', id);
           }
 
           el.bind('dragover', function (e) {
@@ -52,7 +56,7 @@ angular.module('septWebRadioDirectives')
             }
 
             e.dataTransfer = e.originalEvent.dataTransfer;
-            e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+            e.dataTransfer.dropEffect = 'copy';  // See the section on the DataTransfer object.
             return false;
           });
 
@@ -89,8 +93,9 @@ angular.module('septWebRadioDirectives')
 
           $rootScope.$on('SWR-DRAG-END', function () {
             var el = document.getElementById(id);
-            angular.element(el).removeClass('swr-target');
-            angular.element(el).removeClass('swr-over');
+            var element = angular.element(el);
+            element.removeClass('swr-target');
+            element.removeClass('swr-over');
           });
         }
       };
