@@ -5,6 +5,16 @@
     "type": "git",
     "url": "http://github.com/alfirin/sept-web-radio.git"
   },
+  "author": {
+    "name": "Jimmy Grand",
+    "email": "grand.jimmy1@gmail.com",
+    "url": "http://sept-web-radio.herokuapp.com/"
+  },
+  "keywords": [
+    "Web Radio",
+    "Community",
+    "Free Music"
+  ],
   "dependencies": {
     "express": "3.4.4",
     "ejs": "*",

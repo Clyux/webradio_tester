@@ -7,12 +7,27 @@
 </div>
 
 <div class="masonry" masonry="{transitionDuration: '0.9s'}">
-    <div class="masonry-brick masonry-animation scale-animation" ng-repeat="item in searchedItems"
+    <div class="masonry-brick masonry-animation scale-animation" draggable="true" ng-repeat="item in searchedItems"
          data-swr-draggable="true" data-item-id="{{item.id}}" data-swr-select-div>
         <div class="title_name">{{item.title}}</div>
         <div class="author_name">{{item.user.username}}</div>
         <img class="img-polaroid center-block" ng-src="{{item.artwork_url}}"/>
     </div>
+    <!--<div class="masonry-brick masonry-animation scale-animation ui-draggable ng-scope loaded" data-swr-draggable="true" data-item-id="64408662" data-swr-select-div="" style="position: absolute; left: 10px; top: 10px;">
+        <div class="title_name ui-draggable ng-binding">Knocking (acoustic Anti-All cover)</div>
+        <div class="author_name ui-draggable ng-binding">FSD</div>
+        <img class="img-polaroid center-block" ng-src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923" src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923">
+    </div>
+    <div class="masonry-brick masonry-animation scale-animation ui-draggable ng-scope loaded" data-swr-draggable="true" data-item-id="64408662" data-swr-select-div="" style="position: absolute; left: 10px; top: 10px;">
+        <div class="title_name ui-draggable ng-binding">Knocking (acoustic Anti-All cover)</div>
+        <div class="author_name ui-draggable ng-binding">FSD</div>
+        <img class="img-polaroid center-block" ng-src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923" src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923">
+    </div>
+    <div class="masonry-brick masonry-animation scale-animation ui-draggable ng-scope loaded" data-swr-draggable="true" data-item-id="64408662" data-swr-select-div="" style="position: absolute; left: 10px; top: 10px;">
+        <div class="title_name ui-draggable ng-binding">Knocking (acoustic Anti-All cover)</div>
+        <div class="author_name ui-draggable ng-binding">FSD</div>
+        <img class="img-polaroid center-block" ng-src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923" src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923">
+    </div>-->
 </div>
 
 <script type="text/ng-template" id="myModalContent.html">

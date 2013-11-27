@@ -1,103 +1,107 @@
 'use strict';
 
+/* global jQuery */
+
 angular.module('septWebRadioDirectives');
 
 angular.module('septWebRadioDirectives')
-  .directive('swrDraggable', ['$rootScope', 'uuid',
-    function ($rootScope, uuid) {
-      return {
-        restrict: 'A',
-        link: function (scope, el) {
-          var element = angular.element(el);
-          element.attr('draggable', 'true');
-          var id = element.attr('id');
-          if (!id) {
-            id = uuid.new();
-            element.attr('id', id);
-          }
+  .controller('swrDragAndDropController', [
+    '$rootScope',
+    '$scope',
+    '$element',
+    function controller($rootScope, $scope, $element) {
 
-          el.bind('dragstart', function (e) {
-            e.dataTransfer = e.originalEvent.dataTransfer;
-            e.dataTransfer.setData('text', id);
-
-            angular.element(e.target).addClass('swr-start');
-
-            $rootScope.$emit('SWR-DRAG-START');
-          });
-
-          el.bind('dragend', function (e) {
-            angular.element(e.target).removeClass('swr-start');
-            $rootScope.$emit('SWR-DRAG-END', e);
-          });
+      this.dragInit = function dragInit() {
+        if ($element.hasClass('swr-select')) {
+          return jQuery('.swr-select');
+        } else {
+          return undefined;
         }
       };
-    }]
-  );
 
-angular.module('septWebRadioDirectives')
-  .directive('swrDropTarget', ['$rootScope', 'uuid',
-    function ($rootScope, uuid) {
+      this.dragStart = function dragStart() {
+        $element.addClass('swr-start');
+        $rootScope.$emit('SWR-DRAG-START', $element);
+      };
+
+      this.drag = function drag(ev, dd) {
+        $element.css({
+          top: dd.offsetY,
+          left: dd.offsetX
+        });
+      };
+
+      this.dragEnd = function dragEnd(ev, dd) {
+        $rootScope.$emit('SWR-DRAG-END', $element);
+        $element.removeClass('swr-start');
+        $element.animate({
+          top: dd.originalY,
+          left: dd.originalX
+        }, 500);
+      };
+
+      this.dropStart = function dropStart() {
+        $element.addClass('swr-over');
+      };
+
+      this.drop = function drop(ev, dd) {
+        var event = ev;
+        var object = dd;
+        if (event === object) {
+          return false;
+        } else {
+          return true;
+        }
+      };
+
+      this.dropEnd = function dropEnd() {
+        $element.removeClass('swr-over');
+      };
+    }
+  ])
+  .directive('swrDraggable', [
+    function () {
       return {
         restrict: 'A',
+        controller: 'swrDragAndDropController',
+        link: function (scope, element, attrs, ctrl) {
+
+          element.drag('init', ctrl.dragInit);
+
+          element.drag('start', ctrl.dragStart);
+
+          element.drag(ctrl.drag, { relative: true });
+
+          element.drag('end', ctrl.dragEnd);
+        }
+      };
+    }
+  ])
+  .directive('swrDropTarget', ['$rootScope',
+    function ($rootScope) {
+      return {
+        restrict: 'A',
+        controller: 'swrDragAndDropController',
         scope: {
           onDrop: '&'
         },
-        link: function (scope, el) {
-          var element = angular.element(el);
-          var id = element.attr('id');
-          if (!id) {
-            id = uuid.new();
-            element.attr('id', id);
-          }
+        link: function (scope, element, attrs, ctrl) {
 
-          el.bind('dragover', function (e) {
-            if (e.preventDefault) {
-              e.preventDefault(); // Necessary. Allows us to drop.
-            }
+          element.drop('start', ctrl.dropStart);
 
-            e.dataTransfer = e.originalEvent.dataTransfer;
-            e.dataTransfer.dropEffect = 'copy';  // See the section on the DataTransfer object.
-            return false;
-          });
+          element.drop(ctrl.drop, { multi: true });
 
-          el.bind('dragenter', function (e) {
-            // this / e.target is the current hover target.
-            angular.element(e.target).addClass('swr-over');
-          });
-
-          el.bind('dragleave', function (e) {
-            angular.element(e.target).removeClass('swr-over');  // this / e.target is previous target element.
-          });
-
-          el.bind('drop', function (e) {
-            if (e.preventDefault) {
-              e.preventDefault(); // Necessary. Allows us to drop.
-            }
-
-            if (e.stopPropogation) {
-              e.stopPropogation(); // Necessary. Allows us to drop.
-            }
-
-            e.dataTransfer = e.originalEvent.dataTransfer;
-            var data = e.dataTransfer.getData('text');
-            var dest = document.getElementById(id);
-            var src = document.getElementById(data);
-
-            scope.onDrop({dragEl: src, dropEl: dest});
-          });
+          element.drop('end', ctrl.dropEnd);
 
           $rootScope.$on('SWR-DRAG-START', function () {
-            var el = document.getElementById(id);
-            angular.element(el).addClass('swr-target');
+            element.addClass('swr-target');
           });
 
           $rootScope.$on('SWR-DRAG-END', function () {
-            var el = document.getElementById(id);
-            var element = angular.element(el);
             element.removeClass('swr-target');
             element.removeClass('swr-over');
           });
         }
       };
-    }]
-  );
+    }
+  ]);
