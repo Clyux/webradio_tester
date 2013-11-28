@@ -29,8 +29,11 @@ Runs like a typical express app:
 
 ### Development/Production mode
 
-Edit the file config/config.js and change the environment variables. Then run
+Development
     grunt server
+
+Production
+    grunt server:dist
 
 ### Running tests
     grunt test
