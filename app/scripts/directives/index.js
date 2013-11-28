@@ -2,4 +2,4 @@
 
 /* Directives Declaration */
 
-angular.module('septWebRadioDirectives', ['septWebRadioFactories']);
+angular.module('septWebRadioDirectives', []);

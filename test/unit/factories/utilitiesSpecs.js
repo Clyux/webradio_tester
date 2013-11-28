@@ -10,7 +10,7 @@ describe('Utilities', function () {
     utilities = _utilities_;
   }));
 
-  describe('removeItemById', function () {
+  describe('removeObjectById', function () {
 
     it('should return the same object than provided', inject(function () {
       var listSource = [
@@ -19,7 +19,7 @@ describe('Utilities', function () {
         {id: 2},
         {id: 3}
       ];
-      var listDest = utilities.removeItemById(listSource, 0);
+      var listDest = utilities.removeObjectById(listSource, 0);
       expect(listDest).toBe(listSource);
     }));
 
@@ -35,7 +35,7 @@ describe('Utilities', function () {
       expect(listSource.length).toBe(4);
       expect(listDest.length).toBe(0);
 
-      listDest = utilities.removeItemById(listSource, 0);
+      listDest = utilities.removeObjectById(listSource, 0);
 
       expect(listSource.length).toBe(3);
       expect(listDest.length).toBe(3);
@@ -51,7 +51,7 @@ describe('Utilities', function () {
         {id: 3}
       ];
 
-      var listDest = utilities.removeItemById(listSource, 0);
+      var listDest = utilities.removeObjectById(listSource, 0);
       expect(listDest).toEqual([{id: 1}, {id: 2}, {id: 3}]);
     }));
 
@@ -62,7 +62,7 @@ describe('Utilities', function () {
         {id: 2},
         {id: 3}
       ];
-      var listDest = utilities.removeItemById(listSource, 3);
+      var listDest = utilities.removeObjectById(listSource, 3);
       expect(listDest).toEqual([{id: 0}, {id: 1}, {id: 2}]);
     }));
 
@@ -74,13 +74,13 @@ describe('Utilities', function () {
         {id: 3}
       ];
 
-      var listDest = utilities.removeItemById(listSource, 5);
+      var listDest = utilities.removeObjectById(listSource, 5);
       expect(listDest).toEqual([{id: 0}, {id: 1}, {id: 2}, {id: 3}]);
     }));
   });
 
 
-  describe('removeItemByAttribute', function () {
+  describe('removeObjectByAttribute', function () {
 
     it('should return the same object than provided', inject(function () {
       var listSource = [
@@ -89,7 +89,7 @@ describe('Utilities', function () {
         {attributeName: 2},
         {attributeName: 3}
       ];
-      var listDest = utilities.removeItemByAttribute(listSource, 0, 'attributeName');
+      var listDest = utilities.removeObjectByAttribute(listSource, 0, 'attributeName');
       expect(listDest).toBe(listSource);
     }));
 
@@ -106,7 +106,7 @@ describe('Utilities', function () {
       expect(listSource.length).toBe(4);
       expect(listDest.length).toBe(0);
 
-      listDest = utilities.removeItemByAttribute(listSource, 0, 'attributeName');
+      listDest = utilities.removeObjectByAttribute(listSource, 0, 'attributeName');
 
       expect(listSource.length).toBe(3);
       expect(listDest.length).toBe(3);
@@ -122,7 +122,7 @@ describe('Utilities', function () {
         {attributeName: 3}
       ];
 
-      var listDest = utilities.removeItemByAttribute(listSource, 0, 'attributeName');
+      var listDest = utilities.removeObjectByAttribute(listSource, 0, 'attributeName');
       expect(listDest).toEqual([{attributeName: 1}, {attributeName: 2}, {attributeName: 3}]);
     }));
 
@@ -134,7 +134,7 @@ describe('Utilities', function () {
         {attributeName: 3}
       ];
 
-      var listDest = utilities.removeItemByAttribute(listSource, 3, 'attributeName');
+      var listDest = utilities.removeObjectByAttribute(listSource, 3, 'attributeName');
       expect(listDest).toEqual([{attributeName: 0}, {attributeName: 1}, {attributeName: 2}]);
     }));
 
@@ -146,7 +146,7 @@ describe('Utilities', function () {
         {attributeName: 3}
       ];
 
-      var listDest = utilities.removeItemByAttribute(listSource, 5, 'attributeName');
+      var listDest = utilities.removeObjectByAttribute(listSource, 5, 'attributeName');
       expect(listDest).toEqual([{attributeName: 0}, {attributeName: 1}, {attributeName: 2}, {attributeName: 3}]);
     }));
   });

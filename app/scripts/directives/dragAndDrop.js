@@ -5,12 +5,12 @@
 angular.module('septWebRadioDirectives');
 
 angular.module('septWebRadioDirectives')
-  .controller('swrDragAndDropController', [
+  .controller('swrDragController', [
     '$rootScope',
     '$scope',
     '$element',
-    function controller($rootScope, $scope, $element) {
-
+    'swrDragAndDropService',
+    function controller($rootScope, $scope, $element, swrDragAndDrop) {
       this.dragInit = function dragInit() {
         if ($element.hasClass('swr-select')) {
           return jQuery('.swr-select');
@@ -20,7 +20,11 @@ angular.module('septWebRadioDirectives')
       };
 
       this.dragStart = function dragStart() {
-        $element.addClass('swr-start');
+        var id = $element.attr('data-item-id');
+
+        swrDragAndDrop.addDraggedItem(id);
+
+        $element.addClass('swr-drag-start');
         $rootScope.$emit('SWR-DRAG-START', $element);
       };
 
@@ -32,30 +36,21 @@ angular.module('septWebRadioDirectives')
       };
 
       this.dragEnd = function dragEnd(ev, dd) {
+        swrDragAndDrop.removeDraggedItem($element.attr('data-item-id'));
+
         $rootScope.$emit('SWR-DRAG-END', $element);
-        $element.removeClass('swr-start');
+        $element.removeClass('swr-drag-start');
         $element.animate({
           top: dd.originalY,
           left: dd.originalX
         }, 500);
       };
 
-      this.dropStart = function dropStart() {
-        $element.addClass('swr-over');
-      };
-
-      this.drop = function drop(ev, dd) {
-        var event = ev;
-        var object = dd;
-        if (event === object) {
-          return false;
-        } else {
-          return true;
-        }
-      };
-
-      this.dropEnd = function dropEnd() {
-        $element.removeClass('swr-over');
+      this.cleanDrag = function cleanDrag() {
+        $element.unbind('draginit', this.dragInit);
+        $element.unbind('dragstart', this.dragStart);
+        $element.unbind('drag', this.drag);
+        $element.unbind('dragend', this.dragEnd);
       };
     }
   ])
@@ -63,9 +58,8 @@ angular.module('septWebRadioDirectives')
     function () {
       return {
         restrict: 'A',
-        controller: 'swrDragAndDropController',
-        link: function (scope, element, attrs, ctrl) {
-
+        controller: 'swrDragController',
+        link: function link(scope, element, attrs, ctrl) {
           element.drag('init', ctrl.dragInit);
 
           element.drag('start', ctrl.dragStart);
@@ -73,34 +67,67 @@ angular.module('septWebRadioDirectives')
           element.drag(ctrl.drag, { relative: true });
 
           element.drag('end', ctrl.dragEnd);
+
+          element.on('$destroy', ctrl.cleanDrag);
         }
       };
     }
   ])
-  .directive('swrDropTarget', ['$rootScope',
-    function ($rootScope) {
+  .controller('swrDropController', [
+    '$rootScope',
+    '$scope',
+    '$element',
+    'swrDragAndDropService',
+    function controller($rootScope, $scope, $element, swrDragAndDropService) {
+
+      $rootScope.$on('SWR-DRAG-START', function () {
+        $element.addClass('swr-drop-target');
+      });
+
+      $rootScope.$on('SWR-DRAG-END', function () {
+        $element.removeClass('swr-drop-target');
+        $element.removeClass('swr-drop-over');
+      });
+
+      this.dropStart = function dropStart() {
+        $element.addClass('swr-drop-over');
+      };
+
+      this.drop = function drop() {
+        var draggedItems = swrDragAndDropService.getDraggedItems();
+        $scope.onDrop({droppedItems: draggedItems});
+        swrDragAndDropService.removeAllDraggedItems();
+      };
+
+      this.dropEnd = function dropEnd() {
+        $element.removeClass('swr-drop-over');
+      };
+
+      this.cleanDrop = function cleanDrop() {
+        $element.unbind('dropstart', this.dropStart);
+        $element.unbind('drop', this.drop);
+        $element.unbind('dropend', this.dropEnd);
+        $element.unbind('SWR-DRAG-START');
+        $element.unbind('SWR-DRAG-END');
+      };
+    }
+  ])
+  .directive('swrDropTarget', [
+    function () {
       return {
         restrict: 'A',
-        controller: 'swrDragAndDropController',
+        controller: 'swrDropController',
         scope: {
           onDrop: '&'
         },
-        link: function (scope, element, attrs, ctrl) {
-
+        link: function link(scope, element, attrs, ctrl) {
           element.drop('start', ctrl.dropStart);
 
           element.drop(ctrl.drop, { multi: true });
 
           element.drop('end', ctrl.dropEnd);
 
-          $rootScope.$on('SWR-DRAG-START', function () {
-            element.addClass('swr-target');
-          });
-
-          $rootScope.$on('SWR-DRAG-END', function () {
-            element.removeClass('swr-target');
-            element.removeClass('swr-over');
-          });
+          element.on('$destroy', ctrl.cleanDrop);
         }
       };
     }

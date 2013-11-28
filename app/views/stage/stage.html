@@ -2,7 +2,7 @@
     <input delayed-input call-back="search()" delayed-time="300" ng-model="searchedTerm" class="input-search"/>
     <img src="images/ajax-loader.gif" ng-show="isSearching">
     <button class="black_button add_to_playlist" ng-click="open()"
-            data-swr-drop-target="true" data-on-drop="dropped(dragEl)">Add to Playlist
+            data-swr-drop-target="true" data-on-drop="dropped(droppedItems)">Add to Playlist
     </button>
 </div>
 
@@ -13,28 +13,13 @@
         <div class="author_name">{{item.user.username}}</div>
         <img class="img-polaroid center-block" ng-src="{{item.artwork_url}}"/>
     </div>
-    <!--<div class="masonry-brick masonry-animation scale-animation ui-draggable ng-scope loaded" data-swr-draggable="true" data-item-id="64408662" data-swr-select-div="" style="position: absolute; left: 10px; top: 10px;">
-        <div class="title_name ui-draggable ng-binding">Knocking (acoustic Anti-All cover)</div>
-        <div class="author_name ui-draggable ng-binding">FSD</div>
-        <img class="img-polaroid center-block" ng-src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923" src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923">
-    </div>
-    <div class="masonry-brick masonry-animation scale-animation ui-draggable ng-scope loaded" data-swr-draggable="true" data-item-id="64408662" data-swr-select-div="" style="position: absolute; left: 10px; top: 10px;">
-        <div class="title_name ui-draggable ng-binding">Knocking (acoustic Anti-All cover)</div>
-        <div class="author_name ui-draggable ng-binding">FSD</div>
-        <img class="img-polaroid center-block" ng-src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923" src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923">
-    </div>
-    <div class="masonry-brick masonry-animation scale-animation ui-draggable ng-scope loaded" data-swr-draggable="true" data-item-id="64408662" data-swr-select-div="" style="position: absolute; left: 10px; top: 10px;">
-        <div class="title_name ui-draggable ng-binding">Knocking (acoustic Anti-All cover)</div>
-        <div class="author_name ui-draggable ng-binding">FSD</div>
-        <img class="img-polaroid center-block" ng-src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923" src="http://i1.sndcdn.com/artworks-000032684557-mfnejw-large.jpg?8063923">
-    </div>-->
 </div>
 
 <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
-        <h3>I'm a modal!</h3>
+        <h3>You can create a playlist with the selected item:</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" ng-repeat="item in items">
         Selected: <b>{{ item.title }}</b>
     </div>
     <div class="modal-footer">

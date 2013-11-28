@@ -11,12 +11,12 @@ angular.module('septWebRadioFactories')
     function () {
       var utilitiesService = {};
 
-      utilitiesService.removeItemById =
+      utilitiesService.removeObjectById =
         function (list, idToRemove) {
-          return utilitiesService.removeItemByAttribute(list, idToRemove, 'id');
+          return utilitiesService.removeObjectByAttribute(list, idToRemove, 'id');
         };
 
-      utilitiesService.removeItemByAttribute =
+      utilitiesService.removeObjectByAttribute =
         function (list, itemToRemove, attributeName) {
           var listSize = _.size(list);
           var elementLoop;
@@ -57,7 +57,7 @@ angular.module('septWebRadioFactories')
               removed++;
             } else {
               // If the element is presents inside the new list, just remove it from the second list
-              listFrom = utilitiesService.removeItemByAttribute(listFrom, element[attributeToTest], attributeToTest);
+              listFrom = utilitiesService.removeObjectByAttribute(listFrom, element[attributeToTest], attributeToTest);
             }
           }
           return listTo.concat(listFrom);

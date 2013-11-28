@@ -377,11 +377,6 @@ img.profil {
     }
 }
 
-.swr-over {
-    /* applied to a drop target when a draggable object is over it */
-    opacity: 0.5;
-}
-
 .add_to_playlist {
     width: 150px;
     height: 36px;
@@ -391,11 +386,16 @@ img.profil {
     transition: width 1s ease;
 }
 
-.swr-start {
+.masonry .swr-drag-start {
     opacity: 0.9;
 }
 
-.swr-target {
+.swr-drop-over {
+    /* applied to a drop target when a draggable object is over it */
+    opacity: 0.5;
+}
+
+.swr-drop-target {
     /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
     width: 200px;
 }

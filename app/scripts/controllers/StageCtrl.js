@@ -32,26 +32,28 @@ angular.module('septWebRadioControllers')
         }
       };
 
-      $scope.dropped = function (dragEl) { // function referenced by the drop target
-        //this is application logic, for the demo we just want to color the grid squares
-        //the directive provides a native dom object, wrap with jqlite
-        var drag = angular.element(dragEl);
+      $scope.dropped = function (droppedItems) {
+        var scopeItems = [];
 
-        var id = parseInt(drag.attr('data-item-id'));
+        angular.forEach(droppedItems, function (valueId) {
+          valueId = parseInt(valueId);
+          var item = _.find($scope.searchedItems, function (listItem) {
+            return valueId === parseInt(listItem.id);
+          });
 
-        var item = _.find($scope.searchedItems, function (listItem) {
-          return id === parseInt(listItem.id);
-        });
-        $scope.open(item);
+          this.push(item);
+        }, scopeItems);
+
+        $scope.open(scopeItems);
       };
 
-      $scope.open = function (item) {
+      $scope.open = function (items) {
         var modalInstance = $modal.open({
           templateUrl: 'myModalContent.html',
           controller: ModalInstanceCtrl,
           resolve: {
-            item: function () {
-              return item;
+            items: function () {
+              return items;
             }
           }
         });
@@ -63,10 +65,10 @@ angular.module('septWebRadioControllers')
         });
       };
 
-      var ModalInstanceCtrl = function ($scope, $modalInstance, item) {
-        $scope.item = item;
+      var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+        $scope.items = items;
         $scope.ok = function () {
-          $modalInstance.close($scope.item);
+          $modalInstance.close($scope.items);
         };
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
