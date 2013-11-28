@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         NODE_ENV: 'development',
         DEST: 'app'
       },
-      build: {
+      dist: {
         NODE_ENV: 'production',
         DEST: 'dist'
       }
@@ -319,10 +319,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'express:dist:keepalive']);
+      return grunt.task.run(['env:dist', 'build', 'express:dist', 'open', 'express-keepalive']);
     }
 
     grunt.task.run([
+      'env:dev',
       'clean:server',
       'bower',
       'concurrent:server',
@@ -332,14 +333,21 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
-    'env:dev',
-    'clean:server',
-    'bower',
-    'concurrent:test',
-    'express:test',
-    'karma'
-  ]);
+  grunt.registerTask('test', function (target) {
+    if (target === 'dist') {
+      grunt.task.run(['env:dist', 'build']);
+    } else {
+      grunt.task.run(['env:dev']);
+    }
+
+    grunt.task.run([
+      'clean:server',
+      'bower',
+      'concurrent:test',
+      'express:test',
+      'karma'
+    ]);
+  });
 
   grunt.registerTask('build', [
     'clean:dist',
@@ -360,6 +368,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'jshint',
     'build',
-    'test'
+    'test:dist'
   ]);
 };

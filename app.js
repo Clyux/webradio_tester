@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 
-require('./config/config.js');
 var express = require('express');
 var routes = require('./routes');
 var soundCloud = require('./routes/soundCloud.js');
