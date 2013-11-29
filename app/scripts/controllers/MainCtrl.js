@@ -2,11 +2,12 @@
 
 /* Main Controller  */
 
-angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices',
-  function ($scope, applicationServices) {
+angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page',
+  function ($scope, applicationServices, Page) {
 
     $scope.connexionButtonLabel = undefined;
     $scope.user = undefined;
+    $scope.Page = Page;
 
     applicationServices.getInitApplication().then(function (data) {
       $scope.user = data;

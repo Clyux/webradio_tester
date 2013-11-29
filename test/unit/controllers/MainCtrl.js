@@ -13,7 +13,7 @@ describe('Main', function () {
   describe('Controller', function () {
 
     var scope, applicationServicesMock, controller, q, initAppDeferred, isConnected, applicationServices;
-    var logInDeferred;
+    var logInDeferred, page;
 
     beforeEach(function () {
       applicationServicesMock = {
@@ -36,8 +36,9 @@ describe('Main', function () {
     });
 
     // init controller for test
-    beforeEach(inject(function ($rootScope, _applicationServices_, $q) {
+    beforeEach(inject(function ($rootScope, _applicationServices_, $q, _Page_) {
       scope = $rootScope.$new();
+      page = _Page_;
       q = $q;
       applicationServices = _applicationServices_;
     }));
@@ -51,7 +52,7 @@ describe('Main', function () {
     }));
 
     // The main controller test
-    describe('Main Controller test Init App', function () {
+    describe('Main Controller Init App', function () {
 
       // init controller for test
       beforeEach(inject(function ($controller) {
@@ -59,6 +60,11 @@ describe('Main', function () {
 
         controller = $controller('MainCtrl', {
           $scope: scope, applicationServices: applicationServicesMock});
+      }));
+
+
+      it('should set the Page factory in the scope', inject(function () {
+        expect(scope.Page).toBe(page);
       }));
 
 
@@ -108,10 +114,10 @@ describe('Main', function () {
     });
 
 
-    // The main controller test
-    describe('Main Controller test logInLogOut', function () {
+    // The main controller
+    describe('Main Controller logInLogOut', function () {
 
-      // init controller for test
+      // Init controller for test
       beforeEach(inject(function ($controller) {
         spyOn(applicationServicesMock, 'logInLogOut').andCallThrough();
 

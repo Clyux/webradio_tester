@@ -9,11 +9,10 @@ describe('Stage', function () {
     scope.$apply();
   }
 
-  // The main controller test
+  // The stage controller test
   describe('Controller', function () {
 
-    var scope, soundcloudSearchMock, controller, q, autoCompleteSearchDeferred, soundcloudSearch;
-    var logInDeferred;
+    var scope, soundcloudSearchMock, controller, q, autoCompleteSearchDeferred, soundcloudSearch, page;
 
     beforeEach(function () {
       soundcloudSearchMock = {
@@ -25,18 +24,20 @@ describe('Stage', function () {
     });
 
     // init controller for test
-    beforeEach(inject(function ($rootScope, _soundcloudSearch_, $q) {
+    beforeEach(inject(function ($rootScope, _soundcloudSearch_, $q, _Page_) {
       scope = $rootScope.$new();
       q = $q;
+      page = _Page_;
       soundcloudSearch = _soundcloudSearch_;
     }));
 
     // The main controller test
-    describe('Main Controller test Init App', function () {
+    describe('Stage Controller test Init App', function () {
 
       // init controller for test
       beforeEach(inject(function ($controller) {
         spyOn(soundcloudSearchMock, 'autoCompleteSearch').andCallThrough();
+        spyOn(page, 'setTitle').andCallThrough();
 
         controller = $controller('StageCtrl', {
           $scope: scope, soundcloudSearch: soundcloudSearchMock});
@@ -105,6 +106,11 @@ describe('Stage', function () {
         callDeferred(autoCompleteSearchDeferred, scope);
         expect(scope.isSearching).toBeFalsy();
       });
+
+      it('should set the correct title', inject(function () {
+        expect(page.setTitle).toHaveBeenCalledWith('Stage');
+        expect(page.title()).toBe('Sept Web Radio - Stage');
+      }));
     });
   });
 });

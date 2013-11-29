@@ -2,6 +2,8 @@
 
 /* Controllers */
 
-angular.module('septWebRadioControllers').controller('ReplayCtrl', [function () {
-}]
+angular.module('septWebRadioControllers').controller('ReplayCtrl', ['Page',
+  function (Page) {
+    Page.setTitle('Replay');
+  }]
 );

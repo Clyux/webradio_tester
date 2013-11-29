@@ -5,14 +5,15 @@
 /* Stage Controller */
 
 angular.module('septWebRadioControllers')
-  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log',
-    function ($scope, soundcloudSearch, utilities, $modal, $log) {
+  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Page',
+    function ($scope, soundcloudSearch, utilities, $modal, $log, Page) {
       $scope.title = 'Stage';
 
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
       $scope.list1 = [];
+      Page.setTitle('Stage');
 
       $scope.search = function () {
         // If there is a term to search
