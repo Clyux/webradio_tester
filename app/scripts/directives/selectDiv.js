@@ -19,8 +19,7 @@ angular.module('septWebRadioDirectives')
                 element.attr('selected', true);
               }
             }
-          )
-          ;
+          );
         }
       };
     }

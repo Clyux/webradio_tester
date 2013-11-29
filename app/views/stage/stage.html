@@ -7,7 +7,7 @@
 </div>
 
 <div class="masonry" masonry="{transitionDuration: '0.9s'}">
-    <div class="masonry-brick masonry-animation scale-animation" draggable="true" ng-repeat="item in searchedItems"
+    <div class="masonry-brick masonry-animation scale-animation" ng-repeat="item in searchedItems"
          data-swr-draggable="true" data-item-id="{{item.id}}" data-swr-select-div>
         <div class="title_name">{{item.title}}</div>
         <div class="author_name">{{item.user.username}}</div>

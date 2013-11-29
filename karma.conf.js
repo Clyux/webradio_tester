@@ -19,6 +19,9 @@ module.exports = function(config) {
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'app/bower_components/imagesloaded/index.js',
       'app/bower_components/angular-masonry/index.js',
+      'app/bower_components/jquery-ui/ui/jquery-ui.js',
+      'app/scripts/libs/jquery-ui/jquery.event.drag-2.2.js',
+      'app/scripts/libs/jquery-ui/jquery.event.drop-2.2.js',
       /* Modules.js */
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-cookies/angular-cookies.js',

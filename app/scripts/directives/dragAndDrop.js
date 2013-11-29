@@ -11,6 +11,17 @@ angular.module('septWebRadioDirectives')
     '$element',
     'swrDragAndDropService',
     function controller($rootScope, $scope, $element, swrDragAndDrop) {
+
+      var self = this;
+
+      this.init = function init(){
+        $element.drag('init', self.dragInit);
+        $element.drag('start', self.dragStart);
+        $element.drag(self.drag, { relative: true });
+        $element.drag('end', self.dragEnd);
+        $element.on('$destroy', self.cleanDrag);
+      };
+
       this.dragInit = function dragInit() {
         if ($element.hasClass('swr-select')) {
           return jQuery('.swr-select');
@@ -20,10 +31,7 @@ angular.module('septWebRadioDirectives')
       };
 
       this.dragStart = function dragStart() {
-        var id = $element.attr('data-item-id');
-
-        swrDragAndDrop.addDraggedItem(id);
-
+        swrDragAndDrop.addDraggedItem($element.attr('data-item-id'));
         $element.addClass('swr-drag-start');
         $rootScope.$emit('SWR-DRAG-START', $element);
       };
@@ -51,6 +59,7 @@ angular.module('septWebRadioDirectives')
         $element.unbind('dragstart', this.dragStart);
         $element.unbind('drag', this.drag);
         $element.unbind('dragend', this.dragEnd);
+        $element.unbind('$destroy', this.cleanDrag);
       };
     }
   ])
@@ -60,15 +69,8 @@ angular.module('septWebRadioDirectives')
         restrict: 'A',
         controller: 'swrDragController',
         link: function link(scope, element, attrs, ctrl) {
-          element.drag('init', ctrl.dragInit);
-
-          element.drag('start', ctrl.dragStart);
-
-          element.drag(ctrl.drag, { relative: true });
-
-          element.drag('end', ctrl.dragEnd);
-
-          element.on('$destroy', ctrl.cleanDrag);
+          console.log('init');
+          ctrl.init();
         }
       };
     }
@@ -80,14 +82,20 @@ angular.module('septWebRadioDirectives')
     'swrDragAndDropService',
     function controller($rootScope, $scope, $element, swrDragAndDropService) {
 
-      $rootScope.$on('SWR-DRAG-START', function () {
-        $element.addClass('swr-drop-target');
-      });
+      var self = this;
 
-      $rootScope.$on('SWR-DRAG-END', function () {
+      this.onSwrDragStart = function onSwrDragStart() {
+        $element.addClass('swr-drop-target');
+      };
+
+      $rootScope.$on('SWR-DRAG-START', self.onSwrDragStart);
+
+      this.onSwrDragEnd = function onSwrDragEnd() {
         $element.removeClass('swr-drop-target');
         $element.removeClass('swr-drop-over');
-      });
+      };
+
+      $rootScope.$on('SWR-DRAG-END', self.onSwrDragEnd);
 
       this.dropStart = function dropStart() {
         $element.addClass('swr-drop-over');
@@ -96,7 +104,6 @@ angular.module('septWebRadioDirectives')
       this.drop = function drop() {
         var draggedItems = swrDragAndDropService.getDraggedItems();
         $scope.onDrop({droppedItems: draggedItems});
-        swrDragAndDropService.removeAllDraggedItems();
       };
 
       this.dropEnd = function dropEnd() {
