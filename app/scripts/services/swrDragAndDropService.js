@@ -31,5 +31,5 @@ angular.module('septWebRadioServices')
       this.removeAllDraggedItems = function () {
         self.dragItems.splice(0, self.dragItems.length);
       };
-    }]
-  );
+    }
+  ]);
