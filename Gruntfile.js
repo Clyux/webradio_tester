@@ -335,14 +335,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', function (target) {
     if (target === 'dist') {
-      grunt.task.run(['env:dist', 'build']);
+      grunt.task.run(['env:dist']);
     } else {
-      grunt.task.run(['env:dev']);
+      grunt.task.run(['env:dev', 'bower']);
     }
 
     grunt.task.run([
       'clean:server',
-      'bower',
       'concurrent:test',
       'express:test',
       'karma'
