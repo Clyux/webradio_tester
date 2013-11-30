@@ -100,7 +100,7 @@ angular.module('septWebRadioDirectives')
         $element.addClass('swr-drop-over');
       };
 
-      this.drop = function drop(ev, dd) {
+      this.drop = function drop() {
         var draggedItems = swrDragAndDropService.getDraggedItems();
         $scope.onDrop({droppedItems: draggedItems});
       };
