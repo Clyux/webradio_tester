@@ -1,6 +1,6 @@
 'use strict';
 
-/* global jQuery */
+/* global jQuery _ */
 
 angular.module('septWebRadioDirectives');
 
@@ -14,7 +14,7 @@ angular.module('septWebRadioDirectives')
 
       var self = this;
 
-      this.init = function init(){
+      this.init = function init() {
         $element.drag('init', self.dragInit);
         $element.drag('start', self.dragStart);
         $element.drag(self.drag, { relative: true });
@@ -102,7 +102,11 @@ angular.module('septWebRadioDirectives')
 
       this.drop = function drop() {
         var draggedItems = swrDragAndDropService.getDraggedItems();
+        if (_.size(draggedItems) <= 0) {
+          return;
+        }
         $scope.onDrop({droppedItems: draggedItems});
+        swrDragAndDropService.removeAllDraggedItems();
       };
 
       this.dropEnd = function dropEnd() {
@@ -127,8 +131,6 @@ angular.module('septWebRadioDirectives')
           onDrop: '&'
         },
         link: function link(scope, element, attrs, ctrl) {
-
-          console.log('link');
 
           element.drop('start', ctrl.dropStart);
 

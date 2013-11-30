@@ -92,13 +92,6 @@ img.play {
     margin-top: 30px;
 }
 
-.enought {
-    background: url("images/ENOUGH.png");
-    margin-left: 200px;
-    margin-top: 20px;
-    size: 4%;
-}
-
 img.profil {
     margin-top: 30px;
     padding-right: 10px;
@@ -111,7 +104,7 @@ img.profil {
     margin-right: auto
 }
 
-.cursor_pointer {
+.cursor-pointer {
     cursor: pointer;
 }
 
@@ -124,27 +117,32 @@ img.profil {
     display: inline;
 }
 
-/* Global */
-.global_wrapper {
+.wrapper {
+    left: 0;
     position: relative;
+    top: 0;
+    width: 100%;
+}
+
+/* Global */
+.global-wrapper {
     margin: 8px 8px;
 }
 
 /* Top */
 
-.top_wrapper {
-    height: 150px;
-    position: relative;
+.top-wrapper {
+    height: 100px;
     max-width: 1400px;
 }
 
-.header_logo {
+.header-logo {
     display: inline;
     width: 252px;
     height: 150px;
 }
 
-.login_top_button {
+.login-top-button {
     display: inline;
     height: 20px;
     position: absolute;
@@ -160,7 +158,7 @@ img.profil {
     width: 810px;
 }
 
-.header_black_line {
+.header-black-line {
     display: inline;
     position: absolute;
     top: 90px;
@@ -170,12 +168,12 @@ img.profil {
     min-width: 807px;
 }
 
-.header_black_image {
+.header-black-image {
     width: 100%;
     height: 17px;
 }
 
-.black_button {
+.black-button {
     border: 1px solid #616261;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -198,7 +196,7 @@ img.profil {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#7d7e7d, endColorstr=#0e0e0e);
 }
 
-.black_button:hover {
+.black-button:hover {
     border: 1px solid #4a4b4a;
     background-color: #646464;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#646464), to(#282828));
@@ -210,23 +208,22 @@ img.profil {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#646464, endColorstr=#282828);
 }
 
-.connexion_button {
+.connexion-button {
     width: 100px;
 }
 
-.main_wrapper {
-    position: relative;
+.main-wrapper {
     max-width: 1400px;
 }
 
-.left_bar_wrapper {
+.left-bar-wrapper {
     display: inline;
     position: absolute;
     width: 200px;
     height: 100%;
 }
 
-.content_wrapper {
+.content-wrapper {
     display: inline;
     position: absolute;
     min-width: 807px;
@@ -236,7 +233,7 @@ img.profil {
 
 /* Stage page */
 
-.search_toolbar {
+.search-toolbar {
     height: 40px;
     margin: 0 0 5px 0;
 }
@@ -275,7 +272,7 @@ img.profil {
     height: 100px;
 }
 
-.masonry-brick .title_name {
+.masonry-brick .title-name {
     position: absolute;
     top: 0;
     width: 164px;
@@ -284,7 +281,7 @@ img.profil {
     text-overflow: ellipsis;
 }
 
-.masonry-brick .author_name {
+.masonry-brick .author-name {
     position: absolute;
     top: 30px;
     width: 164px;
@@ -295,53 +292,16 @@ img.profil {
 
 /* Css animations for search in stage page */
 .masonry-animation.ng-leave {
-    -webkit-animation: 0.8s my_animation;
-    -moz-animation: 0.8s my_animation;
-    -ms-transition: 0.8s my_animation;
-    -o-animation: 0.8s my_animation;
-    animation: 0.8s my_animation;
-}
-
-/* Enter */
-@keyframes my_animation_enter {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes my_animation_enter {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-moz-keyframes my_animation_enter {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-o-keyframes my_animation_enter {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    -webkit-animation: 0.8s my-animation;
+    -moz-animation: 0.8s my-animation;
+    -ms-transition: 0.8s my-animation;
+    -o-animation: 0.8s my-animation;
+    animation: 0.8s my-animation;
 }
 
 /* Leave */
 
-@keyframes my_animation {
+@keyframes my-animation {
     from {
         opacity: 1;
     }
@@ -350,7 +310,7 @@ img.profil {
     }
 }
 
-@-webkit-keyframes my_animation {
+@-webkit-keyframes my-animation {
     from {
         opacity: 1;
     }
@@ -359,7 +319,7 @@ img.profil {
     }
 }
 
-@-moz-keyframes my_animation {
+@-moz-keyframes my-animation {
     from {
         opacity: 1;
     }
@@ -368,7 +328,7 @@ img.profil {
     }
 }
 
-@-o-keyframes my_animation {
+@-o-keyframes my-animation {
     from {
         opacity: 1;
     }
@@ -377,7 +337,7 @@ img.profil {
     }
 }
 
-.add_to_playlist {
+.add-to-playlist {
     width: 150px;
     height: 36px;
     -webkit-transition: width 1s ease;
@@ -417,3 +377,4 @@ img.profil {
     background: #f1f1f1;
     z-index: 2;
 }
+

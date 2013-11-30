@@ -1,7 +1,20 @@
-<div class="search_toolbar">
+<div class="wrapper">
+    <div>
+        <h3>Playlists</h3>
+        <span class="smallText">You can click on playlists in order to add items.</span>
+        <br><br>
+        <ul class="nav nav-pills">
+            <li ng-repeat="album in albumsList" ng-class="{active:taggedA(album.id)}" ng-click="filterAlbum(album.id)">
+                <a href="#">{{album.title}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="search-toolbar">
     <input delayed-input call-back="search()" delayed-time="300" ng-model="searchedTerm" class="input-search"/>
     <img src="images/ajax-loader.gif" ng-show="isSearching">
-    <button class="black_button add_to_playlist"
+    <button class="black-button add-to-playlist"
             data-swr-drop-target="true" data-on-drop="dropped(droppedItems)">Add to Playlist
     </button>
 </div>
@@ -9,8 +22,8 @@
 <div class="masonry" masonry="{transitionDuration: '0.9s'}">
     <div class="masonry-brick masonry-animation scale-animation" ng-repeat="item in searchedItems"
          data-swr-draggable="true" data-item-id="{{item.id}}" data-swr-select-div>
-        <div class="title_name">{{item.title}}</div>
-        <div class="author_name">{{item.user.username}}</div>
+        <div class="title-name">{{item.title}}</div>
+        <div class="author-name">{{item.user.username}}</div>
         <img class="img-polaroid center-block" ng-src="{{item.artwork_url}}"/>
     </div>
 </div>

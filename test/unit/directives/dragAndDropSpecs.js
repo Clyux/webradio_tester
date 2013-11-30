@@ -243,21 +243,24 @@ describe('Drag And Drop Directives', function () {
     describe('drop', function () {
 
       it('should call the method onDrop', function () {
+        swrDragAndDropService.addDraggedItem('123');
+        swrDragAndDropService.addDraggedItem('456');
+
         var elm = createElement('<div data-swr-drop-target="true" data-on-drop="dropped(droppedItems)"/>');
 
-        scopeController.onDrop = function () {
+        scopeController.onDrop = function (items) {
+          expect(items).toEqual({droppedItems: ['123', '456']});
         };
 
         spyOn(scopeController, 'onDrop').andCallThrough();
         spyOn(swrDragAndDropService, 'getDraggedItems').andCallThrough();
-
-        swrDragAndDropService.addDraggedItem('123');
-        swrDragAndDropService.addDraggedItem('456');
+        spyOn(swrDragAndDropService, 'removeAllDraggedItems').andCallThrough();
 
         controller.drop();
 
-        expect(scopeController.onDrop).toHaveBeenCalledWith({droppedItems: ['123', '456']});
         expect(swrDragAndDropService.getDraggedItems).toHaveBeenCalled();
+        expect(scopeController.onDrop).toHaveBeenCalled();
+        expect(swrDragAndDropService.removeAllDraggedItems).toHaveBeenCalled();
       });
     });
 
@@ -304,38 +307,38 @@ describe('Drag And Drop Directives', function () {
   });
 
   /*
-  describe('Select Div Directives', function () {
+   describe('Select Div Directives', function () {
 
-    var elm;
+   var elm;
 
-    function createNewElement(inputElement){
-      elm = angular.element(inputElement);
-      $compile(elm)(rootScope);
-      rootScope.$digest();
+   function createNewElement(inputElement){
+   elm = angular.element(inputElement);
+   $compile(elm)(rootScope);
+   rootScope.$digest();
 
-      // instantiate the controller
-      controller = $controller('swrDragController', {$rootScope: rootScope, $scope: scopeController, $element: elm, swrDragAndDropService: swrDragAndDropService});
+   // instantiate the controller
+   controller = $controller('swrDragController', {$rootScope: rootScope, $scope: scopeController, $element: elm, swrDragAndDropService: swrDragAndDropService});
 
-      return elm;
-    }
+   return elm;
+   }
 
-    it('should add the three CSS classes and set an attribute', function () {
+   it('should add the three CSS classes and set an attribute', function () {
 
-      elm = angular.element('<div data-swr-draggable="true" />');
+   elm = angular.element('<div data-swr-draggable="true" />');
 
-      controller = $controller('swrDragController', {$rootScope: rootScope, $scope: scopeController, $element: elm, swrDragAndDropService: swrDragAndDropService});
+   controller = $controller('swrDragController', {$rootScope: rootScope, $scope: scopeController, $element: elm, swrDragAndDropService: swrDragAndDropService});
 
-      //createNewElement('<div data-swr-draggable="true" />');
+   //createNewElement('<div data-swr-draggable="true" />');
 
-      spyOn(controller, 'init');
+   spyOn(controller, 'init');
 
 
-      $compile(elm)(rootScope);
-      rootScope.$digest();
+   $compile(elm)(rootScope);
+   rootScope.$digest();
 
-      expect(controller.init).toHaveBeenCalled();
-    });
+   expect(controller.init).toHaveBeenCalled();
+   });
 
-  });*/
+   });*/
 
 });
