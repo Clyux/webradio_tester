@@ -69,7 +69,6 @@ angular.module('septWebRadioDirectives')
         restrict: 'A',
         controller: 'swrDragController',
         link: function link(scope, element, attrs, ctrl) {
-          console.log('init');
           ctrl.init();
         }
       };
@@ -101,7 +100,7 @@ angular.module('septWebRadioDirectives')
         $element.addClass('swr-drop-over');
       };
 
-      this.drop = function drop() {
+      this.drop = function drop(ev, dd) {
         var draggedItems = swrDragAndDropService.getDraggedItems();
         $scope.onDrop({droppedItems: draggedItems});
       };
@@ -128,9 +127,12 @@ angular.module('septWebRadioDirectives')
           onDrop: '&'
         },
         link: function link(scope, element, attrs, ctrl) {
+
+          console.log('link');
+
           element.drop('start', ctrl.dropStart);
 
-          element.drop(ctrl.drop, { multi: true });
+          element.drop(ctrl.drop);
 
           element.drop('end', ctrl.dropEnd);
 
