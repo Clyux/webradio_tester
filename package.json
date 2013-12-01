@@ -20,8 +20,7 @@
     "ejs": "*",
     "request": "~2.27",
     "bower": "~1.2.x",
-    "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.11"
+    "grunt": "~0.4.1"
   },
   "devDependencies": {
     "grunt-contrib-copy": "~0.4.1",
