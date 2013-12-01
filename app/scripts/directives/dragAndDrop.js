@@ -1,6 +1,6 @@
 'use strict';
 
-/* global jQuery _ */
+/* global jQuery, _ */
 
 angular.module('septWebRadioDirectives');
 
