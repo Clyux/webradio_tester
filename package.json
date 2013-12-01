@@ -19,10 +19,11 @@
     "express": "~3.4.5",
     "ejs": "*",
     "request": "~2.27",
-    "bower": "~1.2.x"
+    "bower": "~1.2.x",
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.11"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-coffee": "~0.7.0",
@@ -59,6 +60,7 @@
   },
   "scripts": {
     "test": "grunt test",
+    "postinstall": "./node_modules/.bin/grunt",
     "start": "node app.js"
   }
 }
