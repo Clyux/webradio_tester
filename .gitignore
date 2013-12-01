@@ -5,4 +5,3 @@ app/bower_components
 .idea
 .DS_Store
 coverage
-dist
