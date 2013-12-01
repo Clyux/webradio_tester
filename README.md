@@ -1,8 +1,6 @@
-[![Build Status](https://travis-ci.org/alfirin/sept-web-radio.png)](https://travis-ci.org/alfirin/sept-web-radio)
+Travis: [![Build Status](https://travis-ci.org/alfirin/sept-web-radio.png)](https://travis-ci.org/alfirin/sept-web-radio) -- Drone.io (Deployment): [![Build Status](https://drone.io/github.com/alfirin/sept-web-radio/status.png)](https://drone.io/github.com/alfirin/sept-web-radio/latest)
 
-[![Coverage Status](https://coveralls.io/repos/alfirin/sept-web-radio/badge.png)](https://coveralls.io/r/alfirin/sept-web-radio) - [![Code Climate](https://codeclimate.com/github/alfirin/sept-web-radio.png)](https://codeclimate.com/github/alfirin/sept-web-radio)
-
-[![Dependency Status](https://gemnasium.com/alfirin/sept-web-radio.png)](https://gemnasium.com/alfirin/sept-web-radio)
+[![Coverage Status](https://coveralls.io/repos/alfirin/sept-web-radio/badge.png)](https://coveralls.io/r/alfirin/sept-web-radio) -- [![Code Climate](https://codeclimate.com/github/alfirin/sept-web-radio.png)](https://codeclimate.com/github/alfirin/sept-web-radio) -- [![Dependency Status](https://gemnasium.com/alfirin/sept-web-radio.png)](https://gemnasium.com/alfirin/sept-web-radio)
 
 # Sept Web radio
 
@@ -16,11 +14,8 @@ web sockets to add real-time functionality.
 ### Install modules for the application
     npm install
 
-Then in order to package the application and download the bower dependencies run
+Then in order to package the application and download the bower dependencies, just run
     grunt
-
-For that make sure you have grunt installed:
-    npm install -g grunt-cli
 
 ### Running the app
 
@@ -47,4 +42,4 @@ Just fetch the changes and merge them into your project with git.
 
 ## Contact
 
-Jade Ronat-Mallie and Jim
+Jade and Jim
