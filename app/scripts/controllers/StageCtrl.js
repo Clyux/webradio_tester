@@ -15,7 +15,8 @@ angular.module('septWebRadioControllers')
       $scope.playlists = [
         {id: 1, title: 'Playlist 1'},
         {id: 2, title: 'Playlist 2'},
-        {id: 3, title: 'Playlist 3'}
+        {id: 3, title: 'Playlist 3'},
+        {id: 4, title: 'Playlist 4'}
       ];
 
       $scope.selectedPlaylists = [];
@@ -64,7 +65,6 @@ angular.module('septWebRadioControllers')
           // Else, we remove it
           $scope.selectedPlaylists = _.without($scope.selectedPlaylists, playlistId);
         }
-        console.log($scope.selectedPlaylists);
       };
 
       $scope.open = function (items) {
