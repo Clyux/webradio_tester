@@ -7,8 +7,6 @@
 angular.module('septWebRadioControllers')
   .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Page',
     function ($scope, soundcloudSearch, utilities, $modal, $log, Page) {
-      $scope.title = 'Stage';
-
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
@@ -18,9 +16,7 @@ angular.module('septWebRadioControllers')
         {id: 3, title: 'Playlist 3'},
         {id: 4, title: 'Playlist 4'}
       ];
-
       $scope.selectedPlaylists = [];
-
       $scope.list1 = [];
       Page.setTitle('Stage');
 
