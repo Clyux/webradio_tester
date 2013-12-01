@@ -4,12 +4,24 @@
 /* For Boostrap UI */
 .nav, .pagination, .carousel a {
     cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
 
 /* Common */
 
-.ul-navigation {
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+ul {
     padding: 0;
+    margin: 0;
+}
+
+
+
+.ul-navigation {
     margin: 0;
     list-style-type: none;
 }
@@ -30,7 +42,6 @@
     text-decoration: underline;
     text-align: center;
     padding: 5px;
-
 }
 
 .ul-navigation li a:active {
@@ -50,52 +61,18 @@
 h1 {
     font-family: bacana, verdana, sans-serif;
     font-size: 35pt;
-    margin-top: 90px;
-    margin-left: 50px;
 }
 
 p {
-    margin-left: 200px;
-    margin-top: 10px;
-    float: left;
-    display: block;
-    height: 363px;
-    width: 310px;
     font-family: andale mono, monaco, sans-serif;
     font-size: 12pt;
     color: #000000;
-    text-align: justify;
 }
 
 h2 {
     font-family: bacana, verdana, sans-serif;
     font-size: 10pt;
-    margin-right: 200px;
-    margin-top: 65px;
-    float: left;
     color: #000000;
-    text-align: justify;
-}
-
-img.triangle {
-    margin-top: 35px;
-    padding-right: 10px;
-}
-
-img.radio {
-    margin-left: 200px;
-    margin-top: 105px;
-}
-
-img.play {
-    margin-left: 620px;
-    margin-top: 30px;
-}
-
-img.profil {
-    margin-top: 30px;
-    padding-right: 10px;
-    padding-left: 10px;
 }
 
 .center-block {
@@ -117,11 +94,16 @@ img.profil {
     display: inline;
 }
 
-.wrapper {
-    left: 0;
-    position: relative;
-    top: 0;
-    width: 100%;
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.footer, .push {
+    height: 4em;
 }
 
 /* Global */
@@ -132,8 +114,9 @@ img.profil {
 /* Top */
 
 .top-wrapper {
-    height: 100px;
+    height: 120px;
     max-width: 1400px;
+    position: relative;
 }
 
 .header-logo {
@@ -146,7 +129,6 @@ img.profil {
     display: inline;
     height: 20px;
     position: absolute;
-    top: 0;
     left: 953px;
 }
 
@@ -164,7 +146,6 @@ img.profil {
     top: 90px;
     left: 250px;
     right: 0;
-    float: left;
     min-width: 807px;
 }
 
@@ -214,21 +195,18 @@ img.profil {
 
 .main-wrapper {
     max-width: 1400px;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto;
 }
 
 .left-bar-wrapper {
-    display: inline;
-    position: absolute;
-    width: 200px;
-    height: 100%;
 }
 
 .content-wrapper {
-    display: inline;
-    position: absolute;
     min-width: 807px;
-    left: 250px;
-    right: 0;
+    margin-left: 250px;
 }
 
 /* Stage page */
@@ -236,6 +214,10 @@ img.profil {
 .search-toolbar {
     height: 40px;
     margin: 0 0 5px 0;
+}
+
+.input-prepend {
+    padding-top: 9px;
 }
 
 .input-search {
@@ -339,11 +321,12 @@ img.profil {
 
 .add-to-playlist {
     width: 150px;
-    height: 36px;
-    -webkit-transition: width 1s ease;
+    height: 30px;
+    margin: 0, 20px, 0, 0;
+    -webkit-transition: all 1s ease;
     -moz-transition: width 1s ease;
-    -o-transition: width 1s ease;
-    transition: width 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
 }
 
 .masonry .swr-drag-start {
@@ -358,6 +341,7 @@ img.profil {
 .swr-drop-target {
     /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
     width: 200px;
+    height: 36px;
 }
 
 [data-swr-draggable] {
@@ -377,4 +361,3 @@ img.profil {
     background: #f1f1f1;
     z-index: 2;
 }
-

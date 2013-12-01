@@ -12,6 +12,14 @@ angular.module('septWebRadioControllers')
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
+      $scope.playlists = [
+        {id: 1, title: 'Playlist 1'},
+        {id: 2, title: 'Playlist 2'},
+        {id: 3, title: 'Playlist 3'}
+      ];
+
+      $scope.selectedPlaylists = [];
+
       $scope.list1 = [];
       Page.setTitle('Stage');
 
@@ -46,6 +54,17 @@ angular.module('septWebRadioControllers')
         }, scopeItems);
 
         $scope.open(scopeItems);
+      };
+
+      $scope.togglePlaylist = function (playlistId) {
+        // If the playlist is not here, wee add it
+        if (_.indexOf($scope.selectedPlaylists, playlistId) === -1) {
+          $scope.selectedPlaylists.push(playlistId);
+        } else {
+          // Else, we remove it
+          $scope.selectedPlaylists = _.without($scope.selectedPlaylists, playlistId);
+        }
+        console.log($scope.selectedPlaylists);
       };
 
       $scope.open = function (items) {

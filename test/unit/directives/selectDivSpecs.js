@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Select Div Directives', function () {
+describe('Select Directives', function () {
   beforeEach(module('septWebRadioApp'));
 
   var elm, scopeController, $compile;
@@ -15,31 +15,54 @@ describe('Select Div Directives', function () {
     $compile(elm)(scopeController);
   }
 
-  it('should add the three CSS classes and set an attribute', function () {
-    createNewElement('<div data-swr-select-div />');
+  it('should add the default CSS classe and set the attribute', function () {
+    createNewElement('<div data-swr-select />');
 
     expect(elm.hasClass('swr-select')).toBeFalsy();
-    expect(elm.hasClass('ui-selected')).toBeFalsy();
     expect(elm.attr('selected')).toBeFalsy();
 
     elm.click();
 
+
     expect(elm.hasClass('swr-select')).toBeTruthy();
-    expect(elm.hasClass('ui-selected')).toBeTruthy();
     expect(elm.attr('selected')).toBeTruthy();
   });
 
-  it('should add the three CSS classes and set an attribute', function () {
-    createNewElement('<div data-swr-select-div class="swr-select ui-selected" selected/>');
+  it('should add the correct CSS classe and set the attribute', function () {
+    createNewElement('<div data-swr-select data-swr-select-class="active" />');
+
+    expect(elm.hasClass('active')).toBeFalsy();
+    expect(elm.attr('selected')).toBeFalsy();
+
+    elm.click();
+
+
+    expect(elm.hasClass('active')).toBeTruthy();
+    expect(elm.attr('selected')).toBeTruthy();
+  });
+
+  it('should remove the default CSS classe and the attribute', function () {
+    createNewElement('<div data-swr-select class="swr-select" selected/>');
 
     expect(elm.hasClass('swr-select')).toBeTruthy();
-    expect(elm.hasClass('ui-selected')).toBeTruthy();
     expect(elm.attr('selected')).toBeTruthy();
 
     elm.click();
 
     expect(elm.hasClass('swr-select')).toBeFalsy();
-    expect(elm.hasClass('ui-selected')).toBeFalsy();
     expect(elm.attr('selected')).toBeFalsy();
   });
+
+  it('should remove the correct CSS classe and the attribute', function () {
+    createNewElement('<div data-swr-select class="active" data-swr-select-class="active" selected />');
+
+    expect(elm.hasClass('active')).toBeTruthy();
+    expect(elm.attr('selected')).toBeTruthy()
+
+    elm.click();
+
+    expect(elm.hasClass('active')).toBeFalsy();
+    expect(elm.attr('selected')).toBeFalsy();;
+  });
+
 });
