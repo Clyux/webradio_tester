@@ -125,7 +125,7 @@ describe('Drag And Drop Directives', function () {
         expect(swrDragAndDropService.removeDraggedItem).toHaveBeenCalledWith('123');
         expect(swrDragAndDropService.getDraggedItems()).toEqual([]);
 
-        expect(elm.animate).toHaveBeenCalledWith({top: 0, left: 0}, 500);
+        expect(elm.animate).toHaveBeenCalledWith({top: 0, left: 0}, 1000);
       });
 
       it('should call the emit method', function () {

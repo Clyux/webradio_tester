@@ -51,7 +51,7 @@ angular.module('septWebRadioDirectives')
         $element.animate({
           top: dd.originalY,
           left: dd.originalX
-        }, 500);
+        }, 1000);
       };
 
       this.cleanDrag = function cleanDrag() {
