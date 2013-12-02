@@ -21,10 +21,8 @@
     "request": "~2.27",
     "bower": "~1.2.x",
     "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.11"
-  },
-  "devDependencies": {
-    "coveralls": "~2.5.0",
+    "matchdep": "~0.3.0",
+    "grunt-cli": "~0.1.11",
     "grunt-env": "~0.4",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-usemin": "~2.0.0",
@@ -40,26 +38,28 @@
     "grunt-contrib-htmlmin": "~0.1.3",
     "grunt-contrib-uglify": "~0.2",
     "grunt-rev": "~0.1.0",
+    "grunt-bower-task": "~0.3"
+  },
+  "devDependencies": {
+    "coveralls": "~2.5.0",
+    "connect-livereload": "~0.3.0",
+    "karma": "~0.10",
+    "karma-jasmine": "~0.1",
+    "karma-ng-scenario": "~0.1",
+    "karma-coverage": "~0.1",
     "grunt-contrib-compass": "~0.6.0",
     "grunt-contrib-jshint": "~0.7",
     "grunt-contrib-connect": "~0.5.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-open": "~0.2.0",
     "grunt-karma": "~0.6.2",
-    "grunt-express": "~1.2.1",
-    "grunt-bower-task": "~0.3",
-    "matchdep": "~0.3.0",
-    "connect-livereload": "~0.3.0",
-    "karma": "~0.10",
-    "karma-jasmine": "~0.1",
-    "karma-ng-scenario": "~0.1",
-    "karma-coverage": "~0.1"
+    "grunt-express": "~1.2.1"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "./node_modules/.bin/grunt test",
     "start": "node app.js"
   }
 }

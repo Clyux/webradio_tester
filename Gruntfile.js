@@ -4,8 +4,10 @@
 var path = require('path');
 
 module.exports = function (grunt) {
+  var matchdep = require('matchdep');
+
   // load all grunt tasks
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  matchdep.filter('grunt-*').forEach(grunt.loadNpmTasks);
 
   // configurable paths
   var yeomanConfig = {
