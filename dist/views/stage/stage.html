@@ -1,0 +1,42 @@
+<div>
+    <div>
+        <h3>Your Playlists <i class="icon-music"></i></h3>
+        <!--<span class="help-block">You can click on your playlists in order to add music to them.</span>-->
+        <ul class="nav nav-pills">
+            <li ng-repeat="playlist in playlists" data-swr-select="" data-swr-select-class="active" ng-click="togglePlaylist(playlist.id)">
+                <a> <i class="icon-headphones"></i> {{playlist.title}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="search-toolbar">
+    <div class="input-prepend">
+        <span class="add-on center-block"><i class="icon-search"></i></span>
+        <input class="input-search" type="text" placeholder="Type your search" ng-model="searchedTerm" delayed-input="" call-back="search()" delayed-time="300">
+    </div>
+    <img src="images/ajax-loader.gif" ng-show="isSearching">
+    <button class="btn btn-inverse add-to-playlist" data-swr-drop-target="true" data-on-drop="dropped(droppedItems)">Add to Playlist
+    </button>
+</div>
+
+<div class="masonry" masonry="{transitionDuration: '0.9s'}">
+    <div class="masonry-brick masonry-animation scale-animation" ng-repeat="item in searchedItems" data-swr-draggable="true" data-item-id="{{item.id}}" data-swr-select="">
+        <div class="title-name">{{item.title}}</div>
+        <div class="author-name">{{item.user.username}}</div>
+        <img class="img-polaroid center-block" ng-src="{{item.artwork_url}}">
+    </div>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3>You can create a playlist with the selected item:</h3>
+    </div>
+    <div class="modal-body" ng-repeat="item in items">
+        Selected: <b>{{ item.title }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
