@@ -19,11 +19,11 @@
     "express": "~3.4.5",
     "ejs": "*",
     "request": "~2.27",
-    "bower": "~1.2.x",
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.11"
   },
   "devDependencies": {
+    "bower": "~1.2.x",
     "matchdep": "~0.3.0",
     "grunt-env": "~0.4",
     "grunt-contrib-clean": "~0.5.0",
