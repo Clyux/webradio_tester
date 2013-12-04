@@ -14,8 +14,7 @@ angular.module('septWebRadioControllers')
         {id: 1, title: 'Playlist 1'},
         {id: 2, title: 'Playlist 2'},
         {id: 3, title: 'Playlist 3'},
-        {id: 4, title: 'Playlist 4'},
-        {id: 5, title: 'Playlist 5'}
+        {id: 4, title: 'Playlist 4'}
       ];
       $scope.selectedPlaylists = [];
       $scope.list1 = [];
