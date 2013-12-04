@@ -122,8 +122,7 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js',
         'test/{,*/}*.js',
         'app.js',
-        'config/{,*/}*.js',
-        'routes/{,*/}*.js'
+        'backend/{,*/}*.js'
       ]
     },
     coffee: {

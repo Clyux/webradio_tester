@@ -5,60 +5,74 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
-var soundCloud = require('./routes/soundCloud.js');
-var api = require('./routes/api.js');
+//var routes = require('./routes');
+//var soundCloud = require('./routes/soundCloud.js');
+//var api = require('./routes/api.js');
 var http = require('http');
-var path = require('path');
+//var path = require('path');
+//var MongoStore = require('connect-mongo')(express);
+var fs = require('fs');
+var passport = require('passport');
+var logger = require('mean-logger');
 
+// Load configurations
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var config = require('./backend/config/config');
+var auth = require('./backend/config/middlewares/authorization');
+var mongoose = require('mongoose');
+
+
+// Bootstrap db connection
+mongoose.connect(config.db);
+
+var dbConnexion = mongoose.connection;
+dbConnexion.on('error', function error(error) {
+  console.log('Error MongoDB: ' + error)
+});
+
+dbConnexion.once('open', function callback() {
+  console.log('MongoDB successfully connected.')
+});
+
+// Bootstrap models
+var modelsPath = __dirname + '/backend/models';
+var walk = function (path) {
+  fs.readdirSync(path).forEach(function (file) {
+    var newPath = path + '/' + file;
+    var stat = fs.statSync(newPath);
+    if (stat.isFile()) {
+      if (/(.*)\.(js$|coffee$)/.test(file)) {
+        require(newPath);
+      }
+    } else if (stat.isDirectory()) {
+      walk(newPath);
+    }
+  });
+};
+walk(modelsPath);
+
+
+// Bootstrap passport config
+require('./backend/config/passport')(passport);
+
+// Create express
 var app = express();
-var developmentEnv = 'development' === app.get('env');
 
-if (developmentEnv) {
-  // development only
-  console.log('Development Environment');
-  app.configure(function () {
-    app.set('views', __dirname + '/app');
-    app.use(express.static(path.join(__dirname, 'app')));
-    app.use(express.errorHandler());
-  });
-}
-else {
-  // production
-  console.log('Production Environment');
-  app.configure(function () {
-    app.set('views', __dirname + '/dist');
-    app.use(express.static(path.join(__dirname, 'dist')));
-  });
-}
+// Express settings
+require('./backend/config/express')(app, env, passport, dbConnexion);
 
-app.configure(function () {
-  // all environments
-  app.set('port', process.env.PORT || 3000);
-  app.set('view engine', 'ejs');
-  app.engine('html', require('ejs').renderFile);
-  app.use(express.logger('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded());
-  app.use(express.methodOverride());
-  app.use(app.router);
+// Bootstrap routes
+require('./backend/config/routes')(app, passport, auth);
+
+// Start the app by listening on the port
+var port = config.port;
+http.createServer(app).listen(port, function () {
+  console.log('Express server listening on port ' + port);
 });
 
-// serve index and view partials
-app.get('/', routes.index);
 
-app.get('/soundcloud/auth/callback', soundCloud.getCallback);
-app.get('/init_application', api.initApplication);
+//Initializing logger
+logger.init(app, passport, mongoose);
 
-// redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
-
+// Expose app
 module.exports = app;
-
-/**
- * Start Server
- */
-
-http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
-});
