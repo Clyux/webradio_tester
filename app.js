@@ -26,12 +26,12 @@ var mongoose = require('mongoose');
 mongoose.connect(config.db);
 
 var dbConnexion = mongoose.connection;
-dbConnexion.on('error', function error(error) {
-  console.log('Error MongoDB: ' + error)
+dbConnexion.on('error', function error(er) {
+  console.log('Error MongoDB: ' + er);
 });
 
 dbConnexion.once('open', function callback() {
-  console.log('MongoDB successfully connected.')
+  console.log('MongoDB successfully connected.');
 });
 
 // Bootstrap models
