@@ -65,7 +65,8 @@ module.exports = function (app, env, passport, dbConnexion) {
     //express/mongo session storage
     app.use(express.session({
       secret: 'My_Real_Secret_Here',
-      maxAge: new Date(Date.now() + 3600000), //1 Hour
+      cookie: { maxAge: 24 * 60 * 60 * 1000 },
+      clear_interval: 3600,
       store: new mongoStore({
         db: dbConnexion.db,
         collection: 'sessions'
