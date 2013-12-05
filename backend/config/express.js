@@ -15,7 +15,7 @@ module.exports = function (app, env, passport, dbConnexion) {
   //Prettify HTML
   app.locals.pretty = true;
 
-  //Should be placed before express.static
+  // Should be placed before express.static
   app.use(express.compress({
     filter: function (req, res) {
       return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
@@ -28,19 +28,17 @@ module.exports = function (app, env, passport, dbConnexion) {
   // For the icon
   app.use(express.favicon(path.join(config.appPath, 'favicon.ico')));
 
-
   // Set the view configs
   app.set('views', config.appPath);
   app.use(express.static(config.appPath));
 
-  if (env === 'development') {
+  console.log(config.appPath);
+
+  console.log(env + ' Environment');
+
+  if (env !== 'production') {
     // Development only
-    console.log('Development Environment');
     app.use(express.errorHandler());
-  }
-  else {
-    // Production
-    console.log('Production Environment');
   }
 
   // Don't use logger for test env
