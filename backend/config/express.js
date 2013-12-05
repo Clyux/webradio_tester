@@ -65,6 +65,7 @@ module.exports = function (app, env, passport, dbConnexion) {
 
     //express/mongo session storage
     app.use(express.session({
+      /*jshint camelcase: false */
       secret: 'My_Real_Secret_Here',
       cookie: { maxAge: 24 * 60 * 60 * 1000 },
       clear_interval: 3600,
