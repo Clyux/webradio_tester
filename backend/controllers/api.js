@@ -4,17 +4,16 @@
  * Created by jimmy on 09/11/13.
  */
 
-var soundCloudCredentials = require('../config/soundCloudCredentials');
+var config = require('../config/config');
 
 function getAppConfiguration(req, res) {
   var protocol = req.protocol;
   var host = req.host;
   var port = '';
-  var clientId = soundCloudCredentials.clientId;
+  var clientId = config.soundCloud.clientID;
 
   if (host === 'localhost') {
     port = ':3000';
-    clientId = soundCloudCredentials.localhostClientId;
   }
   var url = protocol + '://' + host + port + '/soundcloud/auth/callback';
   res.send({url: url, clientId: clientId});

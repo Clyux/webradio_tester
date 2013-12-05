@@ -1,7 +1,14 @@
 language: node_js
+
 node_js:
   - '0.8'
   - '0.10'
+
+env:
+  - NODE_ENV=travis
+
+services:
+  - mongodb
 
 before_script:
   - 'export DISPLAY=:99.0'
