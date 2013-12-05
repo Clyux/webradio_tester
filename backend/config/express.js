@@ -23,23 +23,24 @@ module.exports = function (app, env, passport, dbConnexion) {
     level: 9
   }));
 
-  //Setting the fav icon and static folder
-  app.use(express.favicon());
-
   app.set('port', config.port);
+
+  // For the icon
+  app.use(express.favicon(path.join(config.appPath, 'favicon.ico')));
+
+
+  // Set the view configs
+  app.set('views', config.appPath);
+  app.use(express.static(config.appPath));
 
   if (env === 'development') {
     // Development only
     console.log('Development Environment');
-    app.set('views', config.root + '/app');
-    app.use(express.static(path.join(config.root, 'app')));
     app.use(express.errorHandler());
   }
   else {
     // Production
     console.log('Production Environment');
-    app.set('views', config.root + '/dist');
-    app.use(express.static(path.join(config.root, 'dist')));
   }
 
   // Don't use logger for test env
