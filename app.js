@@ -5,15 +5,9 @@
  */
 
 var express = require('express');
-//var routes = require('./routes');
-//var soundCloud = require('./routes/soundCloud.js');
-//var api = require('./routes/api.js');
 var http = require('http');
-//var path = require('path');
-//var MongoStore = require('connect-mongo')(express);
 var fs = require('fs');
 var passport = require('passport');
-var logger = require('mean-logger');
 
 // Load configurations
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -69,10 +63,6 @@ var port = config.port;
 http.createServer(app).listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
-
-
-//Initializing logger
-logger.init(app, passport, mongoose);
 
 // Expose app
 module.exports = app;

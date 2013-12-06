@@ -55,7 +55,6 @@ module.exports = function (grunt) {
     express: {
       options: {
         port: 3000,
-        // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
       livereload: {
@@ -214,6 +213,8 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
+          //removeComments: true,
+          //collapseWhitespace: true
           /*removeCommentsFromCDATA: true,
            // https://github.com/yeoman/grunt-usemin/issues/44
            //collapseWhitespace: true,
@@ -315,6 +316,15 @@ module.exports = function (grunt) {
           ]
         }
       }
+    },
+    processhtml: {
+      options: {
+      },
+      dist: {
+        files: {
+          'dist/index.html': ['dist/index.html']
+        }
+      }
     }
   });
 
@@ -362,6 +372,7 @@ module.exports = function (grunt) {
     'htmlmin',
     'uglify',
     'rev',
+    'processhtml',
     'usemin'
   ]);
 

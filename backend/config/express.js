@@ -15,7 +15,7 @@ module.exports = function (app, env, passport, dbConnexion) {
   //Prettify HTML
   app.locals.pretty = true;
 
-  //Should be placed before express.static
+  // Should be placed before express.static
   app.use(express.compress({
     filter: function (req, res) {
       return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
@@ -23,23 +23,22 @@ module.exports = function (app, env, passport, dbConnexion) {
     level: 9
   }));
 
-  //Setting the fav icon and static folder
-  app.use(express.favicon());
-
   app.set('port', config.port);
 
-  if (env === 'development') {
+  // For the icon
+  app.use(express.favicon(path.join(config.appPath, 'favicon.ico')));
+
+  // Set the view configs
+  app.set('views', config.appPath);
+  app.use(express.static(config.appPath));
+
+  console.log(config.appPath);
+
+  console.log(env + ' Environment');
+
+  if (env !== 'production') {
     // Development only
-    console.log('Development Environment');
-    app.set('views', config.root + '/app');
-    app.use(express.static(path.join(config.root, 'app')));
     app.use(express.errorHandler());
-  }
-  else {
-    // Production
-    console.log('Production Environment');
-    app.set('views', config.root + '/dist');
-    app.use(express.static(path.join(config.root, 'dist')));
   }
 
   // Don't use logger for test env
