@@ -1,28 +1,48 @@
-<div class="top-wrapper">
-    <header>
-        <div>
-            <div class="header-logo">
-                <a href="/"><img src="images/little_logo.png" width="252px" height="150px"></a>
-            </div>
-            <div class="login-top-button">
-                <button type="button" class="black-button connexion-button" ng-click="logInLogOutClick()">{{ connexionButtonLabel }}</button>
-            </div>
-
-            <div class="navigation">
-                <nav>
-                    <ul class="ul-navigation">
-                        <li><a href="/stage">STAGE</a></li>
-                        <li><a href="replay">REPLAY</a></li>
-                        <li><a href="topical">TOPICAL</a></li>
-                        <li><a href="door">DOOR</a></li>
-                        <li><a href="backstage">BACKSTAGE</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="header-black-line">
-                <img src="images/barre.png" class="header-black-image"/>
+<header>
+    <div class="top-wrapper">
+        <div class="header-logo">
+            <a href="/"><img src="images/little_logo.png" width="252px" height="150px"></a>
+        </div>
+        <div class="login-top-button">
+            <!--<button type="button" class="black-button connexion-button"
+                    ng-click="logInLogOutClick()">{{ connexionButtonLabel }}</button>-->
+            <div data-ng-hide="user">
+                <button type="button" class="black-button connexion-button"
+                        ng-click="go('/signup')">Sign Up
+                </button>
+                <button type="button" class="black-button connexion-button left-button"
+                        ng-click="go('/login')">Log In
+                </button>
             </div>
         </div>
-    </header>
-</div>
 
+        <div class="login-top-user-connected">
+            <ul class="nav pull-right" data-ng-show="user">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{user.username}} <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="logInLogOutClick()">Signout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <nav>
+                <ul class="ul-navigation">
+                    <li><a href="/stage">STAGE</a></li>
+                    <li><a href="replay">REPLAY</a></li>
+                    <li><a href="topical">TOPICAL</a></li>
+                    <li><a href="door">DOOR</a></li>
+                    <li><a href="backstage">BACKSTAGE</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-black-line">
+            <img src="images/barre.png" class="header-black-image"/>
+        </div>
+    </div>
+</header>

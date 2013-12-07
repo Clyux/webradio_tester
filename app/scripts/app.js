@@ -39,6 +39,14 @@ angular.module('septWebRadioApp')
           templateUrl: 'views/backstage/backstage.html',
           controller: 'BackstageCtrl'
         })
+        .when('/login', {
+          templateUrl: 'views/sign/in.html',
+          controller: 'SignCtrl'
+        })
+        .when('/signup', {
+          templateUrl: 'views/sign/up.html',
+          controller: 'SignCtrl'
+        })
         .otherwise({
           redirectTo: '/index'
         });

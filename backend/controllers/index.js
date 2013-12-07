@@ -5,8 +5,10 @@
  */
 
 exports.render = function (req, res) {
-  /*res.render('index', {
-   user: req.user ? JSON.stringify(req.user) : "null"
-   });*/
-  res.render('index.html');
+  console.log('Index render');
+  console.log(req.user);
+
+  res.render('index.html', {
+    user: req.user ? JSON.stringify(req.user) : "null"
+  });
 };

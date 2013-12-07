@@ -19,8 +19,6 @@ ul {
     margin: 0;
 }
 
-
-
 .ul-navigation {
     margin: 0;
     list-style-type: none;
@@ -114,7 +112,7 @@ html, body {
 /* Top */
 
 .top-wrapper {
-    height: 120px;
+    height: 110px;
     max-width: 1400px;
     position: relative;
 }
@@ -129,7 +127,14 @@ html, body {
     display: inline;
     height: 20px;
     position: absolute;
-    left: 953px;
+    left: 830px;
+}
+
+.login-top-user-connected {
+    display: inline;
+    height: 20px;
+    position: absolute;
+    left: 940px;
 }
 
 .navigation {
@@ -193,12 +198,17 @@ html, body {
     width: 100px;
 }
 
+.connexion-button, .left-button {
+    margin-left: 10px;
+}
+
 .main-wrapper {
     max-width: 1400px;
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 10px;
 }
 
 .left-bar-wrapper {

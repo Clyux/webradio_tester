@@ -14,28 +14,31 @@ var authTypes = ['soundcloud'];
  */
 var UserSchema = new Schema({
   name: String,
-  email: String,
+  lastName: String,
   username: {
+    type: String,
+    unique: true
+  },
+  email: {
     type: String,
     unique: true
   },
   provider: String,
   hashedPassword: String,
   salt: String,
-  facebook: {},
-  twitter: {},
-  github: {},
-  google: {}
+  soundCloud: {}
 });
 
 /**
  * Virtuals
  */
-UserSchema.virtual('password').set(function (password) {
-  this._password = password;
-  this.salt = this.makeSalt();
-  this.hashedPassword = this.encryptPassword(password);
-}).get(function () {
+UserSchema.virtual('password')
+  .set(function (password) {
+    this._password = password;
+    this.salt = this.makeSalt();
+    this.hashedPassword = this.encryptPassword(password);
+  })
+  .get(function () {
     return this._password;
   });
 
@@ -46,15 +49,7 @@ var validatePresenceOf = function (value) {
   return value && value.length;
 };
 
-// the below 4 validations only apply if you are signing up traditionally
-UserSchema.path('name').validate(function (name) {
-  // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) {
-    return true;
-  }
-  return name.length;
-}, 'Name cannot be blank');
-
+// The below 3 validations only apply if you are signing up traditionally
 UserSchema.path('email').validate(function (email) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) {

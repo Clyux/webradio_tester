@@ -1,0 +1,50 @@
+<form class="form-horizontal"
+      name="logInForm"
+      novalidate>
+
+    <fieldset>
+        <legend>Log In</legend>
+
+        <div class="control-group"
+             ng-class="{error: logInForm.email.$dirty && logInForm.email.$invalid}">
+            <label class="control-label"
+                   for="email">Email:</label>
+
+            <div class="controls">
+                <input type="email"
+                       name="email"
+                       id="email"
+                       placeholder="Email"
+                       ng-model="logInUser.email"
+                       required="true">
+            </div>
+        </div>
+
+        <div class="control-group"
+             ng-class="{error: logInForm.password.$dirty && logInForm.password.$invalid}">
+            <label class="control-label"
+                   for="password">Password:</label>
+
+            <div class="controls">
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="Password"
+                       ng-model="logInUser.password"
+                       required="true"
+                       ng-minlength=3
+                       ng-maxlength=255>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit"
+                        class="btn btn-primary"
+                        ng-click="logInUser(logInForm)"
+                        ng-disabled="!logInForm.$valid">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>

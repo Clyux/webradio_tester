@@ -2,11 +2,11 @@
 
 /* Main Controller  */
 
-angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page',
-  function ($scope, applicationServices, Page) {
+angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page', '$location',
+  function ($scope, applicationServices, Page, $location) {
 
     $scope.connexionButtonLabel = undefined;
-    $scope.user = undefined;
+    $scope.user = applicationServices.user;
     $scope.Page = Page;
 
     applicationServices.getInitApplication().then(function (data) {
@@ -23,6 +23,10 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
       applicationServices.logInLogOut().then(function (label) {
         $scope.connexionButtonLabel = label;
       });
+    };
+
+    $scope.go = function ( path ) {
+      $location.path( path );
     };
   }]
 );

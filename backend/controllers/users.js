@@ -16,21 +16,19 @@ exports.authCallback = function (req, res) {
 /**
  * Show login form
  */
-exports.signin = function (req, res) {
-  res.render('users/signin', {
-    title: 'Signin',
-    message: req.flash('error')
-  });
+exports.login = function (req, res) {
+  res.render('index.html');
+  res.location('/login');
 };
 
 /**
  * Show sign up form
  */
 exports.signup = function (req, res) {
-  res.render('users/signup', {
-    title: 'Sign up',
+  res.render('index.html', {
     user: new User()
   });
+  res.location('/signup');
 };
 
 /**
@@ -38,35 +36,48 @@ exports.signup = function (req, res) {
  */
 exports.signout = function (req, res) {
   req.logout();
-  res.redirect('/');
 };
 
 /**
  * Session
  */
 exports.session = function (req, res) {
-  res.redirect('/');
+  console.log('session ok');
+  console.log(req.user);
+  return res.send({
+    error: undefined,
+    user: req.user
+  });
 };
 
 /**
  * Create user
  */
 exports.create = function (req, res, next) {
-  var user = new User(req.body);
 
+  var user = new User(req.body);
   user.provider = 'local';
+
+  // Save the user inside MongoDB
   user.save(function (err) {
     if (err) {
-      return res.render('users/signup', {
-        errors: err.errors,
-        user: user
+      return res.send({
+        error: {
+          error: err.err,
+          code: err.code,
+        }
       });
     }
+
+    // Log the user for passport.
     req.logIn(user, function (err) {
       if (err) {
         return next(err);
       }
-      return res.redirect('/');
+      return res.send({
+        error: undefined,
+        user: user
+      });
     });
   });
 };
