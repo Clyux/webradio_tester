@@ -48,8 +48,11 @@ module.exports = function (app, passport, auth) {
   // Home route
   var index = require('../controllers/index');
 
+  // Get all the partials
+  app.get('/partials/*', index.renderView);
+
+  app.get('/', index.render);
+
   // redirect all others to the index (HTML5 history)
   app.get('*', index.render);
-
-  app.get('//', index.render);
 };

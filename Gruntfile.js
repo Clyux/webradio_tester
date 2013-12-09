@@ -161,13 +161,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: '<%= yeoman.app %>/views/index.html',
       options: {
         dest: '<%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/views/index.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         dirs: ['<%= yeoman.dist %>']
@@ -228,9 +228,9 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= yeoman.app %>',
-            src: ['*.html', 'views/{,*/}*.html'],
-            dest: '<%= yeoman.dist %>'
+            cwd: '<%= yeoman.app %>/views',
+            src: ['*.html', 'partials/{,*/}*.html'],
+            dest: '<%= yeoman.dist %>/views'
           }
         ]
       }
@@ -322,7 +322,7 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'dist/index.html': ['dist/index.html']
+          'dist/views/index.html': ['dist/views/index.html']
         }
       }
     }

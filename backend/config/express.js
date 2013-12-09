@@ -29,8 +29,11 @@ module.exports = function (app, env, passport, dbConnexion) {
   app.use(express.favicon(path.join(config.appPath, 'favicon.ico')));
 
   // Set the view configs
-  app.set('views', config.appPath);
+  // Use the app/dist folder for the static files
   app.use(express.static(config.appPath));
+  var pathViews = path.normalize(path.join(config.appPath, 'views'));
+  // Use the backend views for the views
+  app.set('views', pathViews);
 
   console.log(env + ' Environment');
 
@@ -52,11 +55,9 @@ module.exports = function (app, env, passport, dbConnexion) {
     app.use(express.cookieParser());
 
     // For the view engine
-    //app.set('view engine', 'ejs');
-    //app.engine('html', require('ejs').renderFile);
-
     app.engine('.html', require('ejs').__express);
     app.set('view engine', 'html');
+
 
     // request body parsing middleware should be above methodOverride
     app.use(express.urlencoded());
