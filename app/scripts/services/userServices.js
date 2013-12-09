@@ -5,14 +5,17 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('userServices', ['$http', '$window',
-    function ($http, $window) {
+  .service('userServices', ['$http', '$window', '$location',
+    function ($http, $window, $location) {
       var self = this;
 
       this.user = undefined;
 
       try {
         self.user = JSON.parse($window.windowsUser);
+        if (self.user === null){
+          self.user = undefined;
+        }
       } catch (e) {
         self.user = undefined;
       }
@@ -22,7 +25,7 @@ angular.module('septWebRadioServices')
       };
 
       this.isConnected = function () {
-        return self.user !== undefined;
+        return !angular.isUndefined(self.user);
       };
 
       this.signUp = function (user) {
@@ -32,6 +35,7 @@ angular.module('septWebRadioServices')
               self.user = undefined;
             } else {
               self.user = data.user;
+              $location.path('/stage');
             }
             console.log(data);
           })
@@ -47,6 +51,7 @@ angular.module('septWebRadioServices')
               self.user = undefined;
             } else {
               self.user = data.user;
+              $location.path('/stage');
             }
           })
           .error(function (data) {

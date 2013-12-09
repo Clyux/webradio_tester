@@ -7,7 +7,15 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
 
     $scope.connexionButtonLabel = undefined;
     $scope.user = userServices.getUser();
+    $scope.userServices = userServices;
     $scope.Page = Page;
+
+    $scope.$watch('userServices.user', function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        console.log('new value');
+        $scope.user = newValue;
+      }
+    });
 
     applicationServices.getInitApplication().then(function (data) {
       //$scope.user = data;
@@ -25,8 +33,8 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
       });
     };
 
-    $scope.go = function ( path ) {
-      $location.path( path );
+    $scope.go = function (path) {
+      $location.path(path);
     };
 
     $scope.logOutClick = function () {

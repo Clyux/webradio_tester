@@ -10,7 +10,7 @@
 
       <div class="login-buttons">
           <div class="login-buttons-not-connected"
-               data-ng-hide="user">
+               data-ng-hide="userServices.isConnected()">
             <!--<button type="button" class="black-button connexion-button"
                     ng-click="logInLogOutClick()">{{ connexionButtonLabel }}</button>-->
 
@@ -25,7 +25,7 @@
           </div>
 
           <div class="login-buttons-connected"
-               data-ng-show="user">
+               data-ng-show="userServices.isConnected()">
             <ul class="nav pull-right">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
