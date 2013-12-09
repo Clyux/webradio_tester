@@ -8,7 +8,14 @@ angular.module('septWebRadioServices')
   .service('userServices', ['$http', '$window',
     function ($http, $window) {
       var self = this;
-      this.user = JSON.parse($window.windowsUser);
+
+      this.user = undefined;
+
+      try {
+        self.user = JSON.parse($window.windowsUser);
+      } catch (e) {
+        self.user = undefined;
+      }
 
       this.getUser = function () {
         return self.user;
