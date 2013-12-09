@@ -19,45 +19,6 @@ ul {
     margin: 0;
 }
 
-
-
-.ul-navigation {
-    margin: 0;
-    list-style-type: none;
-}
-
-.ul-navigation li {
-    margin-left: 2px;
-    float: left;
-    font-family: basicl, verdana, sans-serif;
-    font-size: 18pt;
-    color: #000000;
-}
-
-.ul-navigation li a {
-    display: block;
-    float: left;
-    width: 150px;
-    color: black;
-    text-decoration: underline;
-    text-align: center;
-    padding: 5px;
-}
-
-.ul-navigation li a:active {
-    background-color: #000;
-    color: #FFF;
-}
-
-.ul-navigation li a:hover {
-    text-decoration: none;
-}
-
-.ul-navigation li a:active {
-    background-color: #000;
-    color: #FFF;
-}
-
 h1 {
     font-family: bacana, verdana, sans-serif;
     font-size: 35pt;
@@ -98,7 +59,7 @@ h2 {
     margin: 0;
 }
 
-html, body {
+html {
     height: 100%;
 }
 
@@ -109,44 +70,79 @@ html, body {
 /* Global */
 .global-wrapper {
     margin: 8px 8px;
+    max-width: 1400px;
+    min-height: 100%;
 }
 
 /* Top */
 
+.header-wrapper {
+    height: 110px;
+}
+
 .top-wrapper {
-    height: 120px;
     max-width: 1400px;
-    position: relative;
 }
 
 .header-logo {
-    display: inline;
-    width: 252px;
+    width: 250px;
     height: 150px;
+    position: absolute;
 }
 
-.login-top-button {
-    display: inline;
-    height: 20px;
-    position: absolute;
-    left: 953px;
+.header-right {
+
+}
+
+.login-buttons {
+    height: 40px;
+    max-width: 808px;
+}
+
+.login-buttons-connected {
+    float: right;
+}
+
+.login-buttons-not-connected {
+    float: right;
 }
 
 .navigation {
+    margin-top: 15px;
+}
+
+.ul-navigation {
+    margin: 0;
+    list-style-type: none;
+}
+
+.ul-navigation li {
+    margin-left: 50px;
     display: inline;
-    position: absolute;
-    top: 50px;
-    left: 250px;
-    width: 810px;
+    font-family: basicl, verdana, sans-serif;
+    font-size: 18pt;
+    color: #000000;
+}
+
+.ul-navigation li a {
+    width: 150px;
+    color: black;
+    text-decoration: underline;
+    text-align: center;
+    padding: 5px;
+}
+
+.ul-navigation li a:active {
+    background-color: #000;
+    color: #FFF;
+}
+
+.ul-navigation li a:hover {
+    text-decoration: none;
 }
 
 .header-black-line {
-    display: inline;
-    position: absolute;
-    top: 90px;
-    left: 250px;
-    right: 0;
-    min-width: 807px;
+    margin-top: 10px;
 }
 
 .header-black-image {
@@ -193,19 +189,23 @@ html, body {
     width: 100px;
 }
 
+.connexion-button, .left-button {
+    margin-left: 10px;
+}
+
 .main-wrapper {
-    max-width: 1400px;
-    min-height: 100%;
+
     height: auto !important;
     height: 100%;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 10px;
 }
 
 .left-bar-wrapper {
 }
 
 .content-wrapper {
-    min-width: 807px;
+    min-width: 815px;
     margin-left: 250px;
 }
 

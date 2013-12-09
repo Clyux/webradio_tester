@@ -2,15 +2,23 @@
 
 /* Main Controller  */
 
-angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page',
-  function ($scope, applicationServices, Page) {
+angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page', '$location', 'userServices',
+  function ($scope, applicationServices, Page, $location, userServices) {
 
     $scope.connexionButtonLabel = undefined;
-    $scope.user = undefined;
+    $scope.user = userServices.getUser();
+    $scope.userServices = userServices;
     $scope.Page = Page;
 
+    $scope.$watch('userServices.user', function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        console.log('new value');
+        $scope.user = newValue;
+      }
+    });
+
     applicationServices.getInitApplication().then(function (data) {
-      $scope.user = data;
+      //$scope.user = data;
 
       // Check if the user is connected
       if (data) {
@@ -23,6 +31,14 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
       applicationServices.logInLogOut().then(function (label) {
         $scope.connexionButtonLabel = label;
       });
+    };
+
+    $scope.go = function (path) {
+      $location.path(path);
+    };
+
+    $scope.logOutClick = function () {
+      userServices.logOut();
     };
   }]
 );

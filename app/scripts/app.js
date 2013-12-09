@@ -16,34 +16,41 @@ angular.module('septWebRadioApp')
     function ($routeProvider, $locationProvider) {
       $routeProvider
         .when('/index', {
-          templateUrl: 'views/main/main.html',
+          templateUrl: 'partials/main/main.html',
           controller: 'IndexCtrl'
         })
         .when('/stage', {
-          templateUrl: 'views/stage/stage.html',
+          templateUrl: 'partials/stage/stage.html',
           controller: 'StageCtrl'
         })
         .when('/replay', {
-          templateUrl: 'views/replay/replay.html',
+          templateUrl: 'partials/replay/replay.html',
           controller: 'ReplayCtrl'
         })
         .when('/topical', {
-          templateUrl: 'views/topical/topical.html',
+          templateUrl: 'partials/topical/topical.html',
           controller: 'TopicalCtrl'
         })
         .when('/door', {
-          templateUrl: 'views/door/door.html',
+          templateUrl: 'partials/door/door.html',
           controller: 'DoorCtrl'
         })
         .when('/backstage', {
-          templateUrl: 'views/backstage/backstage.html',
+          templateUrl: 'partials/backstage/backstage.html',
           controller: 'BackstageCtrl'
+        })
+        .when('/login', {
+          templateUrl: 'partials/sign/in.html',
+          controller: 'SignCtrl'
+        })
+        .when('/signup', {
+          templateUrl: 'partials/sign/up.html',
+          controller: 'SignCtrl'
         })
         .otherwise({
           redirectTo: '/index'
         });
 
-      // configure html5 to get links working on jsfiddle
       $locationProvider.html5Mode(true);
     }]
   );

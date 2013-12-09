@@ -1,0 +1,52 @@
+<form class="form-horizontal"
+      name="logInForm"
+      novalidate
+      ng-submit="logInUserAction(logInForm)">
+
+  <fieldset>
+    <legend>Log In</legend>
+
+    <div class="control-group"
+         ng-class="{error: logInForm.email.$dirty && logInForm.email.$invalid}">
+      <label class="control-label"
+             for="email">Email:</label>
+
+      <div class="controls">
+        <input type="email"
+               name="email"
+               id="email"
+               placeholder="Email"
+               ng-model="logInUser.email"
+               required="true"
+               auto-fillable-field>
+      </div>
+    </div>
+
+    <div class="control-group"
+         ng-class="{error: logInForm.password.$dirty && logInForm.password.$invalid}">
+      <label class="control-label"
+             for="password">Password:</label>
+
+      <div class="controls">
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="Password"
+               ng-model="logInUser.password"
+               required="true"
+               ng-minlength=3
+               ng-maxlength=255
+               auto-fillable-field>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit"
+                class="btn btn-primary"
+                ng-disabled="!logInForm.$valid">
+          Log In
+        </button>
+      </div>
+    </div>
+  </fieldset>
+</form>

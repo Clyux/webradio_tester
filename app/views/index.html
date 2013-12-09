@@ -18,7 +18,7 @@
 
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
 
-      <!-- build:css({.tmp,app}) styles/main.css -->
+      <!-- build:css({.tmp,app}) ../styles/main.css -->
       <link rel="stylesheet" href="styles/normalize.css">
       <link rel="stylesheet" href="styles/main.css">
       <link rel="stylesheet" href="styles/app.css">
@@ -34,13 +34,13 @@
     <![endif]-->
 
     <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
     <div class="global-wrapper">
 
-        <div ng-include src="'views/templates/header.tpl.html'"></div>
+        <div class="header-wrapper" ng-include src="'partials/templates/header.tpl.html'"></div>
 
         <div class="main-wrapper">
 
@@ -50,7 +50,7 @@
             <div class="content-wrapper" ng-view=""></div>
         </div>
 
-        <div ng-include src="'views/templates/footer.tpl.html'"></div>
+        <div ng-include src="'partials/templates/footer.tpl.html'"></div>
 
     </div>
 
@@ -62,10 +62,17 @@
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
 
+    <script type="text/javascript">
+        var windowsUser = undefined;
+        <% if (user) { %>
+            windowsUser = <%- JSON.stringify(user) %>;
+        <% } %>
+    </script>
+
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
 
-    <!-- build:js scripts/plugins.js -->
+    <!-- build:js({.tmp,app}) ../scripts/plugins.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -79,7 +86,7 @@
 
     <script src="//connect.soundcloud.com/sdk.js"></script>
 
-    <!-- build:js scripts/modules.js -->
+    <!-- build:js({.tmp,app}) ../scripts/modules.js -->
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -87,7 +94,7 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- build:js({.tmp,app}) ../scripts/scripts.js -->
     <script src="scripts/app.js"></script>
 
     <script src="scripts/services/index.js"></script>
@@ -95,6 +102,7 @@
     <script src="scripts/services/soundcloudSearch.js"></script>
     <script src="scripts/services/soundCloudServices.js"></script>
     <script src="scripts/services/swrDragAndDropService.js"></script>
+    <script src="scripts/services/userServices.js"></script>
 
     <script src="scripts/controllers/index.js"></script>
     <script src="scripts/controllers/IndexCtrl.js"></script>
@@ -104,9 +112,10 @@
     <script src="scripts/controllers/ReplayCtrl.js"></script>
     <script src="scripts/controllers/StageCtrl.js"></script>
     <script src="scripts/controllers/TopicalCtrl.js"></script>
+    <script src="scripts/controllers/SignCtrl.js"></script>
 
     <script src="scripts/directives/index.js"></script>
-    <script src="scripts/directives/delayedInput.js"></script>
+    <script src="scripts/directives/input.js"></script>
     <script src="scripts/directives/dragAndDrop.js"></script>
     <script src="scripts/directives/swrSelect.js"></script>
 

@@ -6,94 +6,124 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-/**
- * Auth callback
- */
-exports.authCallback = function (req, res) {
-  res.redirect('/');
-};
-
-/**
- * Show login form
- */
-exports.signin = function (req, res) {
-  res.render('users/signin', {
-    title: 'Signin',
-    message: req.flash('error')
-  });
-};
-
-/**
- * Show sign up form
- */
-exports.signup = function (req, res) {
-  res.render('users/signup', {
-    title: 'Sign up',
-    user: new User()
-  });
-};
-
-/**
- * Logout
- */
-exports.signout = function (req, res) {
-  req.logout();
-  res.redirect('/');
-};
-
-/**
- * Session
- */
-exports.session = function (req, res) {
-  res.redirect('/');
-};
-
-/**
- * Create user
- */
-exports.create = function (req, res, next) {
-  var user = new User(req.body);
-
-  user.provider = 'local';
-  user.save(function (err) {
+function logInUser(req, res, next, user) {
+  req.logIn(user, function (err) {
     if (err) {
-      return res.render('users/signup', {
-        errors: err.errors,
-        user: user
-      });
+      console.log(err);
+      return next(err);
     }
-    req.logIn(user, function (err) {
-      if (err) {
-        return next(err);
-      }
-      return res.redirect('/');
+
+    return res.send({
+      user: user
     });
   });
-};
+}
 
-/**
- * Send User
- */
-exports.me = function (req, res) {
-  res.jsonp(req.user || null);
-};
+module.exports = function (passport) {
+  return {
+    authCallback: function (req, res) {
+      res.redirect('/');
+    },
 
-/**
- * Find user by id
- */
-exports.user = function (req, res, next, id) {
-  User
-    .findOne({
-      _id: id
-    })
-    .exec(function (err, user) {
-      if (err) {
-        return next(err);
-      }
-      if (!user) {
-        return next(new Error('Failed to load User ' + id));
-      }
-      req.profile = user;
-      next();
-    });
+    /**
+     * Show login form
+     */
+    login: function (req, res) {
+      res.render('index', {
+        user: req.user ? JSON.stringify(req.user) : 'null'
+      });
+    },
+
+    /**
+     * Show sign up form
+     */
+    signup: function (req, res) {
+      res.render('index', {
+        user: req.user ? JSON.stringify(req.user) : 'null'
+      });
+    },
+
+    /**
+     * Logout
+     */
+    signout: function (req, res) {
+      req.logout();
+      return res.send({
+        message: 'Success'
+      });
+    },
+
+    /**
+     * Session
+     */
+    session: function (req, res, next) {
+      passport.authenticate('local',
+        function (err, user, info) {
+          if (err) {
+            console.log(err);
+            return next(err);
+          }
+          if (!user) {
+            return res.send({
+              error: info
+            });
+          }
+
+          // Log the user in session
+          return logInUser(req, res, next, user);
+        })(req, res, next);
+    },
+
+    /**
+     * Create user
+     */
+    create: function (req, res, next) {
+      var user = new User(req.body);
+      user.provider = 'local';
+
+      // Save the user inside MongoDB
+      user.save(function (err) {
+
+        if (err) {
+          console.log(err);
+          return res.send({
+            error: {
+              error: err.err,
+              errorCode: err.code
+            }
+          });
+        }
+
+        // Log the user in session
+        return logInUser(req, res, next, user);
+      });
+    },
+
+    /**
+     * Send User
+     */
+    me: function (req, res) {
+      res.jsonp(req.user || null);
+    },
+
+    /**
+     * Find user by id
+     */
+    user: function (req, res, next, id) {
+      User
+        .findOne({
+          _id: id
+        })
+        .exec(function (err, user) {
+          if (err) {
+            return next(err);
+          }
+          if (!user) {
+            return next(new Error('Failed to load User ' + id));
+          }
+          req.profile = user;
+          next();
+        });
+    }
+  };
 };

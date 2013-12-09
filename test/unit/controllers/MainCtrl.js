@@ -101,7 +101,8 @@ describe('Main', function () {
         expect(scope.user).toBeUndefined();
       });
 
-      it('should set the user to an object when the user is connected', function () {
+      // TODO: Remove this.
+      /*it('should set the user to an object when the user is connected', function () {
         expect(scope.user).toBeUndefined();
 
         isConnected = true;
@@ -110,7 +111,7 @@ describe('Main', function () {
         callDeferred(initAppDeferred, scope, userData);
 
         expect(scope.user).toBe(userData);
-      });
+      });*/
     });
 
 
