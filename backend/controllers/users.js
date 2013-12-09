@@ -31,7 +31,7 @@ module.exports = function (passport) {
     login: function (req, res) {
       console.log('login');
       res.render('index', {
-        user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user ? JSON.stringify(req.user) : 'null'
       });
     },
 
@@ -40,7 +40,7 @@ module.exports = function (passport) {
      */
     signup: function (req, res) {
       res.render('index', {
-        user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user ? JSON.stringify(req.user) : 'null'
       });
     },
 
@@ -126,5 +126,5 @@ module.exports = function (passport) {
           next();
         });
     }
-  }
+  };
 };

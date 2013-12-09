@@ -37,17 +37,17 @@ angular.module('septWebRadioDirectives')
   )
   .directive('autoFillableField', [function () {
     return {
-      restrict: "A",
-      require: "?ngModel",
+      restrict: 'A',
+      require: '?ngModel',
       link: function (scope, element, attrs, ngModel) {
         setInterval(function () {
           var previousValue = '';
           if (!angular.isUndefined(attrs.xAutoFillPrevVal)) {
             previousValue = attrs.xAutoFillPrevVal;
           }
-          if (element.val() != previousValue) {
+          if (element.val() !== previousValue) {
             if (!angular.isUndefined(ngModel)) {
-              if (!(element.val() == '' && ngModel.$pristine)) {
+              if (!(element.val() === '' && ngModel.$pristine)) {
                 attrs.xAutoFillPrevVal = element.val();
                 scope.$apply(function () {
                   ngModel.$setViewValue(element.val());
