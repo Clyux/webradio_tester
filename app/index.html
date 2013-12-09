@@ -40,7 +40,7 @@
 
     <div class="global-wrapper">
 
-        <div ng-include src="'views/templates/header.tpl.html'"></div>
+        <div class="header-wrapper" ng-include src="'views/templates/header.tpl.html'"></div>
 
         <div class="main-wrapper">
 
@@ -54,13 +54,23 @@
 
     </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
+
+      var windowsUser = undefined;
+
+      <% if (user) { %>
+        windowsUser = <%- JSON.stringify(user) %>;
+      <% } %>
+
+    </script>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <!--<script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src='//www.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+    </script>-->
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -108,7 +118,7 @@
     <script src="scripts/controllers/SignCtrl.js"></script>
 
     <script src="scripts/directives/index.js"></script>
-    <script src="scripts/directives/delayedInput.js"></script>
+    <script src="scripts/directives/input.js"></script>
     <script src="scripts/directives/dragAndDrop.js"></script>
     <script src="scripts/directives/swrSelect.js"></script>
 

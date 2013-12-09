@@ -21,8 +21,7 @@ angular.module('septWebRadioControllers').controller('SignCtrl', ['$scope', 'Pag
       }
     };
 
-    $scope.logInUser = function (logInForm) {
-      console.log(logInForm);
+    $scope.logInUserAction = function (logInForm) {
       if (logInForm.$valid) {
         userServices.logIn($scope.logInUser);
       }

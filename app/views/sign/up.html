@@ -1,6 +1,7 @@
 <form class="form-horizontal"
       name="signUpForm"
-      novalidate>
+      novalidate
+      ng-submit="createUser(signUpForm)">
 
     <fieldset>
         <legend>Signup</legend>
@@ -81,7 +82,6 @@
             <div class="controls">
                 <button type="submit"
                         class="btn btn-primary"
-                        ng-click="createUser(signUpForm)"
                         ng-disabled="!signUpForm.$valid">
                     Sign Up
                 </button>

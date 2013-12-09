@@ -32,8 +32,6 @@ module.exports = function (app, env, passport, dbConnexion) {
   app.set('views', config.appPath);
   app.use(express.static(config.appPath));
 
-  console.log(config.appPath);
-
   console.log(env + ' Environment');
 
   if (env !== 'production') {
@@ -54,8 +52,11 @@ module.exports = function (app, env, passport, dbConnexion) {
     app.use(express.cookieParser());
 
     // For the view engine
-    app.set('view engine', 'ejs');
-    app.engine('html', require('ejs').renderFile);
+    //app.set('view engine', 'ejs');
+    //app.engine('html', require('ejs').renderFile);
+
+    app.engine('.html', require('ejs').__express);
+    app.set('view engine', 'html');
 
     // request body parsing middleware should be above methodOverride
     app.use(express.urlencoded());
@@ -86,13 +87,14 @@ module.exports = function (app, env, passport, dbConnexion) {
     //Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
     app.use(function (err, req, res, next) {
       //Treat as 404
-      if (err.message.indexOf('not found')) {
+      if (err.message.indexOf('not found') !== -1) {
         console.log('not found');
         return next();
       }
 
       //Log it
-      console.error('Internal Error: ' + err.stack);
+      console.log('Internal Error:');
+      console.log(err);
 
       //Error page
       res.status(500).render('500.html', {
@@ -102,6 +104,7 @@ module.exports = function (app, env, passport, dbConnexion) {
 
     //Assume 404 since no middleware responded
     app.use(function (req, res) {
+      console.log('404 Error');
       res.status(404).render('404.html', {
         url: req.originalUrl,
         error: 'Not found'

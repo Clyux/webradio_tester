@@ -51,7 +51,6 @@ angular.module('septWebRadioApp')
           redirectTo: '/index'
         });
 
-      // configure html5 to get links working on jsfiddle
       $locationProvider.html5Mode(true);
     }]
   );
