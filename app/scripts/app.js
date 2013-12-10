@@ -17,7 +17,7 @@ angular.module('septWebRadioApp')
     function ($routeProvider, $locationProvider) {
       $routeProvider
         .when('/index', {
-          templateUrl: 'partials/main/main.html',
+          templateUrl: 'partials/index/index.html',
           controller: 'IndexCtrl'
         })
         .when('/stage', {

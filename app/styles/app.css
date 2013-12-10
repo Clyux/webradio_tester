@@ -21,7 +21,8 @@ ul {
 
 h1 {
     font-family: bacana, verdana, sans-serif;
-    font-size: 35pt;
+    font-size: 25pt;
+    margin-bottom: 10px;
 }
 
 p {
@@ -336,7 +337,7 @@ html {
     height: 30px;
     margin-left: 5px;
     -webkit-transition: all 1s ease;
-    -moz-transition: width 1s ease;
+    -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
 }
@@ -368,4 +369,15 @@ html {
     box-shadow: 5px 5px 2px #ababab;
     background: #f1f1f1;
     z-index: 2;
+}
+
+/* Index page */
+
+.soundcloud-player {
+
+}
+
+.triangle{
+    width: 5%;
+    height: 5%;
 }
