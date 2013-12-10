@@ -22,6 +22,7 @@ module.exports = function(config) {
       'app/bower_components/jquery-ui/ui/jquery-ui.js',
       'app/scripts/libs/jquery-ui/jquery.event.drag-2.2.js',
       'app/scripts/libs/jquery-ui/jquery.event.drop-2.2.js',
+      'app/bower_components/angular-growl/build/angular-growl.min.js',
       /* Modules.js */
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-cookies/angular-cookies.js',

@@ -8,7 +8,8 @@ angular.module('septWebRadioApp', [
   'septWebRadioControllers',
   'septWebRadioDirectives',
   'septWebRadioFactories',
-  'wu.masonry'
+  'wu.masonry',
+  'angular-growl'
 ]);
 
 angular.module('septWebRadioApp')
@@ -52,5 +53,11 @@ angular.module('septWebRadioApp')
         });
 
       $locationProvider.html5Mode(true);
+    }]
+  )
+  .config(['growlProvider',
+    function (growlProvider) {
+      growlProvider.globalTimeToLive(4000);
+      growlProvider.onlyUniqueMessages(true);
     }]
   );

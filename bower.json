@@ -7,20 +7,24 @@
     "jquery-ui": "~1.10.3",
     "es5-shim": "~2.0.8",
     "modernizr": "2.6.2",
-    "angular": "1.2.3",
-    "angular-route": "1.2.3",
-    "angular-resource": "1.2.3",
-    "angular-cookies": "1.2.3",
-    "angular-sanitize": "1.2.3",
-    "angular-animate": "1.2.3",
+    "angular": "1.2.4",
+    "angular-route": "1.2.4",
+    "angular-resource": "1.2.4",
+    "angular-cookies": "1.2.4",
+    "angular-sanitize": "1.2.4",
+    "angular-animate": "1.2.4",
     "angular-bootstrap": "~0.7.0",
     "underscore": "~1.5.2",
     "angular-masonry": "https://raw.github.com/passy/angular-masonry/master/angular-masonry.js",
     "masonry": "http://masonry.desandro.com/masonry.pkgd.js",
-    "imagesloaded": "http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js"
+    "imagesloaded": "http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js",
+    "angular-growl": "~0.4.0"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.3",
-    "angular-scenario": "1.2.3"
+    "angular-mocks": "1.2.4",
+    "angular-scenario": "1.2.4"
+  },
+  "resolutions": {
+    "angular": "1.2.4"
   }
 }
