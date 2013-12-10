@@ -10,13 +10,6 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
     $scope.userServices = userServices;
     $scope.Page = Page;
 
-    $scope.$watch('userServices.user', function (newValue, oldValue) {
-      if (newValue !== oldValue) {
-        console.log('new value');
-        $scope.user = newValue;
-      }
-    });
-
     applicationServices.getInitApplication().then(function (data) {
       //$scope.user = data;
 

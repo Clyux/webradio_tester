@@ -34,6 +34,8 @@ module.exports = function(config) {
       'app/bower_components/imagesloaded/imagesloaded.js',
       'app/bower_components/angular-masonry/angular-masonry.js',
 
+      'app/bower_components/angular-growl/build/angular-growl.min.js',
+
       /* Modules.js */
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
