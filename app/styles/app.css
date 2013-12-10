@@ -235,6 +235,50 @@ html {
 }
 
 .masonry .masonry-brick {
+    display: none;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 10px 10px 0;
+    background: #f8f8f8;
+    padding: 3px 3px;
+    box-shadow: 2px 2px 13px #999;
+}
+
+.masonry-brick.loaded {
+    display: block;
+}
+
+.masonry-brick .author-name {
+    position: absolute;
+    top: 30px;
+    width: 164px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: andale Mono, monaco;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.masonry-brick .title-name {
+    position: absolute;
+    top: 0;
+    width: 164px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: andale Mono, monaco;
+}
+
+.masonry-brick img {
+    position: relative;
+    top: 60px;
+    width: 140px;
+    height: 140px;
+}
+
+/*.masonry .masonry-brick {
     display: inline-block;
     position: relative;
     width: 170px;
@@ -270,7 +314,7 @@ html {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+}*/
 
 /* Css animations for search in stage page */
 .masonry-animation.ng-leave {
