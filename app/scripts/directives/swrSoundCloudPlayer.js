@@ -21,7 +21,7 @@ angular.module('septWebRadioDirectives')
            */
 
           var config = '&amp;auto_play=true&amp;download=true&amp;show_comments=false';
-          var widgetUrl = 'http://api.soundcloud.com/playlists/1595551' + config;
+          var widgetUrl = ' https://soundcloud.com/lapause/sets/la-pause-playlist-21' + config;
           var sourceUrl = location.protocol + '//w.soundcloud.com/player/?url=' + widgetUrl;
 
           element.attr('src', sourceUrl);
