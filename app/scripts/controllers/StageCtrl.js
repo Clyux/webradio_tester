@@ -54,7 +54,7 @@ angular.module('septWebRadioControllers')
       };
 
       $scope.togglePlaylist = function (playlistId) {
-        // If the playlist is not here, wee add it
+        // If the playlist is not here, we add it
         if (_.indexOf($scope.selectedPlaylists, playlistId) === -1) {
           $scope.selectedPlaylists.push(playlistId);
         } else {
@@ -65,8 +65,16 @@ angular.module('septWebRadioControllers')
 
       $scope.open = function (items) {
         var modalInstance = $modal.open({
-          templateUrl: 'myModalContent.html',
-          controller: ModalInstanceCtrl,
+          templateUrl: 'createPlaylistModal.html',
+          controller: function ($scope, $modalInstance, items) {
+            $scope.items = items;
+            $scope.ok = function () {
+              $modalInstance.close($scope.items);
+            };
+            $scope.cancel = function () {
+              $modalInstance.dismiss('cancel');
+            };
+          },
           resolve: {
             items: function () {
               return items;
@@ -75,20 +83,9 @@ angular.module('septWebRadioControllers')
         });
 
         modalInstance.result.then(function (selectedItem) {
-          $scope.selected = selectedItem;
         }, function () {
           $log.info('Modal dismissed at: ' + new Date());
         });
-      };
-
-      var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
-        $scope.items = items;
-        $scope.ok = function () {
-          $modalInstance.close($scope.items);
-        };
-        $scope.cancel = function () {
-          $modalInstance.dismiss('cancel');
-        };
       };
     }]
   );

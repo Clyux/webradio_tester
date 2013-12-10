@@ -27,7 +27,7 @@ h1 {
 
 p {
     font-family: andale mono, monaco, sans-serif;
-    font-size: 12pt;
+    font-size: 10pt;
     color: #000000;
 }
 
@@ -377,7 +377,7 @@ html {
 
 }
 
-.triangle{
+.triangle {
     width: 5%;
     height: 5%;
 }
