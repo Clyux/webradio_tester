@@ -236,13 +236,15 @@ html {
 
 .masonry .masonry-brick {
     display: none;
-    position: relative;
     width: 200px;
-    height: 200px;
-    margin: 0 10px 10px 0;
-    background: #f8f8f8;
+    height: 215px;
+    margin: 0 15px 15px 0;
+    background: #f7f7f7;
     padding: 3px 3px;
-    box-shadow: 2px 2px 13px #999;
+    box-shadow: 1px 1px 4px #bbbbbb;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: solid 1px #e4e4e4;
 }
 
 .masonry-brick.loaded {
@@ -265,7 +267,7 @@ html {
     position: absolute;
     top: 0;
     width: 164px;
-    white-space: normal;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: andale Mono, monaco;
@@ -277,44 +279,6 @@ html {
     width: 140px;
     height: 140px;
 }
-
-/*.masonry .masonry-brick {
-    display: inline-block;
-    position: relative;
-    width: 170px;
-    height: 170px;
-    border: solid 1px #ccc;
-    margin: 0 10px 10px 0;
-    background: #f8f8f8;
-    padding: 3px 3px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-
-.masonry-brick img {
-    position: relative;
-    top: 60px;
-    width: 100px;
-    height: 100px;
-}
-
-.masonry-brick .title-name {
-    position: absolute;
-    top: 0;
-    width: 164px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.masonry-brick .author-name {
-    position: absolute;
-    top: 30px;
-    width: 164px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}*/
 
 /* Css animations for search in stage page */
 .masonry-animation.ng-leave {
@@ -363,26 +327,26 @@ html {
     }
 }
 
+.masonry .swr-drag-start {
+    opacity: 0.9;
+}
+
 .add-to-playlist {
     width: 150px;
     height: 30px;
-    margin: 0, 20px, 0, 0;
+    margin-left: 5px;
     -webkit-transition: all 1s ease;
     -moz-transition: width 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
 }
 
-.masonry .swr-drag-start {
-    opacity: 0.9;
-}
-
-.swr-drop-over {
+.add-to-playlist.swr-drop-over {
     /* applied to a drop target when a draggable object is over it */
     opacity: 0.5;
 }
 
-.swr-drop-target {
+.add-to-playlist.swr-drop-target {
     /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
     width: 200px;
     height: 36px;
