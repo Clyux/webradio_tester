@@ -10,10 +10,6 @@ angular.module('septWebRadioServices')
       var self = this;
 
       this.user = undefined;
-      this.config = {
-        ttl: 3500,
-        enableHtml: false
-      };
 
       try {
         self.user = JSON.parse($window.windowsUser);
