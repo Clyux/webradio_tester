@@ -19,7 +19,7 @@ describe('my app', function() {
     });
 
     it('should render index when user navigates to /index', function() {
-      expect(element('[ng-view] h1:first').text()).toMatch(/Live listen/);
+      expect(element('[ng-view] h1:first').text()).toMatch(/Live/);
     });
 
   });
