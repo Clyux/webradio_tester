@@ -76,7 +76,7 @@ angular.module('septWebRadioApp')
 
           return function (promise) {
             return promise.then(success, error);
-          }
+          };
         }];
 
       $httpProvider.responseInterceptors.push(interceptor);
