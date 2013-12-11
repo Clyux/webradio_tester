@@ -91,7 +91,6 @@ exports.all = function (req, res) {
       if (err) {
         return res.send({
           errors: err.errors,
-          playlist: playlist,
           status: 500
         });
       } else {
