@@ -12,7 +12,7 @@ describe('Stage', function () {
   // The stage controller test
   describe('Controller', function () {
 
-    var scope, soundcloudSearchMock, controller, q, autoCompleteSearchDeferred, soundcloudSearch, page, Playlists;
+    var scope, soundcloudSearchMock, controller, q, autoCompleteSearchDeferred, soundcloudSearch, page;
 
     beforeEach(function () {
       soundcloudSearchMock = {
@@ -24,11 +24,10 @@ describe('Stage', function () {
     });
 
     // init controller for test
-    beforeEach(inject(function ($rootScope, _soundcloudSearch_, $q, _Page_, _Playlists_) {
+    beforeEach(inject(function ($rootScope, _soundcloudSearch_, $q, _Page_) {
       scope = $rootScope.$new();
       q = $q;
       page = _Page_;
-      Playlists = _Playlists_;
       soundcloudSearch = _soundcloudSearch_;
     }));
 
@@ -39,7 +38,6 @@ describe('Stage', function () {
       beforeEach(inject(function ($controller) {
         spyOn(soundcloudSearchMock, 'autoCompleteSearch').andCallThrough();
         spyOn(page, 'setTitle').andCallThrough();
-        spyOn(Playlists, 'query');
 
         controller = $controller('StageCtrl', {
           $scope: scope, soundcloudSearch: soundcloudSearchMock});

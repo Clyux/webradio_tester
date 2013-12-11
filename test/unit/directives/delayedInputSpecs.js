@@ -3,17 +3,14 @@
 describe('Delayed Input Directives', function () {
   beforeEach(module('septWebRadioApp'));
 
-  var elm, scopeController, controller, $timeout, $compile, Playlists;
+  var elm, scopeController, controller, $timeout, $compile;
   var defaultInputElement = '<input delayed-input ng-model="searchedTerm" call-back="search()" />';
   var complexInputElement = '<input delayed-input ng-model="searchedTerm" delayed-time="700" call-back="search()" />';
 
-  beforeEach(inject(function ($rootScope, _$compile_, $controller, $injector, _Playlists_) {
+  beforeEach(inject(function ($rootScope, _$compile_, $controller, $injector) {
     scopeController = $rootScope.$new();
     $timeout = $injector.get('$timeout');
     $compile = _$compile_;
-    Playlists = _Playlists_;
-
-    spyOn(Playlists, 'query');
 
     controller = $controller('StageCtrl', {
       $scope: scopeController});

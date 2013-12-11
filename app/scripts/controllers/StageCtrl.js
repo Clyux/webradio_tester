@@ -15,10 +15,12 @@ angular.module('septWebRadioControllers')
       $scope.list1 = [];
       Page.setTitle('Stage');
 
-      // Get the playlists when going to that page.
-      Playlists.query(function (playlists) {
-        $scope.playlists = playlists;
-      });
+      $scope.findAllPlaylists = function () {
+        // Get the playlists when going to that page.
+        Playlists.query(function (playlists) {
+          $scope.playlists = playlists;
+        });
+      };
 
       $scope.search = function () {
         // If there is a term to search
