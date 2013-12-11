@@ -7,12 +7,12 @@
             <li ng-repeat="playlist in playlists"
                 data-swr-select
                 data-swr-select-class="active"
-                ng-click="togglePlaylist(playlist.id)">
-                <a> <i class="icon-headphones"></i> {{playlist.name}}</a>
+                ng-click="togglePlaylist(playlist._id)">
+                <a> <i class="icon-headphones"></i> {{playlist.name}} ({{playlist.items.length}})</a>
             </li>
         </ul>
         <div data-ng-hide="userServices.isConnected()">
-            <p>You have to be <a href="/login">connected</a> in order to save and create some playlists.</p>
+            <p>You have to be <a href="/login">connected</a> in order to create and edit some playlists.</p>
         </div>
     </div>
 </div>
@@ -33,7 +33,9 @@
     <button class="btn btn-inverse add-to-playlist"
             data-swr-drop-target="true"
             data-on-drop="dropped(droppedItems)"
-            data-ng-show="userServices.isConnected()">Add to Playlist
+            ng-click="clickOnCreateButton()"
+            data-ng-show="userServices.isConnected()">
+      {{ getButtonLabel() }}
     </button>
 </div>
 
@@ -54,12 +56,8 @@
 <script type="text/ng-template"
         id="createPlaylistModal.html">
     <div class="modal-header">
-        <h3>You can create a playlist with your {{ items.length }} musics</h3>
+        <h3>Create a playlist with your {{ items.length }} selected music!</h3>
     </div>
-    <!--<div class="modal-body"
-         ng-repeat="item in items">
-        Selected: <b>{{ item.title }}</b>
-    </div>-->
     <div class="modal-body">
         <form class="form-horizontal"
               name="createPlaylistForm"
