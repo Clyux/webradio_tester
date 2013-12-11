@@ -3,21 +3,21 @@
 /* Input Directives */
 
 angular.module('septWebRadioDirectives')
-  .directive('delayedInput', ['$timeout',
+  .directive('swrDelayedInput', ['$timeout',
     function ($timeout) {
       return {
         restrict: 'A',
         scope: {
           ngModel: '=',
-          delayedTime: '=',
-          callBack: '&'
+          swrDelayedInputDelayedTime: '=',
+          swrDelayedInputCallback: '&'
         },
         link: function (scope) {
 
           var timer = false;
-          var delayedTime = typeof scope.delayedTime !== 'undefined' ? scope.delayedTime : 500;
+          var delayedTime = typeof scope.swrDelayedInputDelayedTime !== 'undefined' ? scope.swrDelayedInputDelayedTime : 500;
 
-          if (typeof scope.callBack === 'function') {
+          if (typeof scope.swrDelayedInputCallback === 'function') {
             scope.$watch('ngModel', function (newVal, oldVal) {
               if (newVal === oldVal) {
                 return;
@@ -27,7 +27,7 @@ angular.module('septWebRadioDirectives')
                   $timeout.cancel(timer);
                 }
                 timer = $timeout(function () {
-                  scope.callBack();
+                  scope.swrDelayedInputCallback();
                 }, delayedTime);
               }
             });

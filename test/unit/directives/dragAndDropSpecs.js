@@ -125,7 +125,7 @@ describe('Drag And Drop Directives', function () {
         expect(swrDragAndDropService.removeDraggedItem).toHaveBeenCalledWith('123');
         expect(swrDragAndDropService.getDraggedItems()).toEqual([]);
 
-        expect(elm.animate).toHaveBeenCalledWith({top: 0, left: 0}, 1000);
+        expect(elm.animate).toHaveBeenCalledWith({top: 0, left: 0}, 600);
       });
 
       it('should call the emit method', function () {
@@ -246,20 +246,20 @@ describe('Drag And Drop Directives', function () {
         swrDragAndDropService.addDraggedItem('123');
         swrDragAndDropService.addDraggedItem('456');
 
-        var elm = createElement('<div data-swr-drop-target="true" data-on-drop="dropped(droppedItems)"/>');
+        var elm = createElement('<div data-swr-drop-target="true" data-swr-drop-target-on-drop="dropped(droppedItems)"/>');
 
-        scopeController.onDrop = function (items) {
+        scopeController.swrDropTargetOnDrop = function (items) {
           expect(items).toEqual({droppedItems: ['123', '456']});
         };
 
-        spyOn(scopeController, 'onDrop').andCallThrough();
+        spyOn(scopeController, 'swrDropTargetOnDrop').andCallThrough();
         spyOn(swrDragAndDropService, 'getDraggedItems').andCallThrough();
         spyOn(swrDragAndDropService, 'removeAllDraggedItems').andCallThrough();
 
         controller.drop();
 
         expect(swrDragAndDropService.getDraggedItems).toHaveBeenCalled();
-        expect(scopeController.onDrop).toHaveBeenCalled();
+        expect(scopeController.swrDropTargetOnDrop).toHaveBeenCalled();
         expect(swrDragAndDropService.removeAllDraggedItems).toHaveBeenCalled();
       });
     });

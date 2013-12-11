@@ -7,8 +7,8 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('swrDragAndDropService', [
-    function () {
+  .service('swrDragAndDropService', ['$rootScope',
+    function ($rootScope) {
 
       var self = this;
       this.dragItems = [];
@@ -18,10 +18,12 @@ angular.module('septWebRadioServices')
         if (_.indexOf(self.dragItems, $item) === -1) {
           self.dragItems.push($item);
         }
+        $rootScope.$emit('SWR-DRAG-START-NUMBER', _.size(self.dragItems));
       };
 
       this.removeDraggedItem = function ($item) {
         self.dragItems = _.without(self.dragItems, $item);
+        $rootScope.$emit('SWR-DRAG-END-NUMBER');
       };
 
       this.getDraggedItems = function () {

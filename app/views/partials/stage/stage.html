@@ -1,16 +1,24 @@
 <div data-ng-init="findAllPlaylists()">
     <div>
         <h3>Your Playlists <i class="icon-music"></i></h3>
-        <!--<span class="help-block">You can click on your playlists in order to add music to them.</span>-->
-        <ul class="nav nav-pills"
-            data-ng-show="userServices.isConnected()">
-            <li ng-repeat="playlist in playlists"
-                data-swr-select
-                data-swr-select-class="active"
-                ng-click="togglePlaylist(playlist._id)">
-                <a> <i class="icon-headphones"></i> {{playlist.name}} ({{playlist.items.length}})</a>
-            </li>
-        </ul>
+
+        <div data-ng-show="userServices.isConnected()">
+            <ul class="nav nav-pills"
+                data-ng-show="!playlists || playlists.length">
+                <li ng-repeat="playlist in playlists"
+                    data-swr-select
+                    data-swr-select-class="active"
+                    data-ng-click="togglePlaylist(playlist._id)">
+                    <a> <i class="icon-headphones"></i> {{playlist.name}} ({{playlist.items.length}})</a>
+                </li>
+            </ul>
+
+            <div data-ng-hide="!playlists || playlists.length">
+                <p>You don't have playlist yet.</p>
+
+                <p>You can create some by drag&dropping items or by clicking on Create a Playlist's button!</p>
+            </div>
+        </div>
         <div data-ng-hide="userServices.isConnected()">
             <p>You have to be <a href="/login">connected</a> in order to create and edit some playlists.</p>
         </div>
@@ -23,49 +31,61 @@
         <input class="input-search"
                type="text"
                placeholder="Type your search"
-               ng-model="searchedTerm"
-               delayed-input
-               call-back="search()"
-               delayed-time="300"/>
+               data-ng-model="searchedTerm"
+               swr-delayed-input
+               swr-delayed-input-callback="search()"
+               swr-delayed-input-delayed-time="300"/>
     </div>
     <img src="images/ajax-loader.gif"
-         ng-show="isSearching">
+         data-ng-show="isSearching">
     <button class="btn btn-inverse add-to-playlist"
             data-swr-drop-target="true"
-            data-on-drop="dropped(droppedItems)"
-            ng-click="clickOnCreateButton()"
+            data-swr-drop-target-on-drop="dropped(droppedItems)"
+            data-ng-click="clickOnCreateButton()"
             data-ng-show="userServices.isConnected()">
-      {{ getButtonLabel() }}
+        {{ getButtonLabel() }}
     </button>
 </div>
 
 <div class="masonry"
-     masonry="{transitionDuration: '0.6s'}">
-    <div class="masonry-brick masonry-animation scale-animation"
+     masonry
+     column-width="200"
+     masonry-options="{ transitionDuration: '0.6s', isInitLayout: false, gutter: 20 }">
+    <div class="masonry-brick"
          ng-repeat="item in searchedItems"
          data-swr-draggable="true"
          data-item-id="{{item.id}}"
-         data-swr-select>
+         data-swr-select
+         data-swr-select-callback="toggleSelectItem(toggleItem)">
         <div class="title-name">{{item.title}}</div>
         <div class="author-name">{{item.user.username}}</div>
         <img class="img-polaroid center-block"
-             ng-src="{{item.artwork_url}}"/>
+             data-ng-src="{{item.artwork_url}}"/>
     </div>
 </div>
 
 <script type="text/ng-template"
         id="createPlaylistModal.html">
-    <div class="modal-header">
-        <h3>Create a playlist with your {{ items.length }} selected music!</h3>
+    <div class="modal-header"
+         data-ng-hide="!itemIds || itemIds.length">
+        <h3>
+            Create a new playlist!
+        </h3>
+    </div>
+    <div class="modal-header"
+         data-ng-show="!itemIds || itemIds.length">
+        <h3>
+            Create a new playlist with your {{ itemIds.length }} selected music!
+        </h3>
     </div>
     <div class="modal-body">
         <form class="form-horizontal"
               name="createPlaylistForm"
               novalidate
-              ng-submit="createPlaylist(createPlaylistForm)">
+              data-ng-submit="createPlaylist(createPlaylistForm)">
 
             <div class="control-group"
-                 ng-class="{error: createPlaylistForm.playlistName.$dirty && createPlaylistForm.playlistName.$invalid}">
+                 data-ng-class="{error: createPlaylistForm.playlistName.$dirty && createPlaylistForm.playlistName.$invalid}">
                 <label class="control-label"
                        for="username">Playlist Name:</label>
 
@@ -74,22 +94,20 @@
                            id="playlistName"
                            name="playlistName"
                            placeholder="Playlist Name"
-                           ng-model="playlist.name"
+                           data-ng-model="playlist.name"
                            required="true"
-                           ng-minlength=1
-                           ng-maxlength=255>
+                           data-ng-minlength=1
+                           data-ng-maxlength=255>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button class="btn btn-primary"
                         type="submit"
-                        ng-disabled="!createPlaylistForm.$valid">Create
+                        data-ng-disabled="!createPlaylistForm.$valid">Create
                 </button>
                 <button class="btn btn-warning"
-                        ng-click="cancel()">Cancel
+                        data-ng-click="cancel()">Cancel
                 </button>
         </form>
     </div>
-
 </script>

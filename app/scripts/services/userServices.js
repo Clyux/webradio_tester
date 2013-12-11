@@ -40,7 +40,6 @@ angular.module('septWebRadioServices')
         $http.post('/users', user)
           .success(function (data) {
             if (data.error) {
-              console.log(data);
               self.user = undefined;
 
               switch (data.error.errorCode) {
@@ -57,8 +56,8 @@ angular.module('septWebRadioServices')
               growl.addSuccessMessage('Account successfully created!');
             }
           })
-          .error(function (data) {
-            console.log('error' + data);
+          .error(function () {
+            growl.addErrorMessage('Error, check your connexion!');
           });
       };
 
@@ -74,8 +73,8 @@ angular.module('septWebRadioServices')
               growl.addSuccessMessage('Successfully connected!');
             }
           })
-          .error(function (data) {
-            console.log('error' + data);
+          .error(function () {
+            growl.addErrorMessage('Error, check your connexion!');
           });
       };
 
@@ -85,8 +84,8 @@ angular.module('septWebRadioServices')
             self.user = undefined;
             growl.addSuccessMessage('Successfully disconnected!');
           })
-          .error(function (data) {
-            console.log('error' + data);
+          .error(function () {
+            growl.addErrorMessage('Error, check your connexion!');
           });
       };
     }]

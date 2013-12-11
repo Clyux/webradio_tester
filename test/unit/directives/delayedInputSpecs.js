@@ -4,8 +4,8 @@ describe('Delayed Input Directives', function () {
   beforeEach(module('septWebRadioApp'));
 
   var elm, scopeController, controller, $timeout, $compile;
-  var defaultInputElement = '<input delayed-input ng-model="searchedTerm" call-back="search()" />';
-  var complexInputElement = '<input delayed-input ng-model="searchedTerm" delayed-time="700" call-back="search()" />';
+  var defaultInputElement = '<input swr-delayed-input ng-model="searchedTerm" swr-delayed-input-callback="search()" />';
+  var complexInputElement = '<input swr-delayed-input ng-model="searchedTerm" swr-delayed-input-delayed-time="700" swr-delayed-input-callback="search()" />';
 
   beforeEach(inject(function ($rootScope, _$compile_, $controller, $injector) {
     scopeController = $rootScope.$new();

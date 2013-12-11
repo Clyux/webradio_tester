@@ -22,9 +22,11 @@ angular.module('septWebRadioFactories')
           var elementLoop;
           for (var index = 0; index < listSize; index++) {
             elementLoop = list[index];
-            if (elementLoop[attributeName] === itemToRemove) {
-              list.splice(index, 1);
-              break;
+            if (elementLoop) {
+              if (elementLoop[attributeName] === itemToRemove) {
+                list.splice(index, 1);
+                break;
+              }
             }
           }
           return list;
@@ -81,6 +83,7 @@ angular.module('septWebRadioFactories')
           var p = (Math.random().toString(16) + '000000000').substr(2, 8);
           return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
         }
+
         return _p8() + _p8(true) + _p8(true) + _p8();
       },
 

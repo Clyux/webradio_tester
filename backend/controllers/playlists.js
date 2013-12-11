@@ -85,7 +85,8 @@ exports.show = function (req, res) {
  * List of playlist
  */
 exports.all = function (req, res) {
-  Playlist.find().sort('-created')
+  Playlist.find({user: req.user._id})
+    .sort('-created')
     .populate('user', 'name lastname username')
     .exec(function (err, playlists) {
       if (err) {
