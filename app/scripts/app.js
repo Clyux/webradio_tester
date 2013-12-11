@@ -4,6 +4,7 @@ angular.module('septWebRadioApp', [
   'ngRoute',
   'ngAnimate',
   'ngCookies',
+  'ngResource',
   'ui.bootstrap',
   'septWebRadioControllers',
   'septWebRadioDirectives',

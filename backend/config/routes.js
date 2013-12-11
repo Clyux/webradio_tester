@@ -9,18 +9,22 @@ module.exports = function (app, passport, auth) {
 
   //Setting up the users api
   app.post('/users', users.create);
-
-
   app.post('/users/session', users.session);
-
   app.get('/users/me', users.me);
 
   //Finish with setting up the userId param
   app.param('userId', users.user);
 
-  // Article Routes
-  var articles = require('../controllers/articles');
-  app.post('/articles', auth.requiresLogin, articles.create);
+  // Playlist Routes
+  var playlists = require('../controllers/playlists');
+  app.get('/playlists', auth.requiresLogin, playlists.all);
+  app.post('/playlists', auth.requiresLogin, playlists.create);
+  app.get('/playlists/:playlistId', playlists.show);
+  app.put('/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.update);
+  app.del('/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.destroy);
+
+  // Finish with setting up the playlistId param
+  app.param('playlistId', playlists.playlist);
 
   /*
    //Finish with setting up the userId param

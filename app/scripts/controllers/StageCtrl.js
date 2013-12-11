@@ -5,20 +5,20 @@
 /* Stage Controller */
 
 angular.module('septWebRadioControllers')
-  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Page',
-    function ($scope, soundcloudSearch, utilities, $modal, $log, Page) {
+  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Page', 'Playlists', 'growl',
+    function ($scope, soundcloudSearch, utilities, $modal, $log, Page, Playlists, growl) {
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
-      $scope.playlists = [
-        {id: 1, title: 'Playlist 1'},
-        {id: 2, title: 'Playlist 2'},
-        {id: 3, title: 'Playlist 3'},
-        {id: 4, title: 'Playlist 4'}
-      ];
+      $scope.playlists = [];
       $scope.selectedPlaylists = [];
       $scope.list1 = [];
       Page.setTitle('Stage');
+
+      // Get the playlists when going to that page.
+      Playlists.query(function (playlists) {
+        $scope.playlists = playlists;
+      });
 
       $scope.search = function () {
         // If there is a term to search
@@ -68,8 +68,31 @@ angular.module('septWebRadioControllers')
           templateUrl: 'createPlaylistModal.html',
           controller: function ($scope, $modalInstance, items) {
             $scope.items = items;
-            $scope.ok = function () {
-              $modalInstance.close($scope.items);
+            $scope.playlist = {};
+
+            $scope.createPlaylist = function (createPlaylistForm) {
+              // If the form is valid
+              if (createPlaylistForm.$valid) {
+                var itemsToCreate = [];
+
+                angular.forEach(items, function (item) {
+                  var itemToInsert = {
+                    provider: 'soundcloud',
+                    musicId: item.id
+                  };
+                  itemsToCreate.push(itemToInsert);
+                });
+
+                var playlist = new Playlists({
+                  name: $scope.playlist.name,
+                  items: itemsToCreate
+                });
+
+                playlist.$save(function (responsePlaylist) {
+                  $modalInstance.close(responsePlaylist);
+
+                });
+              }
             };
             $scope.cancel = function () {
               $modalInstance.dismiss('cancel');
@@ -82,10 +105,12 @@ angular.module('septWebRadioControllers')
           }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-        }, function () {
-          $log.info('Modal dismissed at: ' + new Date());
-        });
+        modalInstance.result.then(
+          function (savedPlaylist) {
+            $scope.playlists.push(savedPlaylist);
+            growl.addSuccessMessage('Playlist successfully created!');
+          }
+        );
       };
     }]
   );

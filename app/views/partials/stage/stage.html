@@ -8,7 +8,7 @@
                 data-swr-select
                 data-swr-select-class="active"
                 ng-click="togglePlaylist(playlist.id)">
-                <a> <i class="icon-headphones"></i> {{playlist.title}}</a>
+                <a> <i class="icon-headphones"></i> {{playlist.name}}</a>
             </li>
         </ul>
         <div data-ng-hide="userServices.isConnected()">
@@ -54,18 +54,44 @@
 <script type="text/ng-template"
         id="createPlaylistModal.html">
     <div class="modal-header">
-        <h3>You can create a playlist with the selected item:</h3>
+        <h3>You can create a playlist with your {{ items.length }} musics</h3>
     </div>
-    <div class="modal-body"
+    <!--<div class="modal-body"
          ng-repeat="item in items">
         Selected: <b>{{ item.title }}</b>
+    </div>-->
+    <div class="modal-body">
+        <form class="form-horizontal"
+              name="createPlaylistForm"
+              novalidate
+              ng-submit="createPlaylist(createPlaylistForm)">
+
+            <div class="control-group"
+                 ng-class="{error: createPlaylistForm.playlistName.$dirty && createPlaylistForm.playlistName.$invalid}">
+                <label class="control-label"
+                       for="username">Playlist Name:</label>
+
+                <div class="controls">
+                    <input type="text"
+                           id="playlistName"
+                           name="playlistName"
+                           placeholder="Playlist Name"
+                           ng-model="playlist.name"
+                           required="true"
+                           ng-minlength=1
+                           ng-maxlength=255>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary"
+                        type="submit"
+                        ng-disabled="!createPlaylistForm.$valid">Create
+                </button>
+                <button class="btn btn-warning"
+                        ng-click="cancel()">Cancel
+                </button>
+        </form>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary"
-                ng-click="ok()">OK
-        </button>
-        <button class="btn btn-warning"
-                ng-click="cancel()">Cancel
-        </button>
-    </div>
+
 </script>
