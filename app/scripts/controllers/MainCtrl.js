@@ -5,7 +5,6 @@
 angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page', '$location', 'userServices',
   function ($scope, applicationServices, Page, $location, userServices) {
 
-    $scope.connexionButtonLabel = undefined;
     $scope.user = userServices.getUser();
     $scope.userServices = userServices;
     $scope.Page = Page;
@@ -27,6 +26,9 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
     };
 
     $scope.go = function (path) {
+      if (path === undefined || path === ''){
+        path = '/index';
+      }
       $location.path(path);
     };
 

@@ -13,6 +13,8 @@ angular.module('septWebRadioControllers').controller('SignCtrl', ['$scope', 'Pag
       Page.setTitle('Sign Up');
     } else if ($scope.$location.$$url === '/login') {
       Page.setTitle('Log In');
+    } else {
+      Page.setTitle();
     }
 
     $scope.createUser = function (userForm) {
