@@ -83,8 +83,9 @@ describe('Main', function () {
 
       it('should Init the app and set the label to Log In when the user is not connected', function () {
         expect(scope.connexionButtonLabel).toBeUndefined();
-        expect(applicationServicesMock.getInitApplication).toHaveBeenCalled();
-        expect(applicationServicesMock.getInitApplication.calls.length).toEqual(1);
+        expect(applicationServicesMock.getInitApplication).not.toHaveBeenCalled();
+
+        scope.init();
 
         callDeferred(initAppDeferred, scope);
 
@@ -94,10 +95,11 @@ describe('Main', function () {
 
       it('should Init the app and set the label to Log Out when the user is connected', function () {
         expect(scope.connexionButtonLabel).toBeUndefined();
-        expect(applicationServicesMock.getInitApplication).toHaveBeenCalled();
-        expect(applicationServicesMock.getInitApplication.calls.length).toEqual(1);
+        expect(applicationServicesMock.getInitApplication).not.toHaveBeenCalled();
 
         isConnected = true;
+
+        scope.init();
 
         callDeferred(initAppDeferred, scope);
 

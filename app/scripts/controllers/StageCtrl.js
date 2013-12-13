@@ -5,8 +5,8 @@
 /* Stage Controller */
 
 angular.module('septWebRadioControllers')
-  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Page', 'Playlists', 'growl', '$rootScope',
-    function ($scope, soundcloudSearch, utilities, $modal, $log, Page, Playlists, growl, $rootScope) {
+  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Playlists', 'growl', '$rootScope', 'playlistServices',
+    function ($scope, soundcloudSearch, utilities, $modal, $log, Playlists, growl, $rootScope, playlistServices) {
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
@@ -14,9 +14,12 @@ angular.module('septWebRadioControllers')
       $scope.selectedPlaylistIds = [];
       $scope.selectedItemIds = [];
       $scope.isSingleDragAndDrop = false;
-      Page.setTitle('Stage');
+      var self = this;
 
-      $scope.findAllPlaylists = function () {
+      $scope.init = function () {
+        $scope.initPageTitle('Stage');
+
+        // Then get all the playlists
         if ($scope.userServices.isConnected()) {
           // Get the playlists when going to that page.
           Playlists.query(function (playlists) {
@@ -45,11 +48,11 @@ angular.module('septWebRadioControllers')
 
       $scope.dropped = function (droppedItems) {
         var itemIds = angular.copy(droppedItems);
-        createOrUpdatePlaylist(itemIds);
+        self.createOrUpdatePlaylist(itemIds);
       };
 
       $scope.clickOnCreateButton = function () {
-        createOrUpdatePlaylist($scope.selectedItemIds);
+        self.createOrUpdatePlaylist($scope.selectedItemIds);
       };
 
       $scope.getButtonLabel = function () {
@@ -101,36 +104,34 @@ angular.module('septWebRadioControllers')
 
       $scope.togglePlaylist = function (playlistId) {
         // Add or remove the playlist id
-        $scope.selectedPlaylistIds = addOrRemoveItem($scope.selectedPlaylistIds, playlistId);
+        $scope.selectedPlaylistIds = utilities.addOrRemoveItem($scope.selectedPlaylistIds, playlistId);
       };
 
       $scope.toggleSelectItem = function (toggleItem) {
         // Add or remove the item id
-        $scope.$apply($scope.selectedItemIds = addOrRemoveItem($scope.selectedItemIds, toggleItem));
+        $scope.$apply($scope.selectedItemIds = utilities.addOrRemoveItem($scope.selectedItemIds, toggleItem));
       };
 
-      function addOrRemoveItem(list, item) {
-        if (_.indexOf(list, item) === -1) {
-          list.push(item);
-        } else {
-          // Else, we remove it
-          list = _.without(list, item);
-        }
-        return list;
-      }
-
-      function createOrUpdatePlaylist(itemIds) {
+      this.createOrUpdatePlaylist = function createOrUpdatePlaylist(itemIds) {
         var selectedPlaylistsSize = _.size($scope.selectedPlaylistIds);
         if (selectedPlaylistsSize > 0) {
-          addItemsToPlaylist(itemIds);
+          // If there is something selected
+          if (_.size(itemIds) > 0) {
+            // Add the items to the playlist
+            addItemsToPlaylist(itemIds);
+          } else {
+            // Just create an empty playlist
+            createPlaylistModal(itemIds);
+          }
         } else {
+          // Just create a new playlist
           createPlaylistModal(itemIds);
         }
-      }
+      };
 
       function addItemsToPlaylist(itemIds) {
         angular.forEach($scope.selectedPlaylistIds, function (playlistId) {
-          var playlistItems = createPlaylistItems(itemIds);
+          var playlistItems = playlistServices.createPlaylistItems(itemIds);
           var playlist = findPlaylist(playlistId);
 
           if (playlist !== undefined) {
@@ -175,7 +176,7 @@ angular.module('septWebRadioControllers')
             $scope.createPlaylist = function (createPlaylistForm) {
               // If the form is valid
               if (createPlaylistForm.$valid) {
-                var playlistItems = createPlaylistItems($scope.itemIds);
+                var playlistItems = playlistServices.createPlaylistItems($scope.itemIds);
 
                 var playlist = new Playlists({
                   name: $scope.playlist.name,
@@ -204,22 +205,6 @@ angular.module('septWebRadioControllers')
             growl.addSuccessMessage('Playlist successfully created!');
           }
         );
-      }
-
-      function createPlaylistItems(itemIds) {
-        var itemsToCreate = [];
-        angular.forEach(itemIds, function (itemId) {
-          var itemToInsert = createPlaylistItem(itemId);
-          itemsToCreate.push(itemToInsert);
-        });
-        return itemsToCreate;
-      }
-
-      function createPlaylistItem(itemId) {
-        return {
-          provider: 'soundcloud',
-          musicId: itemId
-        };
       }
 
       $rootScope.$on('SWR-DRAG-START-NUMBER', function (event, numberItems) {

@@ -2,8 +2,10 @@
 
 /* Controllers */
 
-angular.module('septWebRadioControllers').controller('DoorCtrl', ['Page',
-  function (Page) {
-    Page.setTitle('Door');
+angular.module('septWebRadioControllers').controller('DoorCtrl', ['$scope',
+  function ($scope) {
+    $scope.init = function () {
+      $scope.initPageTitle('Door');
+    };
   }]
 );

@@ -5,12 +5,19 @@ describe('Back stage', function () {
 
   describe('Controller', function () {
 
-    var scope, controller, page;
+    var scope, controller;
 
     // Init controller
-    beforeEach(inject(function ($rootScope, _Page_) {
+    beforeEach(inject(function ($rootScope, $controller) {
+      var scopeController = $rootScope.$new();
+      $controller('MainCtrl', {
+        $scope: scopeController});
+
+      $rootScope.initPageTitle = function (title) {
+        scopeController.initPageTitle(title);
+      };
+
       scope = $rootScope.$new();
-      page = _Page_;
     }));
 
     // The main controller test
@@ -18,15 +25,15 @@ describe('Back stage', function () {
 
       // init controller for test
       beforeEach(inject(function ($controller) {
-        spyOn(page, 'setTitle').andCallThrough();
-
         controller = $controller('BackstageCtrl', {
           $scope: scope});
       }));
 
-      it('should set the correct title', inject(function () {
-        expect(page.setTitle).toHaveBeenCalledWith('Back Stage');
-        expect(page.title()).toBe('Sept Web Radio - Back Stage');
+      it('should init the title page', inject(function () {
+        spyOn(scope, 'initPageTitle');
+        expect(scope.initPageTitle).not.toHaveBeenCalled();
+        scope.init();
+        expect(scope.initPageTitle).toHaveBeenCalledWith('Back Stage');
       }));
     });
   });

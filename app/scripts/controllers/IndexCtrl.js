@@ -2,11 +2,10 @@
 
 /* Controllers */
 
-angular.module('septWebRadioControllers').controller('IndexCtrl', ['Page',
-  function (Page) {
-    Page.setTitle();
-
-
-
+angular.module('septWebRadioControllers').controller('IndexCtrl', ['$scope',
+  function ($scope) {
+    $scope.init = function () {
+      $scope.initPageTitle();
+    };
   }]
 );

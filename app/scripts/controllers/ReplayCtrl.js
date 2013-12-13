@@ -2,8 +2,10 @@
 
 /* Controllers */
 
-angular.module('septWebRadioControllers').controller('ReplayCtrl', ['Page',
-  function (Page) {
-    Page.setTitle('Replay');
+angular.module('septWebRadioControllers').controller('ReplayCtrl', ['$scope',
+  function ($scope) {
+    $scope.init = function () {
+      $scope.initPageTitle('Replay');
+    };
   }]
 );

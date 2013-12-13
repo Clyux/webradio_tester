@@ -9,15 +9,17 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
     $scope.userServices = userServices;
     $scope.Page = Page;
 
-    applicationServices.getInitApplication().then(function (data) {
-      //$scope.user = data;
+    $scope.init = function () {
+      applicationServices.getInitApplication().then(function (data) {
+        //$scope.user = data;
 
-      // Check if the user is connected
-      if (data) {
-        // The user is connected
-      }
-      $scope.connexionButtonLabel = applicationServices.getConnexionLabel();
-    });
+        // Check if the user is connected
+        if (data) {
+          // The user is connected
+        }
+        $scope.connexionButtonLabel = applicationServices.getConnexionLabel();
+      });
+    };
 
     $scope.logInLogOutClick = function () {
       applicationServices.logInLogOut().then(function (label) {
@@ -26,7 +28,7 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
     };
 
     $scope.go = function (path) {
-      if (path === undefined || path === ''){
+      if (path === undefined || path === '') {
         path = '/index';
       }
       $location.path(path);
@@ -34,6 +36,10 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
 
     $scope.logOutClick = function () {
       userServices.logOut();
+    };
+
+    $scope.initPageTitle = function (title) {
+      Page.setTitle(title);
     };
   }]
 );

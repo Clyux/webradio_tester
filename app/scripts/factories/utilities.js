@@ -70,6 +70,16 @@ angular.module('septWebRadioFactories')
           return utilitiesService.unionWithAttribute(listTo, listFrom, 'id');
         };
 
+      utilitiesService.addOrRemoveItem = function addOrRemoveItem(list, item) {
+        if (_.indexOf(list, item) === -1) {
+          list.push(item);
+        } else {
+          // Else, we remove it
+          list = _.without(list, item);
+        }
+        return list;
+      };
+
       return utilitiesService;
     }
   ]
