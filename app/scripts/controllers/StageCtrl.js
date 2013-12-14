@@ -132,7 +132,7 @@ angular.module('septWebRadioControllers')
       function addItemsToPlaylist(itemIds) {
         angular.forEach($scope.selectedPlaylistIds, function (playlistId) {
           var playlistItems = playlistServices.createPlaylistItems(itemIds);
-          var playlist = findPlaylist(playlistId);
+          var playlist = playlistServices.findPlaylistById(playlistId);
 
           if (playlist !== undefined) {
 
@@ -155,16 +155,7 @@ angular.module('septWebRadioControllers')
         });
       }
 
-      function findPlaylist(id) {
-        var playlistFound;
-        angular.forEach($scope.playlists, function (playlist) {
-          if (playlist._id === id) {
-            playlistFound = playlist;
-            return;
-          }
-        });
-        return playlistFound;
-      }
+
 
       function createPlaylistModal(itemIds) {
         var modalInstance = $modal.open({

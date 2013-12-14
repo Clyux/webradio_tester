@@ -25,5 +25,17 @@ angular.module('septWebRadioServices')
           musicId: itemId
         };
       };
+
+      this.findPlaylistById = function findPlaylistById(playlistId) {
+        var playlistFound;
+        angular.forEach($scope.playlists, function (playlist) {
+          if (playlist._id === playlistId) {
+            playlistFound = playlist;
+            return;
+          }
+        });
+        return playlistFound;
+      };
+
     }
   ]);
