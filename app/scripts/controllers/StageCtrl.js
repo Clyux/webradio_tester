@@ -10,21 +10,16 @@ angular.module('septWebRadioControllers')
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
-      $scope.playlists = [];
+      $scope.playlistServices = playlistServices;
       $scope.selectedPlaylistIds = [];
       $scope.selectedItemIds = [];
       $scope.isSingleDragAndDrop = false;
-      var self = this;
 
       $scope.init = function () {
         $scope.initPageTitle('Stage');
-
         // Then get all the playlists
         if ($scope.userServices.isConnected()) {
-          // Get the playlists when going to that page.
-          Playlists.query(function (playlists) {
-            $scope.playlists = playlists;
-          });
+          $scope.playlistServices.initPlaylists();
         }
       };
 
@@ -48,11 +43,11 @@ angular.module('septWebRadioControllers')
 
       $scope.dropped = function (droppedItems) {
         var itemIds = angular.copy(droppedItems);
-        self.createOrUpdatePlaylist(itemIds);
+        playlistServices.createOrUpdatePlaylist($scope.selectedPlaylistIds, itemIds);
       };
 
       $scope.clickOnCreateButton = function () {
-        self.createOrUpdatePlaylist($scope.selectedItemIds);
+        playlistServices.createOrUpdatePlaylist($scope.selectedPlaylistIds, $scope.selectedItemIds);
       };
 
       $scope.getButtonLabel = function () {
@@ -98,7 +93,6 @@ angular.module('septWebRadioControllers')
             label = 'Create a new playlist';
           }
         }
-
         return label;
       };
 
@@ -111,92 +105,6 @@ angular.module('septWebRadioControllers')
         // Add or remove the item id
         $scope.$apply($scope.selectedItemIds = utilities.addOrRemoveItem($scope.selectedItemIds, toggleItem));
       };
-
-      this.createOrUpdatePlaylist = function createOrUpdatePlaylist(itemIds) {
-        var selectedPlaylistsSize = _.size($scope.selectedPlaylistIds);
-        if (selectedPlaylistsSize > 0) {
-          // If there is something selected
-          if (_.size(itemIds) > 0) {
-            // Add the items to the playlist
-            addItemsToPlaylist(itemIds);
-          } else {
-            // Just create an empty playlist
-            createPlaylistModal(itemIds);
-          }
-        } else {
-          // Just create a new playlist
-          createPlaylistModal(itemIds);
-        }
-      };
-
-      function addItemsToPlaylist(itemIds) {
-        angular.forEach($scope.selectedPlaylistIds, function (playlistId) {
-          var playlistItems = playlistServices.createPlaylistItems(itemIds);
-          var playlist = playlistServices.findPlaylistById(playlistId);
-
-          if (playlist !== undefined) {
-
-            if (!playlist.items) {
-              playlist.items = [];
-            }
-
-            angular.forEach(playlistItems, function (playlistItem) {
-              playlist.items.push(playlistItem);
-            });
-
-            playlist.$update(function (response) {
-              playlist = response;
-              // Update the model
-              growl.addSuccessMessage(_.size(itemIds) + ' items has been added to the playlist: ' + playlist.name);
-            });
-          } else {
-            growl.addErrorMessage('You have to select a valid playlist!');
-          }
-        });
-      }
-
-
-
-      function createPlaylistModal(itemIds) {
-        var modalInstance = $modal.open({
-          templateUrl: 'createPlaylistModal.html',
-          controller: function ($scope, $modalInstance, itemIds) {
-            $scope.itemIds = itemIds;
-            $scope.playlist = {};
-
-            $scope.createPlaylist = function (createPlaylistForm) {
-              // If the form is valid
-              if (createPlaylistForm.$valid) {
-                var playlistItems = playlistServices.createPlaylistItems($scope.itemIds);
-
-                var playlist = new Playlists({
-                  name: $scope.playlist.name,
-                  items: playlistItems
-                });
-
-                playlist.$save(function (response) {
-                  $modalInstance.close(response);
-                });
-              }
-            };
-            $scope.cancel = function () {
-              $modalInstance.dismiss('cancel');
-            };
-          },
-          resolve: {
-            itemIds: function () {
-              return itemIds;
-            }
-          }
-        });
-
-        modalInstance.result.then(
-          function (savedPlaylist) {
-            $scope.playlists.push(savedPlaylist);
-            growl.addSuccessMessage('Playlist successfully created!');
-          }
-        );
-      }
 
       $rootScope.$on('SWR-DRAG-START-NUMBER', function (event, numberItems) {
         $scope.$apply($scope.isSingleDragAndDrop = numberItems === 1);
