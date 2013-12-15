@@ -80,7 +80,6 @@ describe('Main', function () {
         expect(scope.user).toBe(userMock);
       }));
 
-
       it('should Init the app and set the label to Log In when the user is not connected', function () {
         expect(scope.connexionButtonLabel).toBeUndefined();
         expect(applicationServicesMock.getInitApplication).not.toHaveBeenCalled();
@@ -105,6 +104,13 @@ describe('Main', function () {
 
         expect(scope.connexionButtonLabel).toBe('Log Out');
         expect(applicationServicesMock.getInitApplication.calls.length).toEqual(1);
+      });
+
+      it('should init the userServices', function () {
+        spyOn(userServices, 'init');
+        scope.init();
+        expect(userServices.init.calls.length).toEqual(1);
+        expect(userServices.init).toHaveBeenCalled();
       });
     });
 

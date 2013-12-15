@@ -5,8 +5,8 @@
 /* Stage Controller */
 
 angular.module('septWebRadioControllers')
-  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$modal', '$log', 'Playlists', 'growl', '$rootScope', 'playlistServices',
-    function ($scope, soundcloudSearch, utilities, $modal, $log, Playlists, growl, $rootScope, playlistServices) {
+  .controller('StageCtrl', ['$scope', 'soundcloudSearch', 'utilities', '$rootScope', 'playlistServices',
+    function ($scope, soundcloudSearch, utilities, $rootScope, playlistServices) {
       $scope.isSearching = false;
       $scope.searchedTerm = undefined;
       $scope.searchedItems = [];
@@ -65,9 +65,9 @@ angular.module('septWebRadioControllers')
           if (selectedItemssSize > 0) {
             label = 'Add ' + selectedItemssSize;
             if (selectedItemssSize === 1) {
-              label += ' item ';
+              label += ' item';
             } else if (selectedItemssSize > 1) {
-              label += ' items ';
+              label += ' items';
             }
 
             // Then add the number of playlist

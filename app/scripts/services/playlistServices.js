@@ -14,11 +14,11 @@ angular.module('septWebRadioServices')
       this.playlists = undefined;
       this.cache = $cacheFactory('playlistServices');
 
-      this.getPlaylists = function getPlaylists() {
+      this.getPlaylists = function () {
         return self.playlists;
       };
 
-      this.initPlaylists = function initPlaylists() {
+      this.initPlaylists = function () {
         self.playlists = self.cache.get('playlists');
         if (!self.playlists) {
           // Get all the playlists
@@ -29,7 +29,7 @@ angular.module('septWebRadioServices')
         }
       };
 
-      this.createPlaylistItems = function createPlaylistItems(itemIds) {
+      this.createPlaylistItems = function (itemIds) {
         var itemsToCreate = [];
         angular.forEach(itemIds, function (itemId) {
           var itemToInsert = self.createPlaylistItem(itemId);
@@ -38,14 +38,14 @@ angular.module('septWebRadioServices')
         return itemsToCreate;
       };
 
-      this.createPlaylistItem = function createPlaylistItem(itemId) {
+      this.createPlaylistItem = function (itemId) {
         return {
           provider: 'soundcloud',
           musicId: itemId
         };
       };
 
-      this.findPlaylistById = function findPlaylistById(playlistId) {
+      this.findPlaylistById = function (playlistId) {
         var playlistFound;
         angular.forEach(self.playlists, function (playlist) {
           if (playlist._id === playlistId) {
@@ -56,7 +56,7 @@ angular.module('septWebRadioServices')
         return playlistFound;
       };
 
-      this.createOrUpdatePlaylist = function createOrUpdatePlaylist(playlistIds, itemIds) {
+      this.createOrUpdatePlaylist = function (playlistIds, itemIds) {
         var selectedPlaylistsSize = _.size(playlistIds);
         if (selectedPlaylistsSize > 0) {
           // If there is something selected
@@ -73,7 +73,7 @@ angular.module('septWebRadioServices')
         }
       };
 
-      this.createPlaylistWithItems = function createPlaylistWithItems(playlistName, itemIds, done) {
+      this.createPlaylistWithItems = function (playlistName, itemIds, done) {
         var playlistItems = self.createPlaylistItems(itemIds);
         var playlist = new Playlists({
           name: playlistName,
@@ -89,13 +89,13 @@ angular.module('septWebRadioServices')
         });
       };
 
-      this.addItemsToPlaylists = function addItemsToPlaylists(playlistIds, itemIds) {
+      this.addItemsToPlaylists = function (playlistIds, itemIds) {
         angular.forEach(playlistIds, function (playlistId) {
           self.addItemsToPlaylist(playlistId, itemIds);
         });
       };
 
-      this.addItemsToPlaylist = function addItemsToPlaylist(playlistId, itemIds) {
+      this.addItemsToPlaylist = function (playlistId, itemIds) {
         var playlistItems = self.createPlaylistItems(itemIds);
         var playlist = self.findPlaylistById(playlistId);
 
@@ -117,7 +117,7 @@ angular.module('septWebRadioServices')
         }
       };
 
-      this.createPlaylistModal = function createPlaylistModal(itemIds) {
+      this.createPlaylistModal = function (itemIds) {
         $modal.open({
           templateUrl: 'createPlaylistModal.html',
           controller: function ($scope, $modalInstance, itemIds) {
@@ -143,6 +143,5 @@ angular.module('septWebRadioServices')
           }
         });
       };
-
     }
   ]);

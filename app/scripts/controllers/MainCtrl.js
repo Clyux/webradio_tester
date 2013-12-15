@@ -10,6 +10,8 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
     $scope.Page = Page;
 
     $scope.init = function () {
+      $scope.userServices.init();
+
       applicationServices.getInitApplication().then(function (data) {
         //$scope.user = data;
 
