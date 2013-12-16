@@ -2,8 +2,10 @@
 
 /* Controllers */
 
-angular.module('septWebRadioControllers').controller('TopicalCtrl', ['Page',
-  function (Page) {
-    Page.setTitle('Topical');
+angular.module('septWebRadioControllers').controller('TopicalCtrl', ['$scope',
+  function ($scope) {
+    $scope.init = function () {
+      $scope.initPageTitle('Topical');
+    };
   }]
 );

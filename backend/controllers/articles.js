@@ -83,13 +83,15 @@ exports.show = function (req, res) {
  * List of Articles
  */
 exports.all = function (req, res) {
-  Article.find().sort('-created').populate('user', 'name username').exec(function (err, articles) {
-    if (err) {
-      res.render('error', {
-        status: 500
-      });
-    } else {
-      res.jsonp(articles);
-    }
-  });
+  Article.find().sort('-created')
+    .populate('user', 'name username')
+    .exec(function (err, articles) {
+      if (err) {
+        res.render('error', {
+          status: 500
+        });
+      } else {
+        res.jsonp(articles);
+      }
+    });
 };

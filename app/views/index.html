@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="septWebRadioApp" ng-controller='MainCtrl'>
+<html ng-app="septWebRadioApp" ng-controller='MainCtrl' data-ng-init="init()">
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"></html><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"></html><![endif]-->
 <!--[if IE 8]><html class="no-js lt-ie9"></html><![endif]-->
@@ -21,6 +21,7 @@
       <!-- build:css({.tmp,app}) ../styles/main.css -->
       <link rel="stylesheet" href="styles/normalize.css">
       <link rel="stylesheet" href="styles/main.css">
+      <link rel="stylesheet" href="bower_components/angular-growl/build/angular-growl.min.css">
       <link rel="stylesheet" href="styles/app.css">
       <!-- endbuild -->
 
@@ -39,6 +40,8 @@
     <![endif]-->
 
     <div class="global-wrapper">
+
+        <div growl></div>
 
         <div class="header-wrapper" ng-include src="'partials/templates/header.tpl.html'"></div>
 
@@ -76,15 +79,28 @@
     <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/imagesloaded/index.js"></script>
-    <script src="bower_components/angular-masonry/index.js"></script>
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
-    <script src="bower_components/masonry/index.js"></script>
     <script src="scripts/libs/jquery-ui/jquery.event.drag-2.2.js"></script>
     <script src="scripts/libs/jquery-ui/jquery.event.drop-2.2.js"></script>
+
+    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="bower_components/get-style-property/get-style-property.js"></script>
+    <script src="bower_components/get-size/get-size.js"></script>
+    <script src="bower_components/eventEmitter/EventEmitter.js"></script>
+    <script src="bower_components/eventie/eventie.js"></script>
+    <script src="bower_components/doc-ready/doc-ready.js"></script>
+    <script src="bower_components/matches-selector/matches-selector.js"></script>
+    <script src="bower_components/outlayer/item.js"></script>
+    <script src="bower_components/outlayer/outlayer.js"></script>
+    <script src="bower_components/masonry/masonry.js"></script>
+    <script src="bower_components/imagesloaded/imagesloaded.js"></script>
+    <script src="bower_components/angular-masonry/angular-masonry.js"></script>
+
+    <script src="bower_components/angular-growl/build/angular-growl.min.js"></script>
     <!-- endbuild -->
 
     <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script src="//w.soundcloud.com/player/api.js"></script>
 
     <!-- build:js({.tmp,app}) ../scripts/modules.js -->
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -103,6 +119,7 @@
     <script src="scripts/services/soundCloudServices.js"></script>
     <script src="scripts/services/swrDragAndDropService.js"></script>
     <script src="scripts/services/userServices.js"></script>
+    <script src="scripts/services/playlistServices.js"></script>
 
     <script src="scripts/controllers/index.js"></script>
     <script src="scripts/controllers/IndexCtrl.js"></script>
@@ -118,10 +135,12 @@
     <script src="scripts/directives/input.js"></script>
     <script src="scripts/directives/dragAndDrop.js"></script>
     <script src="scripts/directives/swrSelect.js"></script>
+    <script src="scripts/directives/swrSoundCloudPlayer.js"></script>
 
     <script src="scripts/factories/index.js"></script>
     <script src="scripts/factories/utilities.js"></script>
     <script src="scripts/factories/page.js"></script>
+    <script src="scripts/factories/playlists.js"></script>
     <!-- endbuild -->
 
 </body>

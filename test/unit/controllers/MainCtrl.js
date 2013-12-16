@@ -13,7 +13,7 @@ describe('Main', function () {
   describe('Controller', function () {
 
     var scope, applicationServicesMock, controller, q, initAppDeferred, isConnected, applicationServices;
-    var logInDeferred, page;
+    var logInDeferred, page, userServices, $location, $rootScope;
 
     beforeEach(function () {
       applicationServicesMock = {
@@ -36,9 +36,12 @@ describe('Main', function () {
     });
 
     // init controller for test
-    beforeEach(inject(function ($rootScope, _applicationServices_, $q, _Page_) {
+    beforeEach(inject(function (_$rootScope_, _applicationServices_, $q, _Page_, _userServices_, _$location_) {
+      $rootScope = _$rootScope_;
       scope = $rootScope.$new();
       page = _Page_;
+      userServices = _userServices_;
+      $location = _$location_;
       q = $q;
       applicationServices = _applicationServices_;
     }));
@@ -51,27 +54,37 @@ describe('Main', function () {
       expect(scope.connexionButtonLabel).toBeUndefined();
     }));
 
+
     // The main controller test
     describe('Main Controller Init App', function () {
+
+      var userMock;
 
       // init controller for test
       beforeEach(inject(function ($controller) {
         spyOn(applicationServicesMock, 'getInitApplication').andCallThrough();
+
+        userMock = {user: 'test'};
+        spyOn(userServices, 'getUser').andCallFake(function () {
+          return userMock;
+        });
 
         controller = $controller('MainCtrl', {
           $scope: scope, applicationServices: applicationServicesMock});
       }));
 
 
-      it('should set the Page factory in the scope', inject(function () {
+      it('should init variables with the correct values', inject(function () {
         expect(scope.Page).toBe(page);
+        expect(scope.userServices).toBe(userServices);
+        expect(scope.user).toBe(userMock);
       }));
-
 
       it('should Init the app and set the label to Log In when the user is not connected', function () {
         expect(scope.connexionButtonLabel).toBeUndefined();
-        expect(applicationServicesMock.getInitApplication).toHaveBeenCalled();
-        expect(applicationServicesMock.getInitApplication.calls.length).toEqual(1);
+        expect(applicationServicesMock.getInitApplication).not.toHaveBeenCalled();
+
+        scope.init();
 
         callDeferred(initAppDeferred, scope);
 
@@ -81,10 +94,11 @@ describe('Main', function () {
 
       it('should Init the app and set the label to Log Out when the user is connected', function () {
         expect(scope.connexionButtonLabel).toBeUndefined();
-        expect(applicationServicesMock.getInitApplication).toHaveBeenCalled();
-        expect(applicationServicesMock.getInitApplication.calls.length).toEqual(1);
+        expect(applicationServicesMock.getInitApplication).not.toHaveBeenCalled();
 
         isConnected = true;
+
+        scope.init();
 
         callDeferred(initAppDeferred, scope);
 
@@ -92,26 +106,12 @@ describe('Main', function () {
         expect(applicationServicesMock.getInitApplication.calls.length).toEqual(1);
       });
 
-
-      it('should set the user to undefined when the user is not connected', function () {
-        expect(scope.user).toBeUndefined();
-
-        callDeferred(initAppDeferred, scope);
-
-        expect(scope.user).toBeUndefined();
+      it('should init the userServices', function () {
+        spyOn(userServices, 'init');
+        scope.init();
+        expect(userServices.init.calls.length).toEqual(1);
+        expect(userServices.init).toHaveBeenCalled();
       });
-
-      // TODO: Remove this.
-      /*it('should set the user to an object when the user is connected', function () {
-        expect(scope.user).toBeUndefined();
-
-        isConnected = true;
-        var userData = {user:'user name'};
-
-        callDeferred(initAppDeferred, scope, userData);
-
-        expect(scope.user).toBe(userData);
-      });*/
     });
 
 
@@ -152,6 +152,55 @@ describe('Main', function () {
         callDeferred(logInDeferred, scope, 'Log In');
 
         expect(scope.connexionButtonLabel).toBe('Log In');
+      });
+    });
+
+
+    // The main controller test
+    describe('Main Controller Scope Functions', function () {
+
+      var userMock;
+
+      // init controller for test
+      beforeEach(inject(function ($controller) {
+        controller = $controller('MainCtrl', {
+          $scope: scope, applicationServices: applicationServicesMock});
+      }));
+
+      it('should call the location.path with the index page', function () {
+        spyOn($location, 'path');
+        expect($location.path).not.toHaveBeenCalled();
+        scope.go();
+        expect($location.path.calls.length).toEqual(1);
+        expect($location.path).toHaveBeenCalled();
+      });
+
+      it('should call the location.path page provided', function () {
+        spyOn($location, 'path');
+        expect($location.path).not.toHaveBeenCalled();
+        var path = '/login';
+        scope.go(path);
+        expect($location.path.calls.length).toEqual(1);
+        expect($location.path).toHaveBeenCalledWith(path);
+      });
+
+      it('should set the correct location path', function () {
+        $location.path('/new/path');
+        $rootScope.$apply();
+        expect($location.path()).toBe('/new/path');
+
+        var path = '/login';
+        scope.go(path);
+
+        expect($location.path()).toBe(path);
+      });
+
+      it('should call the userServices logOut method', function () {
+        spyOn(userServices, 'logOut');
+        expect(userServices.logOut).not.toHaveBeenCalled();
+        scope.logOutClick();
+        expect(userServices.logOut.calls.length).toEqual(1);
+        expect(userServices.logOut).toHaveBeenCalled();
       });
     });
   });

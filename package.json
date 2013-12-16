@@ -1,6 +1,6 @@
 {
   "name": "sept-web-radio",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "http://github.com/alfirin/sept-web-radio.git"
@@ -13,12 +13,14 @@
   "keywords": [
     "Web Radio",
     "Community",
-    "Free Music"
+    "Free Music",
+    "Playlists",
+    "Sound Cloud"
   ],
   "dependencies": {
     "express": "~3.4.5",
     "ejs": "*",
-    "request": "~2.29.0",
+    "request": "~2.30.0",
     "connect-mongo": "~0.4.0",
     "mongoose": "~3.8.1",
     "passport": "~0.1.17",

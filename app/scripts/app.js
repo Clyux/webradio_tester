@@ -4,19 +4,21 @@ angular.module('septWebRadioApp', [
   'ngRoute',
   'ngAnimate',
   'ngCookies',
+  'ngResource',
   'ui.bootstrap',
   'septWebRadioControllers',
   'septWebRadioDirectives',
   'septWebRadioFactories',
-  'wu.masonry'
+  'wu.masonry',
+  'angular-growl'
 ]);
 
 angular.module('septWebRadioApp')
-  .config(['$routeProvider', '$locationProvider',
-    function ($routeProvider, $locationProvider) {
+  .config(['$routeProvider', '$locationProvider', '$httpProvider',
+    function ($routeProvider, $locationProvider, $httpProvider) {
       $routeProvider
         .when('/index', {
-          templateUrl: 'partials/main/main.html',
+          templateUrl: 'partials/index/index.html',
           controller: 'IndexCtrl'
         })
         .when('/stage', {
@@ -52,5 +54,37 @@ angular.module('septWebRadioApp')
         });
 
       $locationProvider.html5Mode(true);
+
+      // Catch the 401 error
+      var interceptor = ['$rootScope', '$q',
+        function (scope, $q) {
+          function success(response) {
+            return response;
+          }
+
+          function error(response) {
+            var status = response.status;
+
+            if (status === 401) {
+              var deferred = $q.defer();
+              scope.$broadcast('event:loginRequired');
+              return deferred.promise;
+            }
+            // otherwise
+            return $q.reject(response);
+          }
+
+          return function (promise) {
+            return promise.then(success, error);
+          };
+        }];
+
+      $httpProvider.responseInterceptors.push(interceptor);
+    }]
+  )
+  .config(['growlProvider',
+    function (growlProvider) {
+      growlProvider.globalTimeToLive(4000);
+      growlProvider.onlyUniqueMessages(true);
     }]
   );

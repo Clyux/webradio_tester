@@ -5,27 +5,23 @@
 angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'applicationServices', 'Page', '$location', 'userServices',
   function ($scope, applicationServices, Page, $location, userServices) {
 
-    $scope.connexionButtonLabel = undefined;
     $scope.user = userServices.getUser();
     $scope.userServices = userServices;
     $scope.Page = Page;
 
-    $scope.$watch('userServices.user', function (newValue, oldValue) {
-      if (newValue !== oldValue) {
-        console.log('new value');
-        $scope.user = newValue;
-      }
-    });
+    $scope.init = function () {
+      $scope.userServices.init();
 
-    applicationServices.getInitApplication().then(function (data) {
-      //$scope.user = data;
+      applicationServices.getInitApplication().then(function (data) {
+        //$scope.user = data;
 
-      // Check if the user is connected
-      if (data) {
-        // The user is connected
-      }
-      $scope.connexionButtonLabel = applicationServices.getConnexionLabel();
-    });
+        // Check if the user is connected
+        if (data) {
+          // The user is connected
+        }
+        $scope.connexionButtonLabel = applicationServices.getConnexionLabel();
+      });
+    };
 
     $scope.logInLogOutClick = function () {
       applicationServices.logInLogOut().then(function (label) {
@@ -34,11 +30,18 @@ angular.module('septWebRadioControllers').controller('MainCtrl', ['$scope', 'app
     };
 
     $scope.go = function (path) {
+      if (path === undefined || path === '') {
+        path = '/index';
+      }
       $location.path(path);
     };
 
     $scope.logOutClick = function () {
       userServices.logOut();
+    };
+
+    $scope.initPageTitle = function (title) {
+      Page.setTitle(title);
     };
   }]
 );

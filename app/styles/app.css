@@ -21,13 +21,18 @@ ul {
 
 h1 {
     font-family: bacana, verdana, sans-serif;
-    font-size: 35pt;
+    font-size: 25pt;
+    margin-bottom: 10px;
 }
 
 p {
     font-family: andale mono, monaco, sans-serif;
-    font-size: 12pt;
+    font-size: 10pt;
     color: #000000;
+}
+
+p, pre {
+    margin: 4px;
 }
 
 h2 {
@@ -194,7 +199,6 @@ html {
 }
 
 .main-wrapper {
-
     height: auto !important;
     height: 100%;
     margin: auto;
@@ -235,32 +239,20 @@ html {
 }
 
 .masonry .masonry-brick {
-    display: inline-block;
-    position: relative;
-    width: 170px;
-    height: 170px;
-    border: solid 1px #ccc;
-    margin: 0 10px 10px 0;
-    background: #f8f8f8;
+    display: none;
+    width: 200px;
+    height: 215px;
+    margin-bottom: 12px;
+    background: #f7f7f7;
     padding: 3px 3px;
+    box-shadow: 1px 1px 4px #bbbbbb;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    border: solid 1px #e4e4e4;
 }
 
-.masonry-brick img {
-    position: relative;
-    top: 60px;
-    width: 100px;
-    height: 100px;
-}
-
-.masonry-brick .title-name {
-    position: absolute;
-    top: 0;
-    width: 164px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.masonry-brick.loaded {
+    display: block;
 }
 
 .masonry-brick .author-name {
@@ -270,15 +262,35 @@ html {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: andale Mono, monaco;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.masonry-brick .title-name {
+    position: absolute;
+    top: 0;
+    width: 164px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: andale Mono, monaco;
+}
+
+.masonry-brick img {
+    position: relative;
+    top: 60px;
+    width: 140px;
+    height: 140px;
 }
 
 /* Css animations for search in stage page */
-.masonry-animation.ng-leave {
-    -webkit-animation: 0.8s my-animation;
-    -moz-animation: 0.8s my-animation;
-    -ms-transition: 0.8s my-animation;
-    -o-animation: 0.8s my-animation;
-    animation: 0.8s my-animation;
+.masonry-brick.ng-leave {
+    -webkit-animation: 0.6s my-animation;
+    -moz-animation: 0.6s my-animation;
+    -ms-transition: 0.6s my-animation;
+    -o-animation: 0.6s my-animation;
+    animation: 0.6s my-animation;
 }
 
 /* Leave */
@@ -319,33 +331,46 @@ html {
     }
 }
 
-.add-to-playlist {
-    width: 150px;
-    height: 30px;
-    margin: 0, 20px, 0, 0;
-    -webkit-transition: all 1s ease;
-    -moz-transition: width 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
-}
-
-.masonry .swr-drag-start {
+.masonry-brick.swr-drag-start {
     opacity: 0.9;
+    z-index: 2;
 }
 
-.swr-drop-over {
+.masonry-brick.swr-drag-start-remove {
+    -webkit-transition: opacity 0.6s ease-in-out;
+    -moz-transition: opacity 0.6s ease-in-out;
+    -ms-transition: opacity 0.6s ease-in-out;
+    -o-transition: opacity 0.6s ease-in-out;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 2;
+}
+
+.add-to-playlist {
+    width: 250px;
+    height: 30px;
+    margin-left: 5px;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -ms-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+}
+
+.add-to-playlist.swr-drop-over {
     /* applied to a drop target when a draggable object is over it */
     opacity: 0.5;
 }
 
-.swr-drop-target {
+.add-to-playlist.swr-drop-target {
     /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
-    width: 200px;
-    height: 36px;
+    width: 300px;
+    height: 40px;
 }
 
 [data-swr-draggable] {
     -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
@@ -359,5 +384,15 @@ html {
     border: solid 1px #444444;
     box-shadow: 5px 5px 2px #ababab;
     background: #f1f1f1;
-    z-index: 2;
+}
+
+/* Index page */
+
+.soundcloud-player {
+
+}
+
+.triangle {
+    width: 5%;
+    height: 5%;
 }

@@ -2,8 +2,10 @@
 
 /* Controllers */
 
-angular.module('septWebRadioControllers').controller('BackstageCtrl', ['Page',
-  function (Page) {
-    Page.setTitle('Back Stage');
+angular.module('septWebRadioControllers').controller('BackstageCtrl', ['$scope',
+  function ($scope) {
+    $scope.init = function () {
+      $scope.initPageTitle('Back Stage');
+    };
   }]
 );
