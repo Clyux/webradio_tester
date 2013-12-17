@@ -7,8 +7,8 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('playlistServices', ['Playlists', 'growl', '$modal', '$cacheFactory',
-    function (Playlists, growl, $modal, $cacheFactory) {
+  .service('playlistServices', ['Playlists', 'swrNotification', '$modal', '$cacheFactory',
+    function (Playlists, swrNotification, $modal, $cacheFactory) {
 
       var self = this;
       this.playlists = undefined;
@@ -84,7 +84,7 @@ angular.module('septWebRadioServices')
             self.playlists = [];
           }
           self.playlists.push(response);
-          growl.addSuccessMessage('Playlist successfully created!');
+          swrNotification.success('Playlist successfully created!');
           done(response);
         });
       };
@@ -96,8 +96,8 @@ angular.module('septWebRadioServices')
       };
 
       this.addItemsToPlaylist = function (playlistId, itemIds) {
-        var playlistItems = self.createPlaylistItems(itemIds);
         var playlist = self.findPlaylistById(playlistId);
+        var playlistItems = self.createPlaylistItems(itemIds);
 
         if (playlist !== undefined) {
           if (!playlist.items) {
@@ -110,10 +110,10 @@ angular.module('septWebRadioServices')
           playlist.$update(function (response) {
             playlist = response;
             // Update the model
-            growl.addSuccessMessage(_.size(itemIds) + ' items has been added to the playlist: ' + playlist.name);
+            swrNotification.success(_.size(itemIds) + ' items has been added to the playlist: ' + playlist.name);
           });
         } else {
-          growl.addErrorMessage('You have to select a valid playlist!');
+          swrNotification.error('You have to select a valid playlist!');
         }
       };
 

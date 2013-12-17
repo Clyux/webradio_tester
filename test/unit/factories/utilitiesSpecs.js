@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Utilities', function () {
-  beforeEach(module('septWebRadioApp'));
+  beforeEach(module('septWebRadioFactories'));
 
   var utilities, scope;
 

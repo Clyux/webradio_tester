@@ -3,7 +3,7 @@
 describe('Playlist Services', function () {
   beforeEach(module('septWebRadioApp'));
 
-  var $cacheFactory, scope, Playlists, growl, $modal, playlistServices, cache;
+  var $cacheFactory, scope, Playlists, swrNotification, $modal, playlistServices, cache;
   var $httpBackend;
 
   var playlistsMock = [
@@ -11,10 +11,10 @@ describe('Playlist Services', function () {
     {name: 'Playlist 2', _id: 2}
   ];
 
-  beforeEach(inject(function ($rootScope, _Playlists_, _$cacheFactory_, _growl_, _$modal_, _playlistServices_, _$httpBackend_) {
+  beforeEach(inject(function ($rootScope, _Playlists_, _$cacheFactory_, _swrNotification_, _$modal_, _playlistServices_, _$httpBackend_) {
     scope = $rootScope.$new();
     Playlists = _Playlists_;
-    growl = _growl_;
+    swrNotification = _swrNotification_;
     $cacheFactory = _$cacheFactory_;
     $modal = _$modal_;
     playlistServices = _playlistServices_;
@@ -197,7 +197,7 @@ describe('Playlist Services', function () {
       expect(playlistServices.playlists.length).toBe(1);
     }));
 
-    it('should call the growl.addSuccessMessage', inject(function () {
+    it('should call the swrNotification.addSuccessMessage', inject(function () {
       var itemIds = ['1', '2', '3'];
       var playlistName = 'playlist Name';
       var finalItems = playlistServices.createPlaylistItems(itemIds);
@@ -207,15 +207,15 @@ describe('Playlist Services', function () {
         expect(response).toMatch(returnPlaylist);
       };
 
-      spyOn(growl, 'addSuccessMessage');
+      spyOn(swrNotification, 'success');
       $httpBackend.expectPOST('playlists', finalPlaylist)
         .respond(returnPlaylist);
 
       playlistServices.createPlaylistWithItems(playlistName, itemIds, done);
-      expect(growl.addSuccessMessage).not.toHaveBeenCalled();
+      expect(swrNotification.success).not.toHaveBeenCalled();
       $httpBackend.flush();
 
-      expect(growl.addSuccessMessage).toHaveBeenCalledWith('Playlist successfully created!');
+      expect(swrNotification.success).toHaveBeenCalledWith('Playlist successfully created!');
     }));
   });
 
@@ -230,6 +230,54 @@ describe('Playlist Services', function () {
       expect(playlistServices.addItemsToPlaylist.calls[0].args).toEqual([3, itemIds]);
       expect(playlistServices.addItemsToPlaylist.calls[1].args).toEqual([4, itemIds]);
       expect(playlistServices.addItemsToPlaylist.calls[2].args).toEqual([5, itemIds]);
+    }));
+  });
+
+
+
+  describe('addItemsToPlaylist', function () {
+    it('should call the two functions create and find', inject(function () {
+      var playlistId = 3;
+      var itemIds = ['1', '2'];
+      spyOn(playlistServices, 'createPlaylistItems');
+      spyOn(playlistServices, 'findPlaylistById');
+      playlistServices.addItemsToPlaylist(playlistId, itemIds);
+      expect(playlistServices.findPlaylistById).toHaveBeenCalledWith(playlistId);
+      expect(playlistServices.createPlaylistItems).toHaveBeenCalledWith(itemIds);
+    }));
+
+    it('should call the error notification if no playlist are found', inject(function () {
+      var playlistId = 3;
+      var itemIds = ['1', '2'];
+      spyOn(swrNotification, 'error');
+      spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
+        return undefined;
+      });
+      playlistServices.addItemsToPlaylist(playlistId, itemIds);
+      expect(swrNotification.error).toHaveBeenCalledWith('You have to select a valid playlist!');
+    }));
+
+    it('should initialize the items with an array', inject(function () {
+      var playlistId = 3;
+      var itemIds = ['1', '2'];
+      spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
+        return new Playlists({
+          _id: 3,
+          name: 'Name'
+        });
+      });
+
+      spyOn(swrNotification, 'success');
+
+      var finalItems = playlistServices.createPlaylistItems(itemIds);
+      var finalPlaylist = {name: 'Name', _id: 3, items: finalItems};
+
+      $httpBackend.expectPUT('playlists/3', finalPlaylist)
+        .respond(200);
+
+      playlistServices.addItemsToPlaylist(playlistId, itemIds);
+      $httpBackend.flush();
+      expect(swrNotification.success).toHaveBeenCalledWith('2 items has been added to the playlist: Name');
     }));
   });
 });
