@@ -207,15 +207,15 @@ describe('Playlist Services', function () {
         expect(response).toMatch(returnPlaylist);
       };
 
-      spyOn(swrNotification, 'success');
+      spyOn(swrNotification, 'message');
       $httpBackend.expectPOST('playlists', finalPlaylist)
         .respond(returnPlaylist);
 
       playlistServices.createPlaylistWithItems(playlistName, itemIds, done);
-      expect(swrNotification.success).not.toHaveBeenCalled();
+      expect(swrNotification.message).not.toHaveBeenCalled();
       $httpBackend.flush();
 
-      expect(swrNotification.success).toHaveBeenCalledWith('Playlist successfully created!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Playlist successfully created!');
     }));
   });
 
@@ -257,7 +257,31 @@ describe('Playlist Services', function () {
       expect(swrNotification.error).toHaveBeenCalledWith('You have to select a valid playlist!');
     }));
 
-    it('should initialize the items with an array', inject(function () {
+    it('should initialize the items with an array with single item', inject(function () {
+      var playlistId = 3;
+      var itemIds = ['1'];
+      spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
+        return new Playlists({
+          _id: 3,
+          name: 'Name'
+        });
+      });
+
+      spyOn(swrNotification, 'message');
+
+      var finalItems = playlistServices.createPlaylistItems(itemIds);
+      var finalPlaylist = {name: 'Name', _id: 3, items: finalItems};
+
+      $httpBackend.expectPUT('playlists/3', finalPlaylist)
+        .respond(200);
+
+      playlistServices.addItemsToPlaylist(playlistId, itemIds);
+      expect(swrNotification.message).not.toHaveBeenCalled();
+      $httpBackend.flush();
+      expect(swrNotification.message).toHaveBeenCalledWith('1 music has been added');
+    }));
+
+    it('should initialize the items with an array with multiple items', inject(function () {
       var playlistId = 3;
       var itemIds = ['1', '2'];
       spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
@@ -267,7 +291,7 @@ describe('Playlist Services', function () {
         });
       });
 
-      spyOn(swrNotification, 'success');
+      spyOn(swrNotification, 'message');
 
       var finalItems = playlistServices.createPlaylistItems(itemIds);
       var finalPlaylist = {name: 'Name', _id: 3, items: finalItems};
@@ -276,8 +300,9 @@ describe('Playlist Services', function () {
         .respond(200);
 
       playlistServices.addItemsToPlaylist(playlistId, itemIds);
+      expect(swrNotification.message).not.toHaveBeenCalled();
       $httpBackend.flush();
-      expect(swrNotification.success).toHaveBeenCalledWith('2 items has been added to the playlist: Name');
+      expect(swrNotification.message).toHaveBeenCalledWith('2 musics have been added');
     }));
   });
 });

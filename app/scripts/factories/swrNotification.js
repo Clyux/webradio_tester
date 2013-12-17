@@ -7,35 +7,52 @@
 angular.module('septWebRadioFactories');
 
 angular.module('septWebRadioFactories')
-  .factory('swrNotification', ['swrGmailNotify',
-    function (swrGmailNotify) {
+  .factory('swrNotification', ['swrGmailNotify', 'utilities', '$timeout',
+    function (swrGmailNotify, utilities, $timeout) {
       var swrNotification = {};
+
+      swrNotification.successMessages = [];
+      swrNotification.infoMessages = [];
+      swrNotification.errorMessages = [];
+      swrNotification.messages = [];
+      swrNotification.stop = undefined;
 
       swrNotification.success =
         function (message) {
           if (message && message.length > 0) {
-            alertify.success(message);
+            swrNotification.pushMessage(alertify.success, swrNotification.successMessages, message);
           }
         };
 
       swrNotification.info =
         function (message) {
           if (message && message.length > 0) {
-            alertify.log(message);
+            swrNotification.pushMessage(alertify.log, swrNotification.infoMessages, message);
           }
         };
 
       swrNotification.error =
         function (message) {
           if (message && message.length > 0) {
-            alertify.error(message);
+            swrNotification.pushMessage(alertify.error, swrNotification.errorMessages, message);
           }
         };
 
       swrNotification.message =
         function (message) {
           if (message && message.length > 0) {
-            swrGmailNotify.message(message);
+            swrNotification.pushMessage(swrGmailNotify.message, swrNotification.messages, message);
+          }
+        };
+
+      swrNotification.pushMessage =
+        function (method, list, message) {
+          if (utilities.isItemNotPresents(list, message)) {
+            list.push(message);
+            method(message);
+            swrNotification.stop = $timeout(function () {
+              utilities.removeItem(list, message);
+            }, 4000);
           }
         };
 

@@ -84,7 +84,7 @@ angular.module('septWebRadioServices')
             self.playlists = [];
           }
           self.playlists.push(response);
-          swrNotification.success('Playlist successfully created!');
+          swrNotification.message('Playlist successfully created!');
           done(response);
         });
       };
@@ -110,7 +110,12 @@ angular.module('septWebRadioServices')
           playlist.$update(function (response) {
             playlist = response;
             // Update the model
-            swrNotification.success(_.size(itemIds) + ' items has been added to the playlist: ' + playlist.name);
+            var itemSize = _.size(itemIds);
+            if (itemSize === 1) {
+              swrNotification.message(itemSize + ' music has been added');
+            } else {
+              swrNotification.message(itemSize + ' musics have been added');
+            }
           });
         } else {
           swrNotification.error('You have to select a valid playlist!');

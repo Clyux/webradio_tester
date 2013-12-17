@@ -54,7 +54,7 @@ angular.module('septWebRadioServices')
             } else {
               self.user = data.user;
               $location.path('/stage');
-              swrNotification.success('Account successfully created!');
+              swrNotification.message('Account successfully created!');
             }
           });
       };
@@ -68,7 +68,7 @@ angular.module('septWebRadioServices')
             } else {
               self.user = data.user;
               $location.path('/stage');
-              swrNotification.success('Successfully connected!');
+              swrNotification.message('Successfully connected!');
             }
           });
       };
@@ -77,7 +77,7 @@ angular.module('septWebRadioServices')
         $http.get('/signout')
           .success(function () {
             self.user = undefined;
-            swrNotification.success('Successfully disconnected!');
+            swrNotification.message('Successfully disconnected!');
           });
       };
     }]

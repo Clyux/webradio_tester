@@ -95,7 +95,7 @@ describe('user Services', function () {
     }
 
     it('should set the user, the path and call swrNotification', inject(function () {
-      spyOn(swrNotification, 'success');
+      spyOn(swrNotification, 'message');
       spyOn($location, 'path');
       createMockService(userMock, {user: userMock});
       userServices.signUp(userMock);
@@ -103,7 +103,7 @@ describe('user Services', function () {
 
       expect(userServices.user).toEqual(userMock);
       expect($location.path).toHaveBeenCalledWith('/stage');
-      expect(swrNotification.success).toHaveBeenCalledWith('Account successfully created!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Account successfully created!');
     }));
 
     it('should set the user to undefined and call swrNotification when there is an error', inject(function () {
@@ -137,7 +137,7 @@ describe('user Services', function () {
     }
 
     it('should set the user, the path and call swrNotification', inject(function () {
-      spyOn(swrNotification, 'success');
+      spyOn(swrNotification, 'message');
       spyOn($location, 'path');
       createMockService(userMock, {user: userMock});
       userServices.logIn(userMock);
@@ -145,7 +145,7 @@ describe('user Services', function () {
 
       expect(userServices.user).toEqual(userMock);
       expect($location.path).toHaveBeenCalledWith('/stage');
-      expect(swrNotification.success).toHaveBeenCalledWith('Successfully connected!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Successfully connected!');
     }));
 
     it('should set the user to undefined and call swrNotification when there is an error', inject(function () {
@@ -169,14 +169,14 @@ describe('user Services', function () {
     }
 
     it('should set the user to undefined and call swrNotification', inject(function () {
-      spyOn(swrNotification, 'success');
+      spyOn(swrNotification, 'message');
       spyOn($location, 'path');
       createMockService(userMock, {user: userMock});
       userServices.logOut();
       $httpBackend.flush();
 
       expect(userServices.user).toBeUndefined();
-      expect(swrNotification.success).toHaveBeenCalledWith('Successfully disconnected!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Successfully disconnected!');
     }));
   });
 });
