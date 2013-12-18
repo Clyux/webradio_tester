@@ -123,30 +123,32 @@ angular.module('septWebRadioServices')
       };
 
       this.createPlaylistModal = function (itemIds) {
-        $modal.open({
-          templateUrl: 'createPlaylistModal.html',
-          controller: function ($scope, $modalInstance, itemIds) {
-            $scope.itemIds = itemIds;
-            $scope.playlist = {};
-
-            $scope.createPlaylist = function (createPlaylistForm) {
-              // If the form is valid
-              if (createPlaylistForm.$valid) {
-                self.createPlaylistWithItems($scope.playlist.name, $scope.itemIds, function (response) {
-                  $modalInstance.close(response);
-                });
-              }
-            };
-            $scope.cancel = function () {
-              $modalInstance.dismiss('cancel');
-            };
-          },
+        return $modal.open({
+          templateUrl: 'partials/templates/createPlaylistModal.html',
+          controller: this.controllerCreatePlaylistModal,
           resolve: {
             itemIds: function () {
               return itemIds;
             }
           }
         });
+      };
+
+      this.controllerCreatePlaylistModal = function ($scope, $modalInstance, itemIds) {
+        $scope.itemIds = itemIds;
+        $scope.playlist = {};
+
+        $scope.createPlaylist = function (createPlaylistForm) {
+          // If the form is valid
+          if (createPlaylistForm.$valid) {
+            self.createPlaylistWithItems($scope.playlist.name, $scope.itemIds, function (response) {
+              $modalInstance.close(response);
+            });
+          }
+        };
+        $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
       };
     }
   ]);

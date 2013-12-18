@@ -234,7 +234,6 @@ describe('Playlist Services', function () {
   });
 
 
-
   describe('addItemsToPlaylist', function () {
     it('should call the two functions create and find', inject(function () {
       var playlistId = 3;
@@ -250,7 +249,7 @@ describe('Playlist Services', function () {
       var playlistId = 3;
       var itemIds = ['1', '2'];
       spyOn(swrNotification, 'error');
-      spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
+      spyOn(playlistServices, 'findPlaylistById').andCallFake(function () {
         return undefined;
       });
       playlistServices.addItemsToPlaylist(playlistId, itemIds);
@@ -260,7 +259,7 @@ describe('Playlist Services', function () {
     it('should initialize the items with an array with single item', inject(function () {
       var playlistId = 3;
       var itemIds = ['1'];
-      spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
+      spyOn(playlistServices, 'findPlaylistById').andCallFake(function () {
         return new Playlists({
           _id: 3,
           name: 'Name'
@@ -284,7 +283,7 @@ describe('Playlist Services', function () {
     it('should initialize the items with an array with multiple items', inject(function () {
       var playlistId = 3;
       var itemIds = ['1', '2'];
-      spyOn(playlistServices, 'findPlaylistById').andCallFake(function(){
+      spyOn(playlistServices, 'findPlaylistById').andCallFake(function () {
         return new Playlists({
           _id: 3,
           name: 'Name'
@@ -303,6 +302,74 @@ describe('Playlist Services', function () {
       expect(swrNotification.message).not.toHaveBeenCalled();
       $httpBackend.flush();
       expect(swrNotification.message).toHaveBeenCalledWith('2 musics have been added');
+    }));
+  });
+
+
+  describe('createPlaylistModal', function () {
+    it('should call the modal.open method', inject(function () {
+      spyOn($modal, 'open');
+      var itemIds = ['1', '2'];
+      playlistServices.createPlaylistModal(itemIds);
+      expect($modal.open).toHaveBeenCalled();
+    }));
+  });
+
+
+  describe('controllerCreatePlaylistModal', function () {
+    it('should init the variables', inject(function () {
+      var itemIds = ['1', '2'];
+      var modal = playlistServices.createPlaylistModal(itemIds);
+      playlistServices.controllerCreatePlaylistModal(scope, modal, itemIds);
+      expect(scope.itemIds).toBe(itemIds);
+      expect(scope.playlist).toEqual({});
+    }));
+
+    it('should dismiss the modal', inject(function () {
+      var itemIds = ['1', '2'];
+      var modal = playlistServices.createPlaylistModal(itemIds);
+      playlistServices.controllerCreatePlaylistModal(scope, modal, itemIds);
+
+      spyOn(modal, 'dismiss');
+      expect(modal.dismiss).not.toHaveBeenCalled();
+      scope.cancel();
+      expect(modal.dismiss).toHaveBeenCalledWith('cancel');
+    }));
+
+    it('should not call the createPlaylistWithItems', inject(function () {
+      var itemIds = ['1', '2'];
+      var modal = playlistServices.createPlaylistModal(itemIds);
+      playlistServices.controllerCreatePlaylistModal(scope, modal, itemIds);
+
+      spyOn(playlistServices, 'createPlaylistWithItems');
+      expect(playlistServices.createPlaylistWithItems).not.toHaveBeenCalled();
+      scope.createPlaylist({$valid: false});
+      expect(playlistServices.createPlaylistWithItems).not.toHaveBeenCalled();
+    }));
+
+    it('should call the createPlaylistWithItems', inject(function () {
+      var itemIds = ['1', '2'];
+      var modal = playlistServices.createPlaylistModal(itemIds);
+      playlistServices.controllerCreatePlaylistModal(scope, modal, itemIds);
+
+      spyOn(playlistServices, 'createPlaylistWithItems');
+      expect(playlistServices.createPlaylistWithItems).not.toHaveBeenCalled();
+      scope.createPlaylist({$valid: true});
+      expect(playlistServices.createPlaylistWithItems).toHaveBeenCalled();
+    }));
+
+    it('should close the modal with the correct params', inject(function () {
+      var itemIds = ['1', '2'];
+      var modal = playlistServices.createPlaylistModal(itemIds);
+      playlistServices.controllerCreatePlaylistModal(scope, modal, itemIds);
+      var response = {status: true};
+      spyOn(modal, 'close');
+      spyOn(playlistServices, 'createPlaylistWithItems').andCallFake(function (name, itemIds, func) {
+        func(response);
+      });
+      expect(modal.close).not.toHaveBeenCalled();
+      scope.createPlaylist({$valid: true});
+      expect(modal.close).toHaveBeenCalledWith(response);
     }));
   });
 });

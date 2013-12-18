@@ -3,11 +3,12 @@
 describe('swrNotification', function () {
   beforeEach(module('septWebRadioFactories'));
 
-  var swrNotification, swrGmailNotify;
+  var swrNotification, swrGmailNotify, $timeout;
 
-  beforeEach(inject(function (_swrNotification_, _swrGmailNotify_) {
+  beforeEach(inject(function (_swrNotification_, _swrGmailNotify_, $injector) {
     swrNotification = _swrNotification_;
     swrGmailNotify = _swrGmailNotify_;
+    $timeout = $injector.get('$timeout');
   }));
 
   describe('success', function () {
@@ -66,6 +67,34 @@ describe('swrNotification', function () {
       spyOn(swrGmailNotify, 'message');
       swrNotification.message('Message message');
       expect(swrGmailNotify.message).toHaveBeenCalledWith('Message message');
+    }));
+  });
+
+
+  describe('pushMessage', function () {
+    it('should call the function and add the message to the list', inject(function () {
+      var spy = jasmine.createSpy('toCall');
+      var list = [];
+      swrNotification.pushMessage(spy, list, 'a');
+      expect(spy).toHaveBeenCalledWith('a');
+      expect(list).toEqual(['a']);
+    }));
+
+    it('should remove the item from the list', inject(function () {
+      var spy = jasmine.createSpy('toCall');
+      var list = [];
+      swrNotification.pushMessage(spy, list, 'a');
+      expect(list).toEqual(['a']);
+      $timeout.flush(4000);
+      expect(list).toEqual([]);
+    }));
+
+    it('should do nothing when the item is presents', inject(function () {
+      var spy = jasmine.createSpy('toCall');
+      var list = ['a'];
+      swrNotification.pushMessage(spy, list, 'a');
+      expect(list).toEqual(['a']);
+      expect(spy).not.toHaveBeenCalled();
     }));
   });
 });

@@ -15,7 +15,6 @@ angular.module('septWebRadioFactories')
       swrNotification.infoMessages = [];
       swrNotification.errorMessages = [];
       swrNotification.messages = [];
-      swrNotification.stop = undefined;
 
       swrNotification.success =
         function (message) {
@@ -46,11 +45,11 @@ angular.module('septWebRadioFactories')
         };
 
       swrNotification.pushMessage =
-        function (method, list, message) {
+        function (func, list, message) {
           if (utilities.isItemNotPresents(list, message)) {
             list.push(message);
-            method(message);
-            swrNotification.stop = $timeout(function () {
+            func(message);
+            $timeout(function () {
               utilities.removeItem(list, message);
             }, 4000);
           }
