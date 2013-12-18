@@ -98,12 +98,12 @@ angular.module('septWebRadioControllers')
 
       $scope.togglePlaylist = function (playlistId) {
         // Add or remove the playlist id
-        $scope.selectedPlaylistIds = utilities.addOrRemoveItem($scope.selectedPlaylistIds, playlistId);
+        utilities.addOrRemoveItem($scope.selectedPlaylistIds, playlistId);
       };
 
       $scope.toggleSelectItem = function (toggleItem) {
         // Add or remove the item id
-        $scope.$apply($scope.selectedItemIds = utilities.addOrRemoveItem($scope.selectedItemIds, toggleItem));
+        $scope.$apply(utilities.addOrRemoveItem($scope.selectedItemIds, toggleItem));
       };
 
       $rootScope.$on('SWR-DRAG-START-NUMBER', function (event, numberItems) {

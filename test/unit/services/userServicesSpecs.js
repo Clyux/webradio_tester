@@ -3,15 +3,15 @@
 describe('user Services', function () {
   beforeEach(module('septWebRadioApp', 'mockedUserServices'));
 
-  var $httpBackend, scope, $window, $location, growl, userServices;
+  var $httpBackend, scope, $window, $location, swrNotification, userServices;
   var userMock = {_id: '12', user: 'User', username: 'User name'};
 
-  beforeEach(inject(function ($rootScope, _$httpBackend_, _$window_, _$location_, _growl_, _userServices_) {
+  beforeEach(inject(function ($rootScope, _$httpBackend_, _$window_, _$location_, _swrNotification_, _userServices_) {
     scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
     $window = _$window_;
     $location = _$location_;
-    growl = _growl_;
+    swrNotification = _swrNotification_;
     userServices = _userServices_;
   }));
 
@@ -94,8 +94,8 @@ describe('user Services', function () {
         .respond(200, response);
     }
 
-    it('should set the user, the path and call growl', inject(function () {
-      spyOn(growl, 'addSuccessMessage');
+    it('should set the user, the path and call swrNotification', inject(function () {
+      spyOn(swrNotification, 'message');
       spyOn($location, 'path');
       createMockService(userMock, {user: userMock});
       userServices.signUp(userMock);
@@ -103,27 +103,27 @@ describe('user Services', function () {
 
       expect(userServices.user).toEqual(userMock);
       expect($location.path).toHaveBeenCalledWith('/stage');
-      expect(growl.addSuccessMessage).toHaveBeenCalledWith('Account successfully created!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Account successfully created!');
     }));
 
-    it('should set the user to undefined and call growl when there is an error', inject(function () {
-      spyOn(growl, 'addErrorMessage');
+    it('should set the user to undefined and call swrNotification when there is an error', inject(function () {
+      spyOn(swrNotification, 'error');
       createMockService(userMock, {error: {errorCode: 11000}});
       userServices.signUp(userMock);
       $httpBackend.flush();
 
       expect(userServices.user).toBeUndefined();
-      expect(growl.addErrorMessage).toHaveBeenCalledWith('The username or email is not available!');
+      expect(swrNotification.error).toHaveBeenCalledWith('The username or email is not available!');
     }));
 
-    it('should set the user to undefined and call growl with an other error appears', inject(function () {
-      spyOn(growl, 'addErrorMessage');
+    it('should set the user to undefined and call swrNotification with an other error appears', inject(function () {
+      spyOn(swrNotification, 'error');
       createMockService(userMock, {error: {errorCode: 11001}});
       userServices.signUp(userMock);
       $httpBackend.flush();
 
       expect(userServices.user).toBeUndefined();
-      expect(growl.addErrorMessage).toHaveBeenCalledWith('Error when Sign Up!');
+      expect(swrNotification.error).toHaveBeenCalledWith('Error when Sign Up!');
     }));
   });
 
@@ -136,8 +136,8 @@ describe('user Services', function () {
         .respond(200, response);
     }
 
-    it('should set the user, the path and call growl', inject(function () {
-      spyOn(growl, 'addSuccessMessage');
+    it('should set the user, the path and call swrNotification', inject(function () {
+      spyOn(swrNotification, 'message');
       spyOn($location, 'path');
       createMockService(userMock, {user: userMock});
       userServices.logIn(userMock);
@@ -145,17 +145,17 @@ describe('user Services', function () {
 
       expect(userServices.user).toEqual(userMock);
       expect($location.path).toHaveBeenCalledWith('/stage');
-      expect(growl.addSuccessMessage).toHaveBeenCalledWith('Successfully connected!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Successfully connected!');
     }));
 
-    it('should set the user to undefined and call growl when there is an error', inject(function () {
-      spyOn(growl, 'addErrorMessage');
+    it('should set the user to undefined and call swrNotification when there is an error', inject(function () {
+      spyOn(swrNotification, 'error');
       createMockService(userMock, {error: {message: 'Bim'}});
       userServices.logIn(userMock);
       $httpBackend.flush();
 
       expect(userServices.user).toBeUndefined();
-      expect(growl.addErrorMessage).toHaveBeenCalledWith('Error when connecting: Bim');
+      expect(swrNotification.error).toHaveBeenCalledWith('Error when connecting: Bim');
     }));
   });
 
@@ -168,15 +168,15 @@ describe('user Services', function () {
         .respond(200, response);
     }
 
-    it('should set the user to undefined and call growl', inject(function () {
-      spyOn(growl, 'addSuccessMessage');
+    it('should set the user to undefined and call swrNotification', inject(function () {
+      spyOn(swrNotification, 'message');
       spyOn($location, 'path');
       createMockService(userMock, {user: userMock});
       userServices.logOut();
       $httpBackend.flush();
 
       expect(userServices.user).toBeUndefined();
-      expect(growl.addSuccessMessage).toHaveBeenCalledWith('Successfully disconnected!');
+      expect(swrNotification.message).toHaveBeenCalledWith('Successfully disconnected!');
     }));
   });
 });

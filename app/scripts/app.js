@@ -1,5 +1,7 @@
 'use strict';
 
+/* global alertify */
+
 angular.module('septWebRadioApp', [
   'ngRoute',
   'ngAnimate',
@@ -9,8 +11,7 @@ angular.module('septWebRadioApp', [
   'septWebRadioControllers',
   'septWebRadioDirectives',
   'septWebRadioFactories',
-  'wu.masonry',
-  'angular-growl'
+  'wu.masonry'
 ]);
 
 angular.module('septWebRadioApp')
@@ -70,6 +71,9 @@ angular.module('septWebRadioApp')
               scope.$broadcast('event:loginRequired');
               return deferred.promise;
             }
+
+            alertify.error('An error occurred. Please check your connexion or contact an admin!');
+
             // otherwise
             return $q.reject(response);
           }
@@ -80,11 +84,5 @@ angular.module('septWebRadioApp')
         }];
 
       $httpProvider.responseInterceptors.push(interceptor);
-    }]
-  )
-  .config(['growlProvider',
-    function (growlProvider) {
-      growlProvider.globalTimeToLive(4000);
-      growlProvider.onlyUniqueMessages(true);
     }]
   );

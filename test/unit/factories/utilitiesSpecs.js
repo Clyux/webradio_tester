@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Utilities', function () {
-  beforeEach(module('septWebRadioApp'));
+  beforeEach(module('septWebRadioFactories'));
 
   var utilities, scope;
 
@@ -299,6 +299,66 @@ describe('Utilities', function () {
 
       var newList = utilities.unionWithId(listFrom, listTo);
       expect(newList).toEqual([{id: 4}, {id: 1}, {id: 5}, {id: 6}]);
+    }));
+  });
+
+
+
+  describe('addOrRemoveItem', function () {
+    it('should add the item', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      utilities.addOrRemoveItem(listFrom, 'jkl');
+      expect(listFrom).toEqual(['abc', 'def', 'ghi', 'jkl']);
+    }));
+    it('should remove the item', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      utilities.addOrRemoveItem(listFrom, 'def');
+      expect(listFrom).toEqual(['abc', 'ghi']);
+    }));
+  });
+
+
+
+  describe('removeItem', function () {
+    it('should remove the item', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      utilities.removeItem(listFrom, 'def');
+      expect(listFrom).toEqual(['abc', 'ghi']);
+    }));
+
+    it('should not remove the item', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      utilities.removeItem(listFrom, 'jkl');
+      expect(listFrom).toEqual(['abc', 'def', 'ghi']);
+    }));
+  });
+
+
+  describe('isItemNotPresents', function () {
+    it('should return false', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      var isPresents = utilities.isItemNotPresents(listFrom, 'def');
+      expect(isPresents).toBeFalsy();
+    }));
+
+    it('should return true', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      var isPresents = utilities.isItemNotPresents(listFrom, 'jkl');
+      expect(isPresents).toBeTruthy();
+    }));
+  });
+
+  describe('isItemPresents', function () {
+    it('should return true', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      var isPresents = utilities.isItemPresents(listFrom, 'def');
+      expect(isPresents).toBeTruthy();
+    }));
+
+    it('should return false', inject(function () {
+      var listFrom = ['abc', 'def', 'ghi'];
+      var isPresents = utilities.isItemPresents(listFrom, 'jkl');
+      expect(isPresents).toBeFalsy();
     }));
   });
 

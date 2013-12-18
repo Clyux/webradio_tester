@@ -1,6 +1,10 @@
 @charset "UTF-8";
 /* CSS Document */
 
+* {
+    margin: 0;
+}
+
 /* For Boostrap UI */
 .nav, .pagination, .carousel a {
     cursor: pointer;
@@ -10,10 +14,6 @@
 
 /* Common */
 
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-}
-
 ul {
     padding: 0;
     margin: 0;
@@ -22,17 +22,12 @@ ul {
 h1 {
     font-family: bacana, verdana, sans-serif;
     font-size: 25pt;
-    margin-bottom: 10px;
 }
 
 p {
     font-family: andale mono, monaco, sans-serif;
     font-size: 10pt;
     color: #000000;
-}
-
-p, pre {
-    margin: 4px;
 }
 
 h2 {
@@ -60,9 +55,7 @@ h2 {
     display: inline;
 }
 
-* {
-    margin: 0;
-}
+
 
 html {
     height: 100%;
@@ -82,7 +75,7 @@ html {
 /* Top */
 
 .header-wrapper {
-    height: 110px;
+    height: 120px;
 }
 
 .top-wrapper {
@@ -217,23 +210,18 @@ html {
 
 .search-toolbar {
     height: 40px;
-    margin: 0 0 5px 0;
+    margin-top: 8px;
 }
 
 .input-prepend {
     padding-top: 9px;
 }
 
-.input-search {
-    width: 400px;
-    padding: 8px 8px;
-    background: rgba(253, 253, 253, 0.71);
-    height: 16px;
-}
 
 .masonry {
     border: solid 1px #ccc;
     min-height: 500px;
+    margin-top: 8px;
     padding: 10px 10px;
     background: rgba(253, 253, 253, 0.71);
 }
@@ -243,6 +231,7 @@ html {
     width: 200px;
     height: 215px;
     margin-bottom: 12px;
+    margin-right: 12px;
     background: #f7f7f7;
     padding: 3px 3px;
     box-shadow: 1px 1px 4px #bbbbbb;
@@ -347,8 +336,7 @@ html {
 
 .add-to-playlist {
     width: 250px;
-    height: 30px;
-    margin-left: 5px;
+    height: 34px;
     -webkit-transition: all 0.6s ease;
     -moz-transition: all 0.6s ease;
     -ms-transition: all 0.6s ease;
@@ -358,7 +346,8 @@ html {
 
 .add-to-playlist.swr-drop-over {
     /* applied to a drop target when a draggable object is over it */
-    opacity: 0.5;
+    opacity: 0.8;
+    background-color: rgba(98, 242, 77, 0.58);
 }
 
 .add-to-playlist.swr-drop-target {
@@ -386,6 +375,10 @@ html {
     background: #f1f1f1;
 }
 
+.your-playlists {
+    margin-top: 10px;
+}
+
 /* Index page */
 
 .soundcloud-player {
@@ -395,4 +388,10 @@ html {
 .triangle {
     width: 5%;
     height: 5%;
+}
+
+.modal {
+    display: block;
+    height: 0;
+    overflow: visible;
 }

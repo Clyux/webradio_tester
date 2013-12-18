@@ -23,6 +23,25 @@ describe('Drag And Drop Directives', function () {
       return elm;
     }
 
+    describe('init', function () {
+      it('should call the drag methods', function () {
+        var elm = createElement('<div data-swr-draggable="true"/>');
+        spyOn(elm, 'drag');
+        controller.init();
+        expect(elm.drag.calls.length).toBe(4);
+        expect(elm.drag).toHaveBeenCalled();
+      });
+
+      it('should call the on methods', function () {
+        var elm = createElement('<div data-swr-draggable="true"/>');
+        spyOn(elm, 'on');
+        controller.init();
+        expect(elm.on.calls.length).toBe(5);
+        expect(elm.on).toHaveBeenCalledWith('$destroy', controller.cleanDrag);
+      });
+    });
+
+
     describe('drag Init', function () {
       it('should return undefined selector', function () {
         createElement('<div data-swr-draggable="true"/>');
@@ -160,11 +179,27 @@ describe('Drag And Drop Directives', function () {
       return elm;
     }
 
-    describe('Controller Init', function () {
+    describe('init', function () {
+      it('should call the drop methods', function () {
+        var elm = createElement('<div data-swr-drop-target="true"/>');
+        spyOn(elm, 'drop');
+        controller.init();
+        expect(elm.drop.calls.length).toBe(3);
+        expect(elm.drop).toHaveBeenCalled();
+      });
+
+      it('should call the on methods', function () {
+        var elm = createElement('<div data-swr-drop-target="true"/>');
+        spyOn(elm, 'on');
+        controller.init();
+        expect(elm.on.calls.length).toBe(4);
+        expect(elm.on).toHaveBeenCalledWith('$destroy', controller.cleanDrop);
+      });
 
       it('should call the on method 2 times', function () {
         spyOn(rootScope, '$on').andCallThrough();
         createElement('<div data-swr-drop-target="true"/>');
+        controller.init();
         expect(rootScope.$on.calls.length).toEqual(2);
         expect(rootScope.$on).toHaveBeenCalledWith('SWR-DRAG-START', controller.onSwrDragStart);
         expect(rootScope.$on).toHaveBeenCalledWith('SWR-DRAG-END', controller.onSwrDragEnd);
@@ -176,6 +211,7 @@ describe('Drag And Drop Directives', function () {
 
       it('should add swr-drop-target to the element', function () {
         var elm = createElement('<div data-swr-drop-target="true"/>');
+        controller.init();
         expect(elm.hasClass('swr-drop-target')).toBeFalsy();
         rootScope.$emit('SWR-DRAG-START', elm);
         expect(elm.hasClass('swr-drop-target')).toBeTruthy();
@@ -183,12 +219,10 @@ describe('Drag And Drop Directives', function () {
 
       it('should remove css classes', function () {
         var elm = createElement('<div data-swr-drop-target="true" class="swr-drop-target swr-drop-over"/>');
-
+        controller.init();
         expect(elm.hasClass('swr-drop-target')).toBeTruthy();
         expect(elm.hasClass('swr-drop-over')).toBeTruthy();
-
         controller.onSwrDragEnd();
-
         expect(elm.hasClass('swr-drop-target')).toBeFalsy();
         expect(elm.hasClass('swr-drop-over')).toBeFalsy();
       });
@@ -226,6 +260,13 @@ describe('Drag And Drop Directives', function () {
         expect(swrDragAndDropService.getDraggedItems).toHaveBeenCalled();
         expect(scopeController.swrDropTargetOnDrop).toHaveBeenCalled();
         expect(swrDragAndDropService.removeAllDraggedItems).toHaveBeenCalled();
+      });
+
+      it('should not call the on drop method', function () {
+        var elm = createElement('<div data-swr-drop-target="true" data-swr-drop-target-on-drop="dropped(droppedItems)"/>');
+        spyOn(swrDragAndDropService, 'getDraggedItems').andCallThrough();
+        controller.drop();
+        expect(swrDragAndDropService.getDraggedItems).toHaveBeenCalled();
       });
     });
 

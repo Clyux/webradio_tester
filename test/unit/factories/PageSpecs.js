@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Page', function () {
-  beforeEach(module('septWebRadioApp'));
+  beforeEach(module('septWebRadioFactories'));
 
   var Page, scope;
   var defaultTitle = 'Sept Web Radio';

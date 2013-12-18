@@ -5,8 +5,8 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('userServices', ['$http', '$window', '$location', 'growl',
-    function ($http, $window, $location, growl) {
+  .service('userServices', ['$http', '$window', '$location', 'swrNotification',
+    function ($http, $window, $location, swrNotification) {
       var self = this;
       this.user = undefined;
 
@@ -45,16 +45,16 @@ angular.module('septWebRadioServices')
 
               switch (data.error.errorCode) {
                 case 11000:
-                  growl.addErrorMessage('The username or email is not available!');
+                  swrNotification.error('The username or email is not available!');
                   break;
                 default:
-                  growl.addErrorMessage('Error when Sign Up!');
+                  swrNotification.error('Error when Sign Up!');
                   break;
               }
             } else {
               self.user = data.user;
               $location.path('/stage');
-              growl.addSuccessMessage('Account successfully created!');
+              swrNotification.message('Account successfully created!');
             }
           });
       };
@@ -64,11 +64,11 @@ angular.module('septWebRadioServices')
           .success(function (data) {
             if (data.error) {
               self.user = undefined;
-              growl.addErrorMessage('Error when connecting: ' + data.error.message);
+              swrNotification.error('Error when connecting: ' + data.error.message);
             } else {
               self.user = data.user;
               $location.path('/stage');
-              growl.addSuccessMessage('Successfully connected!');
+              swrNotification.message('Successfully connected!');
             }
           });
       };
@@ -77,7 +77,7 @@ angular.module('septWebRadioServices')
         $http.get('/signout')
           .success(function () {
             self.user = undefined;
-            growl.addSuccessMessage('Successfully disconnected!');
+            swrNotification.message('Successfully disconnected!');
           });
       };
     }]

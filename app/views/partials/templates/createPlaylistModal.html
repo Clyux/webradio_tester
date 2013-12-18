@@ -1,0 +1,56 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button"
+                    class="close"
+                    ng-click="cancel()"
+                    aria-hidden="true">&times;</button>
+            <div data-ng-hide="!itemIds || itemIds.length">
+                <h4 class="modal-title">
+                    Create a new playlist
+                </h4>
+            </div>
+            <div data-ng-show="!itemIds || itemIds.length">
+                <h4 class="modal-title">
+                    Create a new playlist with your {{ itemIds.length }} selected music!
+                </h4>
+            </div>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal"
+                  name="createPlaylistForm"
+                  role="form"
+                  novalidate
+                  data-ng-submit="createPlaylist(createPlaylistForm)">
+
+                <div class="form-group"
+                     ng-class="{'has-error': createPlaylistForm.playlistName.$dirty && createPlaylistForm.playlistName.$invalid}">
+                    <label class="col-sm-3 control-label"
+                           for="playlistName">Playlist Name</label>
+
+                    <div class="col-sm-9">
+                        <input type="text"
+                               id="playlistName"
+                               class="form-control"
+                               name="playlistName"
+                               placeholder="Playlist Name"
+                               data-ng-model="playlist.name"
+                               required="true"
+                               ng-minlength=1
+                               ng-maxlength=255>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary"
+                            type="submit"
+                            data-ng-disabled="!createPlaylistForm.$valid">Create
+                    </button>
+                    <button class="btn btn-default"
+                            data-ng-click="cancel()">Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

@@ -7,8 +7,8 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('playlistServices', ['Playlists', 'growl', '$modal', '$cacheFactory',
-    function (Playlists, growl, $modal, $cacheFactory) {
+  .service('playlistServices', ['Playlists', 'swrNotification', '$modal', '$cacheFactory',
+    function (Playlists, swrNotification, $modal, $cacheFactory) {
 
       var self = this;
       this.playlists = undefined;
@@ -84,7 +84,7 @@ angular.module('septWebRadioServices')
             self.playlists = [];
           }
           self.playlists.push(response);
-          growl.addSuccessMessage('Playlist successfully created!');
+          swrNotification.message('Playlist successfully created!');
           done(response);
         });
       };
@@ -96,8 +96,8 @@ angular.module('septWebRadioServices')
       };
 
       this.addItemsToPlaylist = function (playlistId, itemIds) {
-        var playlistItems = self.createPlaylistItems(itemIds);
         var playlist = self.findPlaylistById(playlistId);
+        var playlistItems = self.createPlaylistItems(itemIds);
 
         if (playlist !== undefined) {
           if (!playlist.items) {
@@ -110,38 +110,45 @@ angular.module('septWebRadioServices')
           playlist.$update(function (response) {
             playlist = response;
             // Update the model
-            growl.addSuccessMessage(_.size(itemIds) + ' items has been added to the playlist: ' + playlist.name);
+            var itemSize = _.size(itemIds);
+            if (itemSize === 1) {
+              swrNotification.message(itemSize + ' music has been added');
+            } else {
+              swrNotification.message(itemSize + ' musics have been added');
+            }
           });
         } else {
-          growl.addErrorMessage('You have to select a valid playlist!');
+          swrNotification.error('You have to select a valid playlist!');
         }
       };
 
       this.createPlaylistModal = function (itemIds) {
-        $modal.open({
-          templateUrl: 'createPlaylistModal.html',
-          controller: function ($scope, $modalInstance, itemIds) {
-            $scope.itemIds = itemIds;
-            $scope.playlist = {};
-
-            $scope.createPlaylist = function (createPlaylistForm) {
-              // If the form is valid
-              if (createPlaylistForm.$valid) {
-                self.createPlaylistWithItems($scope.playlist.name, $scope.itemIds, function (response) {
-                  $modalInstance.close(response);
-                });
-              }
-            };
-            $scope.cancel = function () {
-              $modalInstance.dismiss('cancel');
-            };
-          },
+        return $modal.open({
+          templateUrl: 'partials/templates/createPlaylistModal.html',
+          controller: this.controllerCreatePlaylistModal,
           resolve: {
             itemIds: function () {
               return itemIds;
             }
           }
         });
+      };
+
+      this.controllerCreatePlaylistModal = function ($scope, $modalInstance, itemIds) {
+        $scope.itemIds = itemIds;
+        $scope.playlist = {};
+
+        $scope.createPlaylist = function (createPlaylistForm) {
+          // If the form is valid
+          if (createPlaylistForm.$valid) {
+            self.createPlaylistWithItems($scope.playlist.name, $scope.itemIds, function (response) {
+              $modalInstance.close(response);
+            });
+          }
+        };
+        $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
       };
     }
   ]);
