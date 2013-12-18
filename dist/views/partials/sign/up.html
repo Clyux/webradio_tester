@@ -1,51 +1,52 @@
-<form data-ng-init="init()" class="form-horizontal" name="signUpForm" novalidate="" ng-submit="createUser(signUpForm)">
+<form data-ng-init="init()" class="form-horizontal" name="signUpForm" role="form" novalidate="" ng-submit="createUser(signUpForm)">
 
     <fieldset>
-        <legend>Signup</legend>
+        <legend>Sign Up</legend>
+        <div class="form-group">
+            <label for="inputName" class="col-sm-2 control-label">Name</label>
 
-        <div class="control-group">
-            <label class="control-label" for="inputName">Name:</label>
-
-            <div class="controls">
-                <input type="text" id="inputName" placeholder="Name" ng-model="user.name">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Name" ng-model="user.name">
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="inputLastName">Last Name:</label>
 
-            <div class="controls">
-                <input type="text" id="inputLastName" placeholder="Last Name" ng-model="user.lastName">
+        <div class="form-group">
+            <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name" ng-model="user.lastName">
             </div>
         </div>
 
-        <div class="control-group" ng-class="{error: signUpForm.username.$dirty && signUpForm.username.$invalid}">
-            <label class="control-label" for="username">User Name:</label>
+        <div class="form-group" ng-class="{'has-error': signUpForm.username.$dirty && signUpForm.username.$invalid}">
+            <label for="username" class="col-sm-2 control-label">User Name</label>
 
-            <div class="controls">
-                <input type="text" id="username" name="username" placeholder="User Name" ng-model="user.username" required="true" ng-minlength="3" ng-maxlength="255">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="username" name="username" placeholder="User Name" ng-model="user.username" required="true" ng-minlength="3" ng-maxlength="255">
             </div>
         </div>
 
-        <div class="control-group" ng-class="{error: signUpForm.email.$dirty && signUpForm.email.$invalid}">
-            <label class="control-label" for="email">Email:</label>
+        <div class="form-group" ng-class="{'has-error': signUpForm.email.$dirty && signUpForm.email.$invalid}">
+            <label class="col-sm-2 control-label" for="email">Email</label>
 
-            <div class="controls">
-                <input type="email" name="email" id="email" placeholder="Email" ng-model="user.email" required="true">
+            <div class="col-sm-4">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="user.email" required="true">
             </div>
         </div>
 
-        <div class="control-group" ng-class="{error: signUpForm.password.$dirty && signUpForm.password.$invalid}">
-            <label class="control-label" for="password">Password:</label>
+        <div class="form-group" ng-class="{'has-error': signUpForm.password.$dirty && signUpForm.password.$invalid}">
+            <label class="col-sm-2 control-label" for="password">Password</label>
 
-            <div class="controls">
-                <input type="password" id="password" name="password" placeholder="Password" ng-model="user.password" required="true" ng-minlength="3" ng-maxlength="255">
+            <div class="col-sm-4">
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password" ng-model="user.password" required="true" ng-minlength="3" ng-maxlength="255">
             </div>
         </div>
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn btn-primary" ng-disabled="!signUpForm.$valid">
-                    Sign Up
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-disabled="!signUpForm.$valid" class="btn btn-primary">
+                    Sign up
                 </button>
             </div>
         </div>
