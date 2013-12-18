@@ -6,10 +6,9 @@
                              height="150px"></a>
         </div>
 
-        <div class="header-right content-wrapper">
-
-            <div class="login-buttons">
-                <div class="login-buttons-not-connected"
+        <div class="container">
+            <div class="row">
+                <div class="pull-right"
                      data-ng-hide="userServices.isConnected()">
                     <button type="button"
                             class="black-button connexion-button"
@@ -21,7 +20,7 @@
                     </button>
                 </div>
 
-                <div class="login-buttons-connected"
+                <div class="pull-right"
                      data-ng-show="userServices.isConnected()">
                     <ul class="nav pull-right">
                         <li class="dropdown">
@@ -32,17 +31,18 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="#"><i class="glyphicon glyphicon-pencil"></i> Edit Profile</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-trash"></i> Delete</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-headphones"></i> Your Playlists</a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-ban-circle"></i> Ban</a></li>
                                 <li class="divider"></li>
-                                <li><a ng-click="logOutClick()"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
+                                <li><a ng-click="logOutClick()"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="navigation">
+            <div class="row">
                 <nav>
                     <ul class="ul-navigation">
                         <li><a href="/stage">STAGE</a></li>
@@ -54,7 +54,7 @@
                 </nav>
             </div>
 
-            <div class="header-black-line">
+            <div class="row">
                 <img src="images/barre.png"
                      class="header-black-image"/>
             </div>

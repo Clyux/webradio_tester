@@ -5,6 +5,15 @@
     margin: 0;
 }
 
+menu, ol, ul {
+    padding: 0;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 /* For Boostrap UI */
 .nav, .pagination, .carousel a {
     cursor: pointer;
@@ -14,20 +23,9 @@
 
 /* Common */
 
-ul {
-    padding: 0;
-    margin: 0;
-}
-
 h1 {
     font-family: bacana, verdana, sans-serif;
     font-size: 25pt;
-}
-
-p {
-    font-family: andale mono, monaco, sans-serif;
-    font-size: 10pt;
-    color: #000000;
 }
 
 h2 {
@@ -36,29 +34,14 @@ h2 {
     color: #000000;
 }
 
-.center-block {
-    display: block;
-    margin-left: auto;
-    margin-right: auto
+p {
+    font-family: andale mono, monaco, sans-serif;
+    font-size: 10pt;
+    color: #000000;
 }
 
 .cursor-pointer {
     cursor: pointer;
-}
-
-.clearfix {
-    clear: both;
-    float: none;
-}
-
-.inline {
-    display: inline;
-}
-
-
-
-html {
-    height: 100%;
 }
 
 .footer, .push {
@@ -67,16 +50,24 @@ html {
 
 /* Global */
 .global-wrapper {
-    margin: 8px 8px;
     max-width: 1400px;
     min-height: 100%;
+    padding: 8px 8px;
+}
+
+.main-wrapper {
+    height: auto !important;
+    margin: auto;
+}
+
+.container {
+    padding: 0;
+    min-width: 280px;
+    margin-left: 250px;
+    width: auto;
 }
 
 /* Top */
-
-.header-wrapper {
-    height: 120px;
-}
 
 .top-wrapper {
     max-width: 1400px;
@@ -86,32 +77,6 @@ html {
     width: 250px;
     height: 150px;
     position: absolute;
-}
-
-.header-right {
-
-}
-
-.login-buttons {
-    height: 40px;
-    max-width: 808px;
-}
-
-.login-buttons-connected {
-    float: right;
-}
-
-.login-buttons-not-connected {
-    float: right;
-}
-
-.navigation {
-    margin-top: 15px;
-}
-
-.ul-navigation {
-    margin: 0;
-    list-style-type: none;
 }
 
 .ul-navigation li {
@@ -139,13 +104,9 @@ html {
     text-decoration: none;
 }
 
-.header-black-line {
-    margin-top: 10px;
-}
-
 .header-black-image {
     width: 100%;
-    height: 17px;
+    height: 15px;
 }
 
 .black-button {
@@ -191,32 +152,20 @@ html {
     margin-left: 10px;
 }
 
-.main-wrapper {
-    height: auto !important;
-    height: 100%;
-    margin: auto;
-    margin-top: 10px;
-}
-
 .left-bar-wrapper {
-}
-
-.content-wrapper {
-    min-width: 815px;
-    margin-left: 250px;
 }
 
 /* Stage page */
 
 .search-toolbar {
-    height: 40px;
+    height: 100%;
+    min-height: 40px;
     margin-top: 8px;
 }
 
 .input-prepend {
     padding-top: 9px;
 }
-
 
 .masonry {
     border: solid 1px #ccc;
@@ -334,26 +283,31 @@ html {
     z-index: 2;
 }
 
+.drop-musics {
+    /*-webkit-transition: opacity 0.6s ease;
+    -moz-transition: opacity 0.6s ease;
+    -ms-transition: opacity 0.6s ease;
+    -o-transition: opacity 0.6s ease;
+    transition: opacity 0.6s ease;*/
+}
+
+.drop-musics.swr-drop-over {
+    /* applied to a drop target when a draggable object is over it */
+    /*opacity: 0.8;*/
+    background-color: rgba(98, 242, 77, 0.33);
+}
+
+.drop-musics.swr-drop-target {
+    /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
+    /*width: 300px;
+    height: 40px;*/
+    opacity: 0.5;
+    background-color: rgba(98, 242, 77, 0.33);
+}
+
 .add-to-playlist {
     width: 250px;
     height: 34px;
-    -webkit-transition: all 0.6s ease;
-    -moz-transition: all 0.6s ease;
-    -ms-transition: all 0.6s ease;
-    -o-transition: all 0.6s ease;
-    transition: all 0.6s ease;
-}
-
-.add-to-playlist.swr-drop-over {
-    /* applied to a drop target when a draggable object is over it */
-    opacity: 0.8;
-    background-color: rgba(98, 242, 77, 0.58);
-}
-
-.add-to-playlist.swr-drop-target {
-    /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
-    width: 300px;
-    height: 40px;
 }
 
 [data-swr-draggable] {
@@ -375,7 +329,7 @@ html {
     background: #f1f1f1;
 }
 
-.your-playlists {
+.list-your-playlists {
     margin-top: 10px;
 }
 
