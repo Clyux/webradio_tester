@@ -19,7 +19,7 @@ describe('my app', function() {
     });
 
     it('should render index when user navigates to /index', function() {
-      expect(element('[ng-view] h1:first').text()).toMatch(/Live/);
+      expect(element('[data-ng-view] h1:first').text()).toMatch(/Live/);
     });
 
   });
@@ -31,7 +31,7 @@ describe('my app', function() {
     });
 
     it('should render stage when user navigates to /stage', function() {
-      var elmt = element('[ng-view] img:first');
+      var elmt = element('[data-ng-view] img:first');
       expect(elmt.attr('src')).toMatch(/images\/ajax-loader.gif/);
     });
   });

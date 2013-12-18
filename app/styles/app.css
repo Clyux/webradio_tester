@@ -12,6 +12,7 @@ menu, ol, ul {
 .row {
     margin-left: 0px;
     margin-right: 0px;
+    padding: 0;
 }
 
 /* For Boostrap UI */
@@ -44,6 +45,21 @@ p {
     cursor: pointer;
 }
 
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.nopadding-right {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+
+.nopadding-left {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
 .footer, .push {
     height: 4em;
 }
@@ -62,7 +78,7 @@ p {
 
 .container {
     padding: 0;
-    min-width: 280px;
+    min-width: 265px;
     margin-left: 250px;
     width: auto;
 }
@@ -271,7 +287,7 @@ p {
 
 .masonry-brick.swr-drag-start {
     opacity: 0.9;
-    z-index: 2;
+    z-index: 3;
 }
 
 .masonry-brick.swr-drag-start-remove {
@@ -280,29 +296,75 @@ p {
     -ms-transition: opacity 0.6s ease-in-out;
     -o-transition: opacity 0.6s ease-in-out;
     transition: opacity 0.6s ease-in-out;
-    z-index: 2;
+    z-index: 3;
 }
 
 .drop-musics {
-    /*-webkit-transition: opacity 0.6s ease;
-    -moz-transition: opacity 0.6s ease;
-    -ms-transition: opacity 0.6s ease;
-    -o-transition: opacity 0.6s ease;
-    transition: opacity 0.6s ease;*/
+    position: relative;
 }
 
-.drop-musics.swr-drop-over {
+.drop-musics-bar {
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -ms-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+}
+
+.block {
+    text-align: center;
+    height: 100%;
+}
+
+/* The ghost, nudged to maintain perfect centering */
+.block:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+/* The element to be centered, can
+   also be of any width and height */
+.centered {
+    display: inline-block;
+    vertical-align: middle;
+    width: 350px;
+}
+
+.drop-musics-overlay .centered p {
+    font-weight: bold;
+}
+
+.drop-musics-overlay {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.drop-musics-bar.swr-drop-over {
     /* applied to a drop target when a draggable object is over it */
-    /*opacity: 0.8;*/
-    background-color: rgba(98, 242, 77, 0.33);
+    background-color: rgba(97, 244, 76, 0.41);
 }
 
-.drop-musics.swr-drop-target {
+.drop-musics-bar.swr-drop-target-remove {
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -ms-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+    border-style: none;
+}
+
+.drop-musics-bar.swr-drop-target {
     /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
-    /*width: 300px;
-    height: 40px;*/
     opacity: 0.5;
-    background-color: rgba(98, 242, 77, 0.33);
+    border: 3px dashed #afafaf;
 }
 
 .add-to-playlist {
@@ -321,6 +383,7 @@ p {
     -khtml-user-drag: element;
     -webkit-user-drag: element;
     cursor: pointer;
+    z-index: 1;
 }
 
 .masonry .swr-select {

@@ -13,6 +13,7 @@ angular.module('septWebRadioControllers')
       $scope.playlistServices = playlistServices;
       $scope.selectedPlaylistIds = [];
       $scope.selectedItemIds = [];
+      $scope.isDragAndDrop = false;
       $scope.isSingleDragAndDrop = false;
 
       $scope.init = function () {
@@ -108,10 +109,12 @@ angular.module('septWebRadioControllers')
 
       $rootScope.$on('SWR-DRAG-START-NUMBER', function (event, numberItems) {
         $scope.$apply($scope.isSingleDragAndDrop = numberItems === 1);
+        $scope.$apply($scope.isDragAndDrop = true);
       });
 
       $rootScope.$on('SWR-DRAG-END-NUMBER', function () {
         $scope.$apply($scope.isSingleDragAndDrop = false);
+        $scope.$apply($scope.isDragAndDrop = false);
       });
     }]
   );
