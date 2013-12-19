@@ -50,6 +50,10 @@ angular.module('septWebRadioApp')
           templateUrl: 'partials/sign/up.html',
           controller: 'SignCtrl'
         })
+        .when('/:userId/playlists', {
+          templateUrl: 'partials/playlists/all.html',
+          controller: 'PlaylistsCtrl'
+        })
         .otherwise({
           redirectTo: '/index'
         });

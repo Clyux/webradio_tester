@@ -1,0 +1,32 @@
+<div data-ng-init="init()"
+     class="drop-musics">
+    <div class="drop-musics-bar">
+        <div>
+            <div>
+                <h3>Your Playlists <i class="glyphicon glyphicon-music"></i></h3>
+
+                <div data-ng-show="userServices.isConnected()">
+                    <ul class="nav nav-pills list-your-playlists"
+                        data-ng-show="!playlistServices.playlists || playlistServices.playlists.length">
+                        <li ng-repeat="playlist in playlistServices.playlists"
+                            data-swr-select
+                            data-swr-select-class="active"
+                            data-ng-click="togglePlaylist(playlist._id)">
+                            <a><i class="glyphicon glyphicon-headphones"></i> {{playlist.name}}
+                                ({{playlist.items.length}})</a>
+                        </li>
+                    </ul>
+
+                    <div data-ng-hide="!playlistServices.playlists || playlistServices.playlists.length">
+                        <p>You don't have playlist yet.</p>
+
+                        <p>You can create some by drag&dropping items or by clicking on Create a Playlist's button!</p>
+                    </div>
+                </div>
+                <div data-ng-hide="userServices.isConnected()">
+                    <p>You have to be <a href="/login">connected</a> in order to view and edit your playlists.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
