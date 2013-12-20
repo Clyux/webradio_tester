@@ -7,8 +7,8 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('playlistServices', ['Playlists', 'swrNotification', '$modal', '$cacheFactory',
-    function (Playlists, swrNotification, $modal, $cacheFactory) {
+  .service('playlistServices', ['Playlists', 'swrNotification', '$modal', '$cacheFactory', 'userServices', 'utilities',
+    function (Playlists, swrNotification, $modal, $cacheFactory, userServices, utilities) {
 
       var self = this;
       this.playlists = undefined;
@@ -21,12 +21,17 @@ angular.module('septWebRadioServices')
       this.initPlaylists = function () {
         self.playlists = self.cache.get('playlists');
         if (!self.playlists) {
-          // Get all the playlists
-          Playlists.query(function (playlists) {
+          // Get all the playlists for the connected user
+          Playlists.query({userId: userServices.getName()}, function (playlists) {
             self.playlists = playlists;
             self.cache.put('playlists', playlists);
           });
         }
+      };
+
+      this.getUserPlaylists = function (userId, done) {
+        // Get all the playlists for the user
+        return Playlists.query({userId: userId}, done);
       };
 
       this.createPlaylistItems = function (itemIds) {
@@ -79,7 +84,7 @@ angular.module('septWebRadioServices')
           name: playlistName,
           items: playlistItems
         });
-        playlist.$save(function (response) {
+        playlist.$save({userId: userServices.getName()}, function (response) {
           if (angular.isUndefined(self.playlists)) {
             self.playlists = [];
           }
@@ -103,20 +108,29 @@ angular.module('septWebRadioServices')
           if (!playlist.items) {
             playlist.items = [];
           }
-          angular.forEach(playlistItems, function (playlistItem) {
-            playlist.items.push(playlistItem);
-          });
 
-          playlist.$update(function (response) {
-            playlist = response;
-            // Update the model
-            var itemSize = _.size(itemIds);
-            if (itemSize === 1) {
-              swrNotification.message(itemSize + ' music has been added');
-            } else {
-              swrNotification.message(itemSize + ' musics have been added');
+          var numberItemAdded = 0;
+
+          angular.forEach(playlistItems, function (playlistItem) {
+            // If item is not already here
+            if (!utilities.listContainsAttribute(playlist.items, parseInt(playlistItem.musicId), 'musicId')) {
+              playlist.items.push(playlistItem);
+              numberItemAdded++;
             }
           });
+
+          // If there are some new musics
+          if (numberItemAdded > 0) {
+            playlist.$update({userId: userServices.getName()}, function (response) {
+              playlist = response;
+              // Update the model
+              if (numberItemAdded === 1) {
+                swrNotification.message(numberItemAdded + ' music has been added');
+              } else {
+                swrNotification.message(numberItemAdded + ' musics have been added');
+              }
+            });
+          }
         } else {
           swrNotification.error('You have to select a valid playlist!');
         }
@@ -150,5 +164,13 @@ angular.module('septWebRadioServices')
           $modalInstance.dismiss('cancel');
         };
       };
+
+      this.getTrackIds = function (playlists, playlistId) {
+        var playlist = utilities.getItemById(playlists, playlistId);
+        return _.map(playlist.items, function (item) {
+          return item.musicId;
+        });
+      };
     }
-  ]);
+  ])
+;

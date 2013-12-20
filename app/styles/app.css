@@ -191,7 +191,7 @@ p {
     background: rgba(253, 253, 253, 0.71);
 }
 
-.masonry .masonry-brick {
+.masonry .masonry-brick-2 {
     display: none;
     width: 200px;
     height: 215px;
@@ -205,11 +205,11 @@ p {
     border: solid 1px #e4e4e4;
 }
 
-.masonry-brick.loaded {
+.masonry-brick-2.loaded {
     display: block;
 }
 
-.masonry-brick .author-name {
+.masonry-brick-2 .author-name {
     position: absolute;
     top: 30px;
     width: 164px;
@@ -221,7 +221,7 @@ p {
     text-transform: uppercase;
 }
 
-.masonry-brick .title-name {
+.masonry-brick-2 .title-name {
     position: absolute;
     top: 0;
     width: 164px;
@@ -231,23 +231,49 @@ p {
     font-family: andale Mono, monaco;
 }
 
-.masonry-brick img {
+.masonry-brick-2 img {
     position: relative;
     top: 60px;
     width: 140px;
     height: 140px;
 }
 
+.masonry-brick-2 .delete {
+    display: block;
+    color: #ff000d;
+    background: rgba(187, 187, 187, 0.20);
+    width: 30px;
+    height: 30px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: underline;
+}
+
+.masonry-brick-2.ng-enter {
+    -webkit-transition: 1s ease opacity;
+    -moz-transition: 1s ease opacity;
+    -ms-transition: 1s ease opacity;
+    -o-transition: 1s ease opacity;
+    transition: 1s ease opacity;
+    opacity: 0;
+}
+
+.masonry-brick-2.ng-enter.ng-enter-active,
+.masonry-brick-2.ng-move.ng-move-active {
+    opacity: 1;
+}
+
 /* Css animations for search in stage page */
-.masonry-brick.ng-leave {
+/*.masonry-brick-2.ng-leave {
     -webkit-animation: 0.6s my-animation;
     -moz-animation: 0.6s my-animation;
     -ms-transition: 0.6s my-animation;
     -o-animation: 0.6s my-animation;
     animation: 0.6s my-animation;
 }
-
-/* Leave */
 
 @keyframes my-animation {
     from {
@@ -284,13 +310,14 @@ p {
         opacity: 0;
     }
 }
+*/
 
-.masonry-brick.swr-drag-start {
+.masonry-brick-2.swr-drag-start {
     opacity: 0.9;
     z-index: 3;
 }
 
-.masonry-brick.swr-drag-start-remove {
+.masonry-brick-2.swr-drag-start-remove {
     -webkit-transition: opacity 0.6s ease-in-out;
     -moz-transition: opacity 0.6s ease-in-out;
     -ms-transition: opacity 0.6s ease-in-out;

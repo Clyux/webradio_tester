@@ -37,6 +37,14 @@ angular.module('septWebRadioServices')
         }
       };
 
+      this.isSameUser = function (username) {
+        if (self.user) {
+          return self.user.username === username;
+        } else {
+          return false;
+        }
+      };
+
       this.signUp = function (user) {
         $http.post('/users', user)
           .success(function (data) {

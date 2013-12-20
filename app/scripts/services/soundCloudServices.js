@@ -14,6 +14,7 @@ angular.module('septWebRadioServices')
       this.soundCloudToken = undefined;
       this.soundCloudUser = undefined;
       this.meDeferred = undefined;
+      this.getTracksDeferred = undefined;
 
       this.getUser = function () {
         return self.soundCloudUser;
@@ -87,6 +88,30 @@ angular.module('septWebRadioServices')
         self.soundCloudUser = response;
         $cookieStore.put('SC_User', self.soundCloudUser);
         self.meDeferred.resolve(self.soundCloudUser);
+      };
+
+      this.getTracks = function (trackIds) {
+        // Create the promise
+        self.getTracksDeferred = $q.defer();
+
+        var trackIdsStr = trackIds.join(',');
+
+        // Call the SoundCloud api in order to get the user
+        SC.get('/tracks', { ids: trackIdsStr }, self.getTracksCallBack);
+
+        // Get the promise object
+        var promise = self.getTracksDeferred.promise;
+
+        promise.then(function (response) {
+          return response;
+        });
+
+        // And return the promise object
+        return promise;
+      };
+
+      this.getTracksCallBack = function (response) {
+        self.getTracksDeferred.resolve(response);
       };
     }]
   );

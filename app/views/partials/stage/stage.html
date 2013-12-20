@@ -67,12 +67,14 @@
     </div>
 </div>
 
-
 <div class="masonry"
-     masonry
-     masonry-options="{ transitionDuration: '1s' }">
-    <div class="masonry-brick"
-         ng-repeat="item in searchedItems"
+     data-masonry
+     data-masonry-options="{ transitionDuration: '0' }"
+     data-preserve-order
+     data-item-selector=".masonry-brick-2">
+    <div class="masonry-brick-2"
+         data-masonry-brick
+         data-ng-repeat="item in searchedItems"
          data-swr-draggable="true"
          data-item-id="{{item.id}}"
          data-swr-select

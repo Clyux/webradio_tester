@@ -17,11 +17,18 @@ module.exports = function (app, passport, auth) {
 
   // Playlist Routes
   var playlists = require('../controllers/playlists');
-  app.get('/playlists', auth.requiresLogin, playlists.all);
+  /*app.get('/playlists', auth.requiresLogin, playlists.all);
   app.post('/playlists', auth.requiresLogin, playlists.create);
   app.get('/playlists/:playlistId', playlists.show);
   app.put('/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.update);
   app.del('/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.destroy);
+*/
+
+  app.get('/api/:userId/playlists', playlists.all);
+  app.post('/api/:userId/playlists', auth.requiresLogin, playlists.create);
+  app.get('/api/:userId/playlists/:playlistId', playlists.show);
+  app.put('/api/:userId/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.update);
+  app.del('/api/:userId/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.destroy);
 
   // Finish with setting up the playlistId param
   app.param('playlistId', playlists.playlist);

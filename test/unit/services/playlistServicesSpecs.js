@@ -4,14 +4,14 @@ describe('Playlist Services', function () {
   beforeEach(module('septWebRadioApp'));
 
   var $cacheFactory, scope, Playlists, swrNotification, $modal, playlistServices, cache;
-  var $httpBackend;
+  var $httpBackend, userServices;
 
   var playlistsMock = [
     {name: 'Playlist 1', _id: 1},
     {name: 'Playlist 2', _id: 2}
   ];
 
-  beforeEach(inject(function ($rootScope, _Playlists_, _$cacheFactory_, _swrNotification_, _$modal_, _playlistServices_, _$httpBackend_) {
+  beforeEach(inject(function ($rootScope, _Playlists_, _$cacheFactory_, _swrNotification_, _$modal_, _playlistServices_, _$httpBackend_, _userServices_) {
     scope = $rootScope.$new();
     Playlists = _Playlists_;
     swrNotification = _swrNotification_;
@@ -19,7 +19,12 @@ describe('Playlist Services', function () {
     $modal = _$modal_;
     playlistServices = _playlistServices_;
     $httpBackend = _$httpBackend_;
+    userServices = _userServices_;
     cache = $cacheFactory.get('playlistServices');
+
+    spyOn(userServices, 'getName').andCallFake(function () {
+      return 'jimmy';
+    });
   }));
 
   afterEach(function () {
@@ -41,7 +46,7 @@ describe('Playlist Services', function () {
 
   describe('initPlaylists', function () {
     it('should get the playlists from the query', inject(function () {
-      spyOn(Playlists, 'query').andCallFake(function (callback) {
+      spyOn(Playlists, 'query').andCallFake(function (userId, callback) {
         return callback(playlistsMock);
       });
       expect(playlistServices.playlists).toBeUndefined();
@@ -52,7 +57,7 @@ describe('Playlist Services', function () {
     }));
 
     it('should set the playlists in cache', inject(function () {
-      spyOn(Playlists, 'query').andCallFake(function (callback) {
+      spyOn(Playlists, 'query').andCallFake(function (userId, callback) {
         return callback(playlistsMock);
       });
       expect(cache.get('playlists')).toBeUndefined();
@@ -164,7 +169,7 @@ describe('Playlist Services', function () {
       };
 
       spyOn(playlistServices, 'createPlaylistItems').andCallThrough();
-      $httpBackend.expectPOST('playlists', finalPlaylist)
+      $httpBackend.expectPOST('/api/jimmy/playlists', finalPlaylist)
         .respond(returnPlaylist);
 
       playlistServices.createPlaylistWithItems(playlistName, itemIds, done);
@@ -185,7 +190,7 @@ describe('Playlist Services', function () {
       };
 
       spyOn(playlistServices.playlists, 'push').andCallThrough();
-      $httpBackend.expectPOST('playlists', finalPlaylist)
+      $httpBackend.expectPOST('/api/jimmy/playlists', finalPlaylist)
         .respond(returnPlaylist);
 
       playlistServices.createPlaylistWithItems(playlistName, itemIds, done);
@@ -208,7 +213,7 @@ describe('Playlist Services', function () {
       };
 
       spyOn(swrNotification, 'message');
-      $httpBackend.expectPOST('playlists', finalPlaylist)
+      $httpBackend.expectPOST('/api/jimmy/playlists', finalPlaylist)
         .respond(returnPlaylist);
 
       playlistServices.createPlaylistWithItems(playlistName, itemIds, done);
@@ -271,7 +276,7 @@ describe('Playlist Services', function () {
       var finalItems = playlistServices.createPlaylistItems(itemIds);
       var finalPlaylist = {name: 'Name', _id: 3, items: finalItems};
 
-      $httpBackend.expectPUT('playlists/3', finalPlaylist)
+      $httpBackend.expectPUT('/api/jimmy/playlists/3', finalPlaylist)
         .respond(200);
 
       playlistServices.addItemsToPlaylist(playlistId, itemIds);
@@ -295,7 +300,7 @@ describe('Playlist Services', function () {
       var finalItems = playlistServices.createPlaylistItems(itemIds);
       var finalPlaylist = {name: 'Name', _id: 3, items: finalItems};
 
-      $httpBackend.expectPUT('playlists/3', finalPlaylist)
+      $httpBackend.expectPUT('/api/jimmy/playlists/3', finalPlaylist)
         .respond(200);
 
       playlistServices.addItemsToPlaylist(playlistId, itemIds);
