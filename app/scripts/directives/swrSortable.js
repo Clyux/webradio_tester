@@ -1,5 +1,7 @@
 'use strict';
 
+/* global Draggabilly */
+
 angular.module('septWebRadioDirectives');
 
 angular.module('septWebRadioDirectives')
@@ -9,21 +11,27 @@ angular.module('septWebRadioDirectives')
     function controller($scope, $element) {
       var bricks = {};
       var destroyed = false;
-      var self = this;
 
-      this.appendBrick = function appendBrick(element, id) {
+      this.appendBrick = function appendBrick() {
         if (destroyed) {
           return;
         }
-        $element.gridly('layout');
+
+        //$element.shapeshift();
+        /*$element.append(element)
+          .packery('appended', element);*/
+
+        // make item elements draggable
+        //self.makeEachDraggable(0, element);
+
+        //$element.packery('appended', element, true);
       };
 
-      this.removeBrick = function removeBrick(id, element) {
+      this.removeBrick = function removeBrick(id) {
         if (destroyed) {
           return;
         }
         delete bricks[id];
-        //$element.gridly('layout');
       };
 
       this.destroy = function destroy() {
@@ -33,7 +41,13 @@ angular.module('septWebRadioDirectives')
       };
 
       this.layout = function reload() {
-        $element.gridly();
+      };
+
+      this.makeEachDraggable = function (i, itemElem) {
+        // make element draggable with Draggabilly
+        var draggie = new Draggabilly(itemElem);
+        // bind Draggabilly events to Packery
+        $element.packery('bindDraggabillyEvents', draggie);
       };
     }
   ])
@@ -44,7 +58,14 @@ angular.module('septWebRadioDirectives')
         controller: 'swrSortableCtrl',
         link: function link(scope, element) {
           console.log(element);
-          element.gridly({});
+
+          // element.shapeshift({colWidth: 200});
+          /*element.packery({
+            columnWidth: 80,
+            rowHeight: 80
+          });*/
+          element.sortable();
+          element.disableSelection();
         }
       };
     }

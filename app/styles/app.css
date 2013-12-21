@@ -184,6 +184,7 @@ p {
 }
 
 .masonry {
+    position: relative;
     border: solid 1px #ccc;
     min-height: 500px;
     margin-top: 8px;
@@ -192,6 +193,7 @@ p {
 }
 
 .masonry .masonry-brick-2 {
+    position: absolute;
     display: none;
     width: 200px;
     height: 215px;
@@ -241,7 +243,7 @@ p {
 .masonry-brick-2 .delete {
     display: block;
     color: #ff000d;
-    background: rgba(187, 187, 187, 0.20);
+    background: rgba(191, 191, 191, 0.20);
     width: 30px;
     height: 30px;
     top: 0;
