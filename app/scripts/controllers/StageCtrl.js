@@ -44,12 +44,16 @@ angular.module('septWebRadioControllers')
       };
 
       $scope.dropped = function (droppedItems) {
-        var itemIds = angular.copy(droppedItems);
-        playlistServices.createOrUpdatePlaylist($scope.selectedPlaylistIds, itemIds);
+        if ($scope.userServices.isConnected()) {
+          var itemIds = angular.copy(droppedItems);
+          playlistServices.createOrUpdatePlaylist($scope.selectedPlaylistIds, itemIds);
+        }
       };
 
       $scope.clickOnCreateButton = function () {
-        playlistServices.createOrUpdatePlaylist($scope.selectedPlaylistIds, $scope.selectedItemIds);
+        if ($scope.userServices.isConnected()) {
+          playlistServices.createOrUpdatePlaylist($scope.selectedPlaylistIds, $scope.selectedItemIds);
+        }
       };
 
       $scope.getButtonLabel = function () {
@@ -60,6 +64,10 @@ angular.module('septWebRadioControllers')
 
         if ($scope.isSingleDragAndDrop) {
           selectedItemssSize = 1;
+        }
+
+        if (!$scope.userServices.isConnected()) {
+          return 'You have to be connected!';
         }
 
         if (selectedPlaylistsSize > 0) {
