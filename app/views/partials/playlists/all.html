@@ -1,0 +1,73 @@
+<div data-ng-init="init()"
+     class="drop-musics">
+    <div class="drop-musics-bar">
+        <div>
+            <div>
+                <h3>Playlists <i class="glyphicon glyphicon-music"></i></h3>
+
+                <div>
+                    <ul class="nav nav-pills list-your-playlists"
+                        data-ng-show="!playlists || playlists.length">
+                        <li ng-repeat="playlist in playlists"
+                            ng-class="{'active': playlist._id === selectedPlaylistId}"
+                            data-swr-select
+                            data-ng-click="selectPlaylist(playlist._id)">
+                            <a><i class="glyphicon glyphicon-headphones"></i> {{playlist.name}}
+                                ({{playlist.items.length}})</a>
+                        </li>
+                    </ul>
+
+                    <div data-ng-hide="!playlists || playlists.length">
+                        <p>No Playlists!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--If the user is connected and he is the owner of the playlist -->
+<div data-ng-show="userServices.isConnected() && isSameUser">
+    <ol class="row music-list-wall"
+        data-swr-sortable
+        data-swr-sortable-move-item="moveItem(positionFrom, positionTo)">
+        <div class="block"
+             data-ng-show="isLoading">
+            <div class="centered">
+                <img src="images/ajax-loader-default.gif">
+            </div>
+        </div>
+        <li class="music-list-wall-brick cursor-pointer"
+            data-swr-sortable-brick
+            data-ng-repeat="item in playlistItems | swrOrderObjectBy:'position'"
+            data-item-id="{{item.id}}">
+            <a class="delete"
+               href="">&times;</a>
+
+            <div class="title-name">{{item.title}}</div>
+            <div class="author-name">{{item.user.username}}</div>
+            <img class="center-block"
+                 data-ng-src="{{item.artwork_url}}"/>
+        </li>
+    </ol>
+</div>
+
+<!--If the user is connected or he is Not the owner of the playlist -->
+<div data-ng-show="!userServices.isConnected() || !isSameUser">
+    <ol class="row music-list-wall">
+        <div class="block"
+             data-ng-show="isLoading">
+            <div class="centered">
+                <img src="images/ajax-loader-default.gif">
+            </div>
+        </div>
+        <li class="music-list-wall-brick"
+            data-ng-repeat="item in playlistItems | swrOrderObjectBy:'position'"
+            data-item-id="{{item.id}}">
+            <div class="title-name">{{item.title}}</div>
+            <div class="author-name">{{item.user.username}}</div>
+            <img class="center-block"
+                 data-ng-src="{{item.artwork_url}}"/>
+        </li>
+    </ol>
+</div>

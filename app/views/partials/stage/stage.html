@@ -1,69 +1,85 @@
-<div data-ng-init="init()">
-    <div>
-        <h3>Your Playlists <i class="glyphicon glyphicon-music"></i></h3>
-
-        <div data-ng-show="userServices.isConnected()">
-            <ul class="nav nav-pills your-playlists"
-                data-ng-show="!playlistServices.playlists || playlistServices.playlists.length">
-                <li ng-repeat="playlist in playlistServices.playlists"
-                    data-swr-select
-                    data-swr-select-class="active"
-                    data-ng-click="togglePlaylist(playlist._id)">
-                    <a><i class="glyphicon glyphicon-headphones"></i> {{playlist.name}} ({{playlist.items.length}})</a>
-                </li>
-            </ul>
-
-            <div data-ng-hide="!playlistServices.playlists || playlistServices.playlists.length">
-                <p>You don't have playlist yet.</p>
-
-                <p>You can create some by drag&dropping items or by clicking on Create a Playlist's button!</p>
+<div data-ng-init="init()"
+     class="drop-musics">
+    <div class="drop-musics-overlay"
+         data-swr-drop-target="true"
+         data-swr-drop-target-on-drop="dropped(droppedItems)"
+         data-ng-show="isDragAndDrop">
+        <div class="block">
+            <div class="centered">
+                <p class="text-center bold"> {{ getButtonLabel() }}</p>
             </div>
         </div>
-        <div data-ng-hide="userServices.isConnected()">
-            <p>You have to be <a href="/login">connected</a> in order to view and edit your playlists.</p>
+    </div>
+    <div class="drop-musics-bar"
+         data-swr-drop-target="true">
+        <div>
+            <div>
+                <h3>Your Playlists <i class="glyphicon glyphicon-music"></i></h3>
+
+                <div data-ng-show="userServices.isConnected()">
+                    <ul class="nav nav-pills list-your-playlists"
+                        data-ng-show="!playlistServices.playlists || playlistServices.playlists.length">
+                        <li ng-repeat="playlist in playlistServices.playlists"
+                            data-swr-select
+                            data-swr-select-class="active"
+                            data-ng-click="togglePlaylist(playlist._id)">
+                            <a><i class="glyphicon glyphicon-headphones"></i> {{playlist.name}}
+                                ({{playlist.items.length}})</a>
+                        </li>
+                    </ul>
+
+                    <div data-ng-hide="!playlistServices.playlists || playlistServices.playlists.length">
+                        <p>You don't have playlist yet.</p>
+
+                        <p>You can create some by drag&dropping items or by clicking on Create a Playlist's button!</p>
+                    </div>
+                </div>
+                <div data-ng-hide="userServices.isConnected()">
+                    <p>You have to be <a href="/login">connected</a> in order to view and edit your playlists.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-toolbar row">
+            <div class="col-sm-5 nopadding-left">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    <input class="form-control"
+                           type="text"
+                           placeholder="Type your search"
+                           data-ng-model="searchedTerm"
+                           swr-delayed-input
+                           swr-delayed-input-callback="search()"
+                           swr-delayed-input-delayed-time="300"/>
+                </div>
+            </div>
+            <div class="col-sm-6 nopadding">
+                <button class="btn btn-default add-to-playlist-button"
+                        data-ng-click="clickOnCreateButton()"
+                        data-ng-show="userServices.isConnected()">
+                    {{ getButtonLabel() }}
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="search-toolbar row">
-    <div class="col-md-5">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input class="form-control col-sm-2"
-                   type="text"
-                   placeholder="Type your search"
-                   data-ng-model="searchedTerm"
-                   swr-delayed-input
-                   swr-delayed-input-callback="search()"
-                   swr-delayed-input-delayed-time="300"/>
+<ul class="row music-list-wall">
+    <div class="block"
+         data-ng-show="isSearching">
+        <div class="centered">
+            <img src="images/ajax-loader-default.gif">
         </div>
     </div>
-    <div class="col-md-1" data-ng-show="isSearching">
-        <img src="images/ajax-loader.gif">
-    </div>
-    <div class="col-md-4">
-        <button class="btn btn-default add-to-playlist  col-sm-10"
-                data-swr-drop-target="true"
-                data-swr-drop-target-on-drop="dropped(droppedItems)"
-                data-ng-click="clickOnCreateButton()"
-                data-ng-show="userServices.isConnected()">
-            {{ getButtonLabel() }}
-        </button>
-    </div>
-</div>
-
-<div class="masonry"
-     masonry
-     masonry-options="{ transitionDuration: '1s' }">
-    <div class="masonry-brick"
-         ng-repeat="item in searchedItems"
+    <li class="music-list-wall-brick"
+         data-ng-repeat="item in searchedItems"
          data-swr-draggable="true"
          data-item-id="{{item.id}}"
          data-swr-select
          data-swr-select-callback="toggleSelectItem(toggleItem)">
         <div class="title-name">{{item.title}}</div>
         <div class="author-name">{{item.user.username}}</div>
-        <img class="img-polaroid center-block"
+        <img class="center-block"
              data-ng-src="{{item.artwork_url}}"/>
-    </div>
-</div>
+    </li>
+</ul>

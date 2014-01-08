@@ -7,11 +7,12 @@
 angular.module('septWebRadioServices');
 
 angular.module('septWebRadioServices')
-  .service('playlistServices', ['Playlists', 'swrNotification', '$modal', '$cacheFactory',
-    function (Playlists, swrNotification, $modal, $cacheFactory) {
+  .service('playlistServices', ['Playlists', 'swrNotification', '$modal', '$cacheFactory', 'userServices', 'utilities',
+    function (Playlists, swrNotification, $modal, $cacheFactory, userServices, utilities) {
 
       var self = this;
       this.playlists = undefined;
+      this.currentPlaylists = undefined;
       this.cache = $cacheFactory('playlistServices');
 
       this.getPlaylists = function () {
@@ -21,27 +22,44 @@ angular.module('septWebRadioServices')
       this.initPlaylists = function () {
         self.playlists = self.cache.get('playlists');
         if (!self.playlists) {
-          // Get all the playlists
-          Playlists.query(function (playlists) {
+          // Get all the playlists for the connected user
+          Playlists.query({userId: userServices.getName()}, function (playlists) {
             self.playlists = playlists;
             self.cache.put('playlists', playlists);
           });
         }
       };
 
-      this.createPlaylistItems = function (itemIds) {
+      this.getUserPlaylists = function (userId, done) {
+        // Get all the playlists for the user
+        Playlists.query({userId: userId}, function (playlists) {
+          self.currentPlaylists = playlists;
+          if (_.isFunction(done)) {
+            done(playlists);
+          }
+        });
+      };
+
+      this.createPlaylistItems = function (itemIds, maxPosition) {
         var itemsToCreate = [];
-        angular.forEach(itemIds, function (itemId) {
-          var itemToInsert = self.createPlaylistItem(itemId);
+
+        if (maxPosition === undefined || _.isNaN(maxPosition)) {
+          maxPosition = 0;
+        }
+
+        _.each(itemIds, function (element, index) {
+          var itemToInsert = self.createPlaylistItem(element, maxPosition + index);
           itemsToCreate.push(itemToInsert);
         });
+
         return itemsToCreate;
       };
 
-      this.createPlaylistItem = function (itemId) {
+      this.createPlaylistItem = function (itemId, position) {
         return {
           provider: 'soundcloud',
-          musicId: itemId
+          musicId: itemId,
+          position: position
         };
       };
 
@@ -74,12 +92,12 @@ angular.module('septWebRadioServices')
       };
 
       this.createPlaylistWithItems = function (playlistName, itemIds, done) {
-        var playlistItems = self.createPlaylistItems(itemIds);
+        var playlistItems = self.createPlaylistItems(itemIds, 0);
         var playlist = new Playlists({
           name: playlistName,
           items: playlistItems
         });
-        playlist.$save(function (response) {
+        playlist.$save({userId: userServices.getName()}, function (response) {
           if (angular.isUndefined(self.playlists)) {
             self.playlists = [];
           }
@@ -97,26 +115,46 @@ angular.module('septWebRadioServices')
 
       this.addItemsToPlaylist = function (playlistId, itemIds) {
         var playlist = self.findPlaylistById(playlistId);
-        var playlistItems = self.createPlaylistItems(itemIds);
+
+        var playlistItemsSize = 0;
+
+        if (playlist !== undefined) {
+          playlistItemsSize = _.size(playlist.items);
+        }
+
+        var playlistItems = self.createPlaylistItems(itemIds, playlistItemsSize);
 
         if (playlist !== undefined) {
           if (!playlist.items) {
             playlist.items = [];
           }
-          angular.forEach(playlistItems, function (playlistItem) {
-            playlist.items.push(playlistItem);
-          });
 
-          playlist.$update(function (response) {
-            playlist = response;
-            // Update the model
-            var itemSize = _.size(itemIds);
-            if (itemSize === 1) {
-              swrNotification.message(itemSize + ' music has been added');
-            } else {
-              swrNotification.message(itemSize + ' musics have been added');
+          var numberItemAdded = 0;
+
+          angular.forEach(playlistItems, function (playlistItem) {
+
+            // If item is not already here
+            if (!utilities.listContainsAttribute(playlist.items, parseInt(playlistItem.musicId), 'musicId')) {
+              // Update the position of the item
+              playlistItem.position = playlistItemsSize + numberItemAdded;
+
+              playlist.items.push(playlistItem);
+              numberItemAdded++;
             }
           });
+
+          // If there are some new musics
+          if (numberItemAdded > 0) {
+            playlist.$update({userId: userServices.getName()}, function (response) {
+              playlist = response;
+              // Update the model
+              if (numberItemAdded === 1) {
+                swrNotification.message(numberItemAdded + ' music has been added');
+              } else {
+                swrNotification.message(numberItemAdded + ' musics have been added');
+              }
+            });
+          }
         } else {
           swrNotification.error('You have to select a valid playlist!');
         }
@@ -150,5 +188,59 @@ angular.module('septWebRadioServices')
           $modalInstance.dismiss('cancel');
         };
       };
+
+      this.getTrackIds = function (playlistId) {
+        var playlist = utilities.getItemById(self.currentPlaylists, playlistId);
+
+        if (playlist === undefined) {
+          return [];
+        } else {
+          return _.map(playlist.items, function (item) {
+            return item.musicId;
+          });
+        }
+      };
+
+      this.mergeItemPositions = function (playlistId, soundCloudItems) {
+        var playlist = utilities.getItemById(self.currentPlaylists, playlistId);
+
+        if (playlist === undefined || _.size(soundCloudItems) <= 0) {
+          return soundCloudItems;
+        }
+
+        _.each(soundCloudItems, function (soundCloudItem) {
+          var playlistItem = _.find(playlist.items, function (playlistItem) {
+            return soundCloudItem.id === playlistItem.musicId;
+          });
+
+          if (playlistItem !== undefined) {
+            soundCloudItem.position = playlistItem.position;
+          }
+        });
+
+        return soundCloudItems;
+      };
+
+      this.updateMusicPositions = function (playlistId, positionFrom, positionTo) {
+        var playlist = utilities.getItemById(self.playlists, playlistId);
+
+        if (playlist === undefined || positionFrom === positionTo) {
+          return;
+        }
+
+        // Move the item to the right position
+        var removedItem = playlist.items.splice(positionFrom, 1)[0];
+        playlist.items.splice(positionTo, 0, removedItem);
+
+        // Then update all the item positions.
+        _.each(playlist.items, function (element, index) {
+          element.position = index;
+        });
+
+        playlist.$update({userId: userServices.getName()}, function (response) {
+          playlist = response;
+        });
+      };
     }
-  ]);
+  ])
+;

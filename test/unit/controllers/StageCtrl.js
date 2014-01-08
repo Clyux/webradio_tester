@@ -402,6 +402,27 @@ describe('Stage', function () {
           rootScope.$emit('SWR-DRAG-END-NUMBER');
           expect(scope.isSingleDragAndDrop).toBeFalsy();
         }));
+
+        it('should set isDragAndDrop to true', inject(function () {
+          expect(scope.isDragAndDrop).toBeFalsy();
+          rootScope.$emit('SWR-DRAG-START-NUMBER');
+          expect(scope.isDragAndDrop).toBeTruthy();
+        }));
+
+        it('should set isDragAndDrop to true', inject(function () {
+          expect(scope.isDragAndDrop).toBeFalsy();
+          rootScope.$emit('SWR-DRAG-START-NUMBER', 2);
+          expect(scope.isDragAndDrop).toBeTruthy();
+        }));
+
+        it('should set isDragAndDrop to false for the end event', inject(function () {
+          expect(scope.isDragAndDrop).toBeFalsy();
+          rootScope.$emit('SWR-DRAG-START-NUMBER', 1);
+          expect(scope.isDragAndDrop).toBeTruthy();
+
+          rootScope.$emit('SWR-DRAG-END-NUMBER');
+          expect(scope.isDragAndDrop).toBeFalsy();
+        }));
       });
     });
   });

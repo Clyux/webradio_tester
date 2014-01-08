@@ -4,7 +4,7 @@ describe('user Services', function () {
   beforeEach(module('septWebRadioApp', 'mockedUserServices'));
 
   var $httpBackend, scope, $window, $location, swrNotification, userServices;
-  var userMock = {_id: '12', user: 'User', username: 'User name'};
+  var userMock = {_id: '12', user: 'User', username: 'User_Name'};
 
   beforeEach(inject(function ($rootScope, _$httpBackend_, _$window_, _$location_, _swrNotification_, _userServices_) {
     scope = $rootScope.$new();
@@ -75,7 +75,7 @@ describe('user Services', function () {
     it('should return the user name', inject(function () {
       userServices.user = userMock;
       var name = userServices.getName();
-      expect(name).toBe('User name');
+      expect(name).toBe('User_Name');
     }));
 
     it('should return an empty string', inject(function () {
@@ -177,6 +177,24 @@ describe('user Services', function () {
 
       expect(userServices.user).toBeUndefined();
       expect(swrNotification.message).toHaveBeenCalledWith('Successfully disconnected!');
+    }));
+  });
+
+
+  describe('isSameUser', function () {
+    it('should return false', inject(function () {
+      userServices.user = userMock;
+      expect(userServices.isSameUser()).toBeFalsy();
+    }));
+
+    it('should return false', inject(function () {
+      userServices.user = userMock;
+      expect(userServices.isSameUser('user 2')).toBeFalsy();
+    }));
+
+    it('should return true', inject(function () {
+      userServices.user = userMock;
+      expect(userServices.isSameUser('User_Name')).toBeTruthy();
     }));
   });
 });

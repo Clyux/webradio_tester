@@ -11,7 +11,7 @@ angular.module('septWebRadioApp', [
   'septWebRadioControllers',
   'septWebRadioDirectives',
   'septWebRadioFactories',
-  'wu.masonry'
+  'septWebRadioFilters'
 ]);
 
 angular.module('septWebRadioApp')
@@ -49,6 +49,10 @@ angular.module('septWebRadioApp')
         .when('/signup', {
           templateUrl: 'partials/sign/up.html',
           controller: 'SignCtrl'
+        })
+        .when('/:userId/playlists', {
+          templateUrl: 'partials/playlists/all.html',
+          controller: 'PlaylistsCtrl'
         })
         .otherwise({
           redirectTo: '/index'

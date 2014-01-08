@@ -18,7 +18,7 @@ angular.module('septWebRadioDirectives')
       this.init = function () {
         $element.drag('init', self.dragInit);
         $element.drag('start', self.dragStart);
-        $element.drag(self.drag, { relative: true });
+        $element.drag(self.drag, { relative: false });
         $element.drag('end', self.dragEnd);
         $element.on('$destroy', self.cleanDrag);
       };
@@ -39,19 +39,19 @@ angular.module('septWebRadioDirectives')
 
       this.drag = function drag(ev, dd) {
         $element.css({
-          top: dd.offsetY,
-          left: dd.offsetX
+          top: dd.deltaY,
+          left: dd.deltaX
         });
       };
 
-      this.dragEnd = function (ev, dd) {
+      this.dragEnd = function () {
         swrDragAndDrop.removeDraggedItem($element.attr('data-item-id'));
 
         $rootScope.$emit('SWR-DRAG-END', $element);
         $animate.removeClass($element, 'swr-drag-start');
         $element.animate({
-          top: dd.originalY,
-          left: dd.originalX
+          top: 0,
+          left: 0
         }, 600);
       };
 

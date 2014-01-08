@@ -112,7 +112,7 @@ module.exports = function (passport) {
     user: function (req, res, next, id) {
       User
         .findOne({
-          _id: id
+          username: id
         })
         .exec(function (err, user) {
           if (err) {

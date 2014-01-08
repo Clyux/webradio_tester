@@ -96,6 +96,24 @@ angular.module('septWebRadioFactories')
         return !utilitiesService.isItemNotPresents(list, item);
       };
 
+      utilitiesService.getItemById = function (list, itemId) {
+        return utilitiesService.getItemByAttribute(list, '_id', itemId);
+      };
+
+      utilitiesService.getItemByAttribute = function (list, attributeName, attributeValue) {
+        var listSize = _.size(list);
+        var elementLoop;
+        for (var index = 0; index < listSize; index++) {
+          elementLoop = list[index];
+          if (elementLoop) {
+            if (elementLoop[attributeName] === attributeValue) {
+              return elementLoop;
+            }
+          }
+        }
+        return undefined;
+      };
+
       return utilitiesService;
     }
   ]);

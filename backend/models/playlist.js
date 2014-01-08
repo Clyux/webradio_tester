@@ -25,7 +25,8 @@ var PlaylistSchema = new Schema({
         type: String,
         default: ''
       },
-      musicId: Number
+      musicId: Number,
+      position: Number
     }
   ],
   user: {
