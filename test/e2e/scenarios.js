@@ -32,7 +32,7 @@ describe('my app', function() {
 
     it('should render stage when user navigates to /stage', function() {
       var elmt = element('[data-ng-view] img:first');
-      expect(elmt.attr('src')).toMatch(/images\/ajax-loader.gif/);
+      expect(elmt.attr('src')).toMatch(/images\/ajax-loader-default.gif/);
     });
   });
 });

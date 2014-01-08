@@ -1,7 +1,5 @@
 'use strict';
 
-/* global Draggabilly */
-
 angular.module('septWebRadioDirectives');
 
 angular.module('septWebRadioDirectives')
@@ -9,45 +7,48 @@ angular.module('septWebRadioDirectives')
     '$scope',
     '$element',
     function controller($scope, $element) {
-      var bricks = {};
-      var destroyed = false;
+      this.positionFrom = -1;
+      var self = this;
 
-      this.appendBrick = function appendBrick() {
-        if (destroyed) {
-          return;
+      this.init = function () {
+        $element.sortable({
+          opacity: 0.9,
+          containment: 'parent',
+          cursor: 'move',
+          forceHelperSize: true,
+          forcePlaceholderSize: true,
+          revert: true,
+          tolerance: 'pointer',
+          start: function (e, ui) {
+            self.startMoving(ui.item);
+          },
+          stop: function (e, ui) {
+            self.stopMoving(ui.item);
+          }
+        });
+        $element.disableSelection();
+      };
+
+      this.appendBrick = function () {
+        $element.sortable('refreshPositions');
+      };
+
+      this.startMoving = function (element) {
+        if (element === undefined) {
+          self.positionFrom = -1;
+        } else {
+          self.positionFrom = element.index();
         }
-
-        //$element.shapeshift();
-        /*$element.append(element)
-          .packery('appended', element);*/
-
-        // make item elements draggable
-        //self.makeEachDraggable(0, element);
-
-        //$element.packery('appended', element, true);
       };
 
-      this.removeBrick = function removeBrick(id) {
-        if (destroyed) {
-          return;
+      this.stopMoving = function (element) {
+        if (element !== undefined) {
+          var positionTo = element.index();
+          if (positionTo !== self.positionFrom) {
+            $scope.swrSortableMoveItem({positionFrom: self.positionFrom, positionTo: positionTo});
+          }
         }
-        delete bricks[id];
-      };
-
-      this.destroy = function destroy() {
-        destroyed = true;
-        // $element.gridly('layout');
-        bricks = [];
-      };
-
-      this.layout = function reload() {
-      };
-
-      this.makeEachDraggable = function (i, itemElem) {
-        // make element draggable with Draggabilly
-        var draggie = new Draggabilly(itemElem);
-        // bind Draggabilly events to Packery
-        $element.packery('bindDraggabillyEvents', draggie);
+        self.positionFrom = -1;
       };
     }
   ])
@@ -56,16 +57,11 @@ angular.module('septWebRadioDirectives')
       return {
         restrict: 'A',
         controller: 'swrSortableCtrl',
-        link: function link(scope, element) {
-          console.log(element);
-
-          // element.shapeshift({colWidth: 200});
-          /*element.packery({
-            columnWidth: 80,
-            rowHeight: 80
-          });*/
-          element.sortable();
-          element.disableSelection();
+        scope: {
+          swrSortableMoveItem: '&'
+        },
+        link: function link(scope, element, attrs, ctrl) {
+          ctrl.init();
         }
       };
     }
@@ -78,19 +74,7 @@ angular.module('septWebRadioDirectives')
         scope: true,
         link: {
           pre: function (scope, element, attrs, ctrl) {
-            var id = scope.$id, index;
-            ctrl.appendBrick(element, id);
-
-            element.on('$destroy', function () {
-              ctrl.removeBrick(id, element);
-            });
-
-            scope.$watch('$index', function () {
-              if (index !== undefined && index !== scope.$index) {
-                ctrl.layout();
-              }
-              index = scope.$index;
-            });
+            ctrl.appendBrick(element);
           }
         }
       };

@@ -11,7 +11,7 @@ angular.module('septWebRadioApp', [
   'septWebRadioControllers',
   'septWebRadioDirectives',
   'septWebRadioFactories',
-  'wu.masonry'
+  'septWebRadioFilters'
 ]);
 
 angular.module('septWebRadioApp')

@@ -22,6 +22,12 @@ menu, ol, ul {
     padding: 0;
 }
 
+.modal {
+    display: block;
+    height: 0;
+    overflow: visible;
+}
+
 /* Common */
 
 h1 {
@@ -62,6 +68,42 @@ p {
 
 .footer, .push {
     height: 4em;
+}
+
+[data-swr-draggable] {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.block {
+    text-align: center;
+    height: 100%;
+}
+
+/* The ghost, nudged to maintain perfect centering */
+.block:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+/* The element to be centered, can
+   also be of any width and height */
+.centered {
+    display: inline-block;
+    vertical-align: middle;
+    width: 350px;
 }
 
 /* Global */
@@ -183,8 +225,8 @@ p {
     padding-top: 9px;
 }
 
-.masonry {
-    position: relative;
+.music-list-wall {
+    list-style-type: none;
     border: solid 1px #ccc;
     min-height: 500px;
     margin-top: 8px;
@@ -192,9 +234,9 @@ p {
     background: rgba(253, 253, 253, 0.71);
 }
 
-.masonry .masonry-brick-2 {
-    position: absolute;
-    display: none;
+.music-list-wall .music-list-wall-brick {
+    float: left;
+    position: relative;
     width: 200px;
     height: 215px;
     margin-bottom: 12px;
@@ -207,11 +249,13 @@ p {
     border: solid 1px #e4e4e4;
 }
 
-.masonry-brick-2.loaded {
-    display: block;
+.music-list-wall-brick.swr-select {
+    border: solid 1px #444444;
+    box-shadow: 5px 5px 2px #ababab;
+    background: #f1f1f1;
 }
 
-.masonry-brick-2 .author-name {
+.music-list-wall-brick .author-name {
     position: absolute;
     top: 30px;
     width: 164px;
@@ -223,7 +267,7 @@ p {
     text-transform: uppercase;
 }
 
-.masonry-brick-2 .title-name {
+.music-list-wall-brick .title-name {
     position: absolute;
     top: 0;
     width: 164px;
@@ -233,14 +277,14 @@ p {
     font-family: andale Mono, monaco;
 }
 
-.masonry-brick-2 img {
-    position: relative;
+.music-list-wall-brick img {
+    position: absolute;
     top: 60px;
     width: 140px;
     height: 140px;
 }
 
-.masonry-brick-2 .delete {
+.music-list-wall-brick .delete {
     display: block;
     color: #ff000d;
     background: rgba(191, 191, 191, 0.20);
@@ -254,7 +298,7 @@ p {
     text-decoration: underline;
 }
 
-.masonry-brick-2.ng-enter {
+.music-list-wall-brick.ng-enter {
     -webkit-transition: 1s ease opacity;
     -moz-transition: 1s ease opacity;
     -ms-transition: 1s ease opacity;
@@ -263,63 +307,16 @@ p {
     opacity: 0;
 }
 
-.masonry-brick-2.ng-enter.ng-enter-active,
-.masonry-brick-2.ng-move.ng-move-active {
+.music-list-wall-brick.ng-enter.ng-enter-active {
     opacity: 1;
 }
 
-/* Css animations for search in stage page */
-/*.masonry-brick-2.ng-leave {
-    -webkit-animation: 0.6s my-animation;
-    -moz-animation: 0.6s my-animation;
-    -ms-transition: 0.6s my-animation;
-    -o-animation: 0.6s my-animation;
-    animation: 0.6s my-animation;
-}
-
-@keyframes my-animation {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-@-webkit-keyframes my-animation {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-@-moz-keyframes my-animation {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-@-o-keyframes my-animation {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-*/
-
-.masonry-brick-2.swr-drag-start {
+.music-list-wall-brick.swr-drag-start {
     opacity: 0.9;
     z-index: 3;
 }
 
-.masonry-brick-2.swr-drag-start-remove {
+.music-list-wall-brick.swr-drag-start-remove {
     -webkit-transition: opacity 0.6s ease-in-out;
     -moz-transition: opacity 0.6s ease-in-out;
     -ms-transition: opacity 0.6s ease-in-out;
@@ -328,38 +325,10 @@ p {
     z-index: 3;
 }
 
+/*Stage - Drop Music*/
+
 .drop-musics {
     position: relative;
-}
-
-.drop-musics-bar {
-    -webkit-transition: all 0.6s ease;
-    -moz-transition: all 0.6s ease;
-    -ms-transition: all 0.6s ease;
-    -o-transition: all 0.6s ease;
-    transition: all 0.6s ease;
-}
-
-.block {
-    text-align: center;
-    height: 100%;
-}
-
-/* The ghost, nudged to maintain perfect centering */
-.block:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em; /* Adjusts for spacing */
-}
-
-/* The element to be centered, can
-   also be of any width and height */
-.centered {
-    display: inline-block;
-    vertical-align: middle;
-    width: 350px;
 }
 
 .drop-musics-overlay .centered p {
@@ -376,9 +345,17 @@ p {
     z-index: 2;
 }
 
-.drop-musics-bar.swr-drop-over {
+.drop-musics-overlay.swr-drop-over {
     /* applied to a drop target when a draggable object is over it */
-    background-color: rgba(97, 244, 76, 0.41);
+    background-color: rgba(97, 244, 76, 0.13);
+}
+
+.drop-musics-bar {
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -ms-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
 }
 
 .drop-musics-bar.swr-drop-target-remove {
@@ -392,33 +369,13 @@ p {
 
 .drop-musics-bar.swr-drop-target {
     /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
-    opacity: 0.5;
+    opacity: 0.1;
     border: 3px dashed #afafaf;
 }
 
-.add-to-playlist {
+.add-to-playlist-button {
     width: 250px;
     height: 34px;
-}
-
-[data-swr-draggable] {
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    /* Required to make elements draggable in old WebKit */
-    -khtml-user-drag: element;
-    -webkit-user-drag: element;
-    cursor: pointer;
-    z-index: 1;
-}
-
-.masonry .swr-select {
-    border: solid 1px #444444;
-    box-shadow: 5px 5px 2px #ababab;
-    background: #f1f1f1;
 }
 
 .list-your-playlists {
@@ -436,8 +393,6 @@ p {
     height: 5%;
 }
 
-.modal {
-    display: block;
-    height: 0;
-    overflow: visible;
-}
+/* Playlist page */
+
+/* Playlist - All page */

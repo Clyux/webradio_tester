@@ -29,16 +29,17 @@ angular.module('septWebRadioControllers')
         if ($scope.searchedTerm && $scope.searchedTerm !== '' && $scope.searchedTerm.length >= 2) {
           $scope.isSearching = true;
 
+          $scope.searchedItems = [];
+
           // Search the terms
           soundcloudSearch.autoCompleteSearch($scope.searchedTerm)
             .then(function (response) {
-              $scope.searchedItems = utilities.unionWithId($scope.searchedItems, response);
+              $scope.searchedItems = response;
               $scope.isSearching = false;
             });
         } else {
           // There is nothing to search
           $scope.isSearching = false;
-          $scope.searchedItems.splice(0, $scope.searchedItems.length);
         }
       };
 

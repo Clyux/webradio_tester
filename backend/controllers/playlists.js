@@ -50,8 +50,11 @@ exports.update = function (req, res) {
 
   playlist = _.extend(playlist, req.body);
 
-  playlist.save(function () {
-    res.jsonp(playlist);
+  playlist.save(function (err) {
+    if (err) {
+      return res.jsonp(err);
+    }
+    return res.jsonp(playlist);
   });
 };
 

@@ -1,11 +1,13 @@
 'use strict';
 
-/* Controllers */
+/* global _ */
+
+/* Playlists Controller */
 
 angular.module('septWebRadioControllers')
   .controller('PlaylistsCtrl',
-    ['$scope', '$routeParams', 'playlistServices', 'userServices', 'soundCloudServices',
-      function ($scope, $routeParams, playlistServices, userServices, soundCloudServices) {
+    ['$scope', '$routeParams', 'playlistServices', 'userServices', 'soundCloudServices', '$timeout',
+      function ($scope, $routeParams, playlistServices, userServices, soundCloudServices, $timeout) {
 
         $scope.playlistServices = playlistServices;
         $scope.playlists = [];
@@ -27,22 +29,28 @@ angular.module('septWebRadioControllers')
           if (playlistId === $scope.selectedPlaylistId) {
             return;
           }
+
+          $scope.isLoading = true;
+          $scope.playlistItems = [];
           $scope.selectedPlaylistId = playlistId;
-          var trackIds = playlistServices.getTrackIds($scope.playlists, playlistId);
-          soundCloudServices.getTracks(trackIds).then(function (items) {
-            $scope.playlistItems = items;
-          });
+
+          var trackIds = playlistServices.getTrackIds(playlistId);
+          if (trackIds === undefined || trackIds === '' || _.size(trackIds) === 0) {
+            $scope.isLoading = false;
+          } else {
+            soundCloudServices.getTracks(trackIds).then(function (soundCloudItems) {
+              // Just for the beauty.
+              $timeout(function () {
+                $scope.isLoading = false;
+                // Update the items with the position provided by the backend.
+                $scope.playlistItems = playlistServices.mergeItemPositions(playlistId, soundCloudItems);
+              }, 200);
+            });
+          }
         };
 
-        $scope.sortableOptions = {
-          // called after a node is dropped
-          stop: function(e, ui) {
-            var logEntry = {
-              ID: 1,
-              Text: 'Moved element: ' + ui.item.scope().item.text
-            };
-            console.log(logEntry);
-          }
+        $scope.moveItem = function (positionFrom, positionTo) {
+          $scope.playlistServices.updateMusicPositions($scope.selectedPlaylistId, positionFrom, positionTo);
         };
       }
     ]

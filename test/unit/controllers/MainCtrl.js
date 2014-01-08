@@ -46,6 +46,12 @@ describe('Main', function () {
       applicationServices = _applicationServices_;
     }));
 
+    // init controller for test
+    beforeEach(inject(function ($controller) {
+      controller = $controller('MainCtrl', {
+        $scope: scope, applicationServices: applicationServicesMock});
+    }));
+
     afterEach(function () {
       isConnected = false;
     });
@@ -56,7 +62,7 @@ describe('Main', function () {
 
 
     // The main controller test
-    describe('Main Controller Init App', function () {
+    describe('Init App', function () {
 
       var userMock;
 
@@ -116,14 +122,10 @@ describe('Main', function () {
 
 
     // The main controller
-    describe('Main Controller logInLogOut', function () {
-
+    describe('logInLogOut', function () {
       // Init controller for test
-      beforeEach(inject(function ($controller) {
+      beforeEach(inject(function () {
         spyOn(applicationServicesMock, 'logInLogOut').andCallThrough();
-
-        controller = $controller('MainCtrl', {
-          $scope: scope, applicationServices: applicationServicesMock});
       }));
 
 
@@ -157,15 +159,7 @@ describe('Main', function () {
 
 
     // The main controller test
-    describe('Main Controller Scope Functions', function () {
-
-      var userMock;
-
-      // init controller for test
-      beforeEach(inject(function ($controller) {
-        controller = $controller('MainCtrl', {
-          $scope: scope, applicationServices: applicationServicesMock});
-      }));
+    describe('Scope Functions', function () {
 
       it('should call the location.path with the index page', function () {
         spyOn($location, 'path');

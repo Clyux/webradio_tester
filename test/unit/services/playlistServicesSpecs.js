@@ -4,14 +4,17 @@ describe('Playlist Services', function () {
   beforeEach(module('septWebRadioApp'));
 
   var $cacheFactory, scope, Playlists, swrNotification, $modal, playlistServices, cache;
-  var $httpBackend, userServices;
+  var $httpBackend, userServices, utilities;
 
   var playlistsMock = [
     {name: 'Playlist 1', _id: 1},
-    {name: 'Playlist 2', _id: 2}
+    {name: 'Playlist 2', _id: 2, items: [
+      {musicId: 12, position: 1},
+      {musicId: 34, position: 2}
+    ]}
   ];
 
-  beforeEach(inject(function ($rootScope, _Playlists_, _$cacheFactory_, _swrNotification_, _$modal_, _playlistServices_, _$httpBackend_, _userServices_) {
+  beforeEach(inject(function ($rootScope, _Playlists_, _$cacheFactory_, _swrNotification_, _$modal_, _playlistServices_, _$httpBackend_, _userServices_, _utilities_) {
     scope = $rootScope.$new();
     Playlists = _Playlists_;
     swrNotification = _swrNotification_;
@@ -20,6 +23,7 @@ describe('Playlist Services', function () {
     playlistServices = _playlistServices_;
     $httpBackend = _$httpBackend_;
     userServices = _userServices_;
+    utilities = _utilities_;
     cache = $cacheFactory.get('playlistServices');
 
     spyOn(userServices, 'getName').andCallFake(function () {
@@ -173,7 +177,7 @@ describe('Playlist Services', function () {
         .respond(returnPlaylist);
 
       playlistServices.createPlaylistWithItems(playlistName, itemIds, done);
-      expect(playlistServices.createPlaylistItems).toHaveBeenCalledWith(itemIds);
+      expect(playlistServices.createPlaylistItems).toHaveBeenCalledWith(itemIds, 0);
 
       $httpBackend.flush();
     }));
@@ -247,7 +251,7 @@ describe('Playlist Services', function () {
       spyOn(playlistServices, 'findPlaylistById');
       playlistServices.addItemsToPlaylist(playlistId, itemIds);
       expect(playlistServices.findPlaylistById).toHaveBeenCalledWith(playlistId);
-      expect(playlistServices.createPlaylistItems).toHaveBeenCalledWith(itemIds);
+      expect(playlistServices.createPlaylistItems).toHaveBeenCalledWith(itemIds, 0);
     }));
 
     it('should call the error notification if no playlist are found', inject(function () {
@@ -375,6 +379,122 @@ describe('Playlist Services', function () {
       expect(modal.close).not.toHaveBeenCalled();
       scope.createPlaylist({$valid: true});
       expect(modal.close).toHaveBeenCalledWith(response);
+    }));
+  });
+
+
+  describe('getTrackIds', function () {
+    it('should return an empty array', inject(function () {
+      var trackIds = playlistServices.getTrackIds(1);
+      expect(trackIds).toEqual([]);
+    }));
+
+    it('should return the music id of the playlist items', inject(function () {
+      playlistServices.currentPlaylists = playlistsMock;
+      var trackIds = playlistServices.getTrackIds(2);
+      expect(trackIds).toEqual([12, 34]);
+    }));
+  });
+
+
+  describe('mergeItemPositions', function () {
+    it('should return the second array when there is no playlist', inject(function () {
+      var soundCloudItems = [
+        {id: 12},
+        {id: 34}
+      ];
+      var mergeItems = playlistServices.mergeItemPositions(1, soundCloudItems);
+      expect(mergeItems).toEqual(soundCloudItems);
+    }));
+
+    it('should return the second array mapped with the id of the playlistItem and the position', inject(function () {
+      var soundCloudItems = [
+        {id: 12},
+        {id: 34}
+      ];
+      playlistServices.currentPlaylists = playlistsMock;
+      var mergeItems = playlistServices.mergeItemPositions(2, soundCloudItems);
+
+      expect(mergeItems).toEqual([
+        { id: 12, position: 1 },
+        { id: 34, position: 2 }
+      ]);
+    }));
+  });
+
+
+  describe('updateMusicPositions', function () {
+    it('should do nothing if the playlist is undefined', inject(function () {
+      spyOn(_, 'each');
+      playlistServices.playlists = playlistsMock;
+      playlistServices.updateMusicPositions(3, 0, 1);
+      expect(_.each).not.toHaveBeenCalled();
+    }));
+
+    it('should do nothing if the two positions are equals', inject(function () {
+      spyOn(_, 'each');
+      playlistServices.playlists = playlistsMock;
+      playlistServices.updateMusicPositions(2, 1, 1);
+      expect(_.each).not.toHaveBeenCalled();
+    }));
+
+    it('should update the position of the items', inject(function () {
+      playlistServices.playlists = playlistsMock;
+
+      spyOn(utilities, 'getItemById').andCallFake(function () {
+        return new Playlists({
+          _id: 2,
+          name: 'Name',
+          items: [
+            {musicId: 12, position: 1},
+            {musicId: 34, position: 2}
+          ]
+        });
+      });
+
+      var expectedPlaylist = {
+        _id: 2,
+        name: 'Name',
+        items: [
+          {musicId: 34, position: 0},
+          {musicId: 12, position: 1}
+        ]
+      };
+
+      playlistServices.updateMusicPositions(2, 0, 1);
+
+      $httpBackend.expectPUT('/api/jimmy/playlists/2', expectedPlaylist)
+        .respond(200);
+
+      $httpBackend.flush();
+    }));
+  });
+
+
+  describe('getUserPlaylists', function () {
+    it('should call the query method', inject(function () {
+      spyOn(Playlists, 'query');
+      playlistServices.getUserPlaylists(1);
+      expect(Playlists.query.mostRecentCall.args[0]).toEqual({userId: 1});
+    }));
+
+    it('should set the currentPlaylists variables', inject(function () {
+      spyOn(Playlists, 'query').andCallFake(function (userId, callback) {
+        callback(playlistsMock);
+      });
+
+      playlistServices.getUserPlaylists(1);
+      expect(playlistServices.currentPlaylists).toEqual(playlistsMock);
+    }));
+
+    it('should call the callback function', inject(function () {
+      spyOn(Playlists, 'query').andCallFake(function (userId, callback) {
+        callback(playlistsMock);
+      });
+
+      var done = jasmine.createSpy('done');
+      playlistServices.getUserPlaylists(1, done);
+      expect(done).toHaveBeenCalledWith(playlistsMock);
     }));
   });
 });

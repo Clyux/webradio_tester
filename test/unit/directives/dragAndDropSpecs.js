@@ -100,9 +100,9 @@ describe('Drag And Drop Directives', function () {
 
         controller.drag({}, dd);
 
-        expect(elm.css).toHaveBeenCalledWith({top: 50, left: 10});
-        expect(elm.css('top')).toBe('50px');
-        expect(elm.css('left')).toBe('10px');
+        expect(elm.css).toHaveBeenCalledWith({top: undefined, left: undefined});
+        expect(elm.css('top')).toBe('0px');
+        expect(elm.css('left')).toBe('0px');
       });
     });
 
