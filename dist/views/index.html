@@ -1,24 +1,24 @@
 <!doctype html>
-<html ng-app="septWebRadioApp" ng-controller="MainCtrl" data-ng-init="init()">
+<html data-ng-app="septWebRadioApp" data-ng-controller="MainCtrl" data-ng-init="init()">
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"></html><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"></html><![endif]-->
 <!--[if IE 8]><html class="no-js lt-ie9"></html><![endif]-->
 <!--[if gt IE 8]><html class="no-js"></html><![endif]-->
   <head>
-      <meta charset="utf8">
+      <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-      <title ng-bind-template="{{ Page.title() }}"></title>
+      <title data-ng-bind-template="{{ Page.title() }}">Sept Web Radio</title>
 
       <meta name="description" content="content">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- Place favicon.ico and apple-touch-icon.png in the root directory-->
 
       <base href="/">
 
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
-      <link rel="stylesheet" href="../styles/91558434.main.css"/>
+      <link rel="stylesheet" href="../styles/fe189136.main.css"/>
 </head>
   <body>
     <!--[if lt IE 7]>
@@ -32,19 +32,16 @@
 
     <div class="global-wrapper">
 
-        <div growl=""></div>
-
-        <div class="header-wrapper" ng-include="" src="'partials/templates/header.tpl.html'"></div>
+        <div data-ng-include="" data-src="'partials/templates/header.tpl.html'"></div>
 
         <div class="main-wrapper">
 
             <div class="left-bar-wrapper"></div>
 
-            <!-- Add your site or application content here -->
-            <div class="content-wrapper" ng-view=""></div>
+            <div class="container" data-ng-view=""></div>
         </div>
 
-        <div ng-include="" src="'partials/templates/footer.tpl.html'"></div>
+        <div data-ng-include="" data-src="'partials/templates/footer.tpl.html'"></div>
 
     </div>
 
@@ -66,14 +63,13 @@
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
 
-    <script src="../scripts/5262c247.plugins.js"></script>
+    <script src="../scripts/556ece8c.plugins.js"></script>
 
     <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="//w.soundcloud.com/player/api.js"></script>
 
-    <script src="../scripts/b882a38d.modules.js"></script>
+    <script src="../scripts/6d4bfb56.modules.js"></script>
 
-    <script src="../scripts/8a492088.scripts.js"></script>
-
+    <script src="../scripts/e1a651ce.scripts.js"></script>
 </body>
 </html>
