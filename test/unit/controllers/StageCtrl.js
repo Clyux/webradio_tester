@@ -155,7 +155,16 @@ describe('Stage', function () {
 
 
       describe('dropped', function () {
+        it('should not call the createOrUpdatePlaylist function when the user is not connected', inject(function () {
+          isConnected = false;
+          spyOn(playlistServices, 'createOrUpdatePlaylist');
+          expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
+          scope.dropped();
+          expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
+        }));
+
         it('should call the createOrUpdatePlaylist function with the correct scope var', inject(function () {
+          isConnected = true;
           spyOn(playlistServices, 'createOrUpdatePlaylist');
           expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
           scope.dropped();
@@ -163,6 +172,7 @@ describe('Stage', function () {
         }));
 
         it('should call the createOrUpdatePlaylist function with itemsIds undefined', inject(function () {
+          isConnected = true;
           spyOn(playlistServices, 'createOrUpdatePlaylist');
           expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
           scope.dropped();
@@ -170,6 +180,7 @@ describe('Stage', function () {
         }));
 
         it('should call the createOrUpdatePlaylist with itemsIds an array copied', inject(function () {
+          isConnected = true;
           var arrayMock = ['1', '2', '3'];
           spyOn(playlistServices, 'createOrUpdatePlaylist').andCallFake(function (playlistIds, items) {
             expect(items).not.toBe(arrayMock);
@@ -181,6 +192,7 @@ describe('Stage', function () {
         }));
 
         it('should call the createOrUpdatePlaylist with selectedPlaylistIds', inject(function () {
+          isConnected = true;
           var arrayMock = ['1', '2', '3'];
           spyOn(playlistServices, 'createOrUpdatePlaylist').andCallFake(function (playlistIds) {
             expect(playlistIds).toBe(arrayMock);
@@ -192,6 +204,7 @@ describe('Stage', function () {
         }));
 
         it('should call the createOrUpdatePlaylist with selectedPlaylistIds and the items', inject(function () {
+          isConnected = true;
           var playlistMock = ['1', '2', '3'];
           var itemsMock = ['4', '5'];
           spyOn(playlistServices, 'createOrUpdatePlaylist').andCallFake(function (playlistIds, itemIds) {
@@ -208,7 +221,16 @@ describe('Stage', function () {
 
 
       describe('clickOnCreateButton', function () {
+        it('should not call the createOrUpdatePlaylist function when the user is not connected', inject(function () {
+          isConnected = false;
+          spyOn(playlistServices, 'createOrUpdatePlaylist');
+          expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
+          scope.clickOnCreateButton();
+          expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalledWith();
+        }));
+
         it('should call the createOrUpdatePlaylist function with the default scope var', inject(function () {
+          isConnected = true;
           spyOn(playlistServices, 'createOrUpdatePlaylist');
           expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
           scope.clickOnCreateButton();
@@ -216,6 +238,7 @@ describe('Stage', function () {
         }));
 
         it('should call the createOrUpdatePlaylist function with the correct scope var', inject(function () {
+          isConnected = true;
           spyOn(playlistServices, 'createOrUpdatePlaylist');
           expect(playlistServices.createOrUpdatePlaylist).not.toHaveBeenCalled();
           scope.clickOnCreateButton();
@@ -223,6 +246,7 @@ describe('Stage', function () {
         }));
 
         it('should call the createOrUpdatePlaylist function with the correct scope var initialized', inject(function () {
+          isConnected = true;
           spyOn(playlistServices, 'createOrUpdatePlaylist');
           var playlistMock = ['1', '2', '3'];
           var itemsMock = ['4', '5'];
@@ -237,7 +261,14 @@ describe('Stage', function () {
 
 
       describe('getButtonLabel', function () {
+
+        it('should return You have to be connected! when the user is not connected', inject(function () {
+          isConnected = false;
+          expect(scope.getButtonLabel()).toBe('You have to be connected!');
+        }));
+
         it('should return create a new playlist by default', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = undefined;
           scope.selectedItemIds = undefined;
           var label = scope.getButtonLabel();
@@ -250,6 +281,7 @@ describe('Stage', function () {
         }));
 
         it('should return create a new playlist when there is no itmes selected', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = ['1'];
           scope.selectedItemIds = undefined;
           var label = scope.getButtonLabel();
@@ -261,6 +293,7 @@ describe('Stage', function () {
         }));
 
         it('should return Add + when there is one playlist selected and one item', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = ['5'];
           scope.selectedItemIds = ['6'];
           var label = scope.getButtonLabel();
@@ -268,6 +301,7 @@ describe('Stage', function () {
         }));
 
         it('should return Add + when there is more than one playlist selected and one item', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = ['5', '8', '9'];
           scope.selectedItemIds = ['6'];
           var label = scope.getButtonLabel();
@@ -275,6 +309,7 @@ describe('Stage', function () {
         }));
 
         it('should return Add + when there is one playlist selected and more than one item', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = ['4'];
           scope.selectedItemIds = ['5', '8', '9'];
           var label = scope.getButtonLabel();
@@ -282,6 +317,7 @@ describe('Stage', function () {
         }));
 
         it('should return Add + when there is more than one playlist selected and more than one item', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = ['6', '7'];
           scope.selectedItemIds = ['5', '8', '9', '123'];
           var label = scope.getButtonLabel();
@@ -289,6 +325,7 @@ describe('Stage', function () {
         }));
 
         it('should return Create a new playlist with + when there is no playlist selected and one item', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = undefined;
           scope.selectedItemIds = ['5'];
           var label = scope.getButtonLabel();
@@ -300,6 +337,7 @@ describe('Stage', function () {
         }));
 
         it('should return Create a new playlist with + when there is no playlist selected and more than one item', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = undefined;
           scope.selectedItemIds = ['5', '6', '123'];
           var label = scope.getButtonLabel();
@@ -311,6 +349,7 @@ describe('Stage', function () {
         }));
 
         it('should return Create a new playlist with 1 item when isSingleDragAndDrop is true', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = undefined;
           scope.selectedItemIds = ['5', '6', '123'];
           scope.isSingleDragAndDrop = true;
@@ -323,6 +362,7 @@ describe('Stage', function () {
         }));
 
         it('should return Add 1 item + when isSingleDragAndDrop is true', inject(function () {
+          isConnected = true;
           scope.selectedPlaylistIds = ['6', '7'];
           scope.selectedItemIds = ['5', '8', '9', '123'];
           scope.isSingleDragAndDrop = true;
