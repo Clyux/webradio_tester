@@ -18,10 +18,17 @@ angular.module('septWebRadioControllers')
 
         $scope.init = function () {
           $scope.userId = $routeParams.userId;
+          var playlistIdParam = $routeParams.playlistId;
+
           $scope.isSameUser = userServices.isSameUser($scope.userId);
           $scope.initPageTitle('Playlists');
           $scope.playlistServices.getUserPlaylists($scope.userId, function (playlists) {
             $scope.playlists = playlists;
+
+            // Select and get the playlist items if provided by the route param.
+            if (playlistIdParam !== '') {
+              $scope.selectPlaylist(playlistIdParam);
+            }
           });
         };
 

@@ -497,4 +497,19 @@ describe('Playlist Services', function () {
       expect(done).toHaveBeenCalledWith(playlistsMock);
     }));
   });
+
+
+  describe('getFeaturedPlaylists', function () {
+    it('should call the query method with limit set to 5', inject(function () {
+      spyOn(Playlists, 'getFeaturedPlaylists');
+      playlistServices.getFeaturedPlaylists();
+      expect(Playlists.getFeaturedPlaylists).toHaveBeenCalledWith({limit: 5});
+    }));
+
+    it('should call the query method with the correct limit', inject(function () {
+      spyOn(Playlists, 'getFeaturedPlaylists');
+      playlistServices.getFeaturedPlaylists(15);
+      expect(Playlists.getFeaturedPlaylists).toHaveBeenCalledWith({limit: 15});
+    }));
+  });
 });

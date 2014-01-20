@@ -29,6 +29,7 @@ module.exports = function (app, passport, auth) {
   app.get('/api/:userId/playlists/:playlistId', playlists.show);
   app.put('/api/:userId/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.update);
   app.del('/api/:userId/playlists/:playlistId', auth.requiresLogin, auth.playlist.hasAuthorization, playlists.destroy);
+  app.get('/api/playlists', playlists.query);
 
   // Finish with setting up the playlistId param
   app.param('playlistId', playlists.playlist);
