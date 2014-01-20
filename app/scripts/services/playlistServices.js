@@ -241,6 +241,16 @@ angular.module('septWebRadioServices')
           playlist = response;
         });
       };
+
+      this.getFeaturedPlaylists = function (limit) {
+
+        if (isNaN(limit)) {
+          limit = 5;
+        }
+
+        // Get the featured playlists
+        return Playlists.getFeaturedPlaylists({limit: limit});
+      };
     }
   ])
 ;

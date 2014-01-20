@@ -33,7 +33,7 @@ exports.create = function (req, res) {
   playlist.save(function (err) {
     if (err) {
       return res.send({
-        errors: err.errors,
+        errors: err,
         playlist: playlist
       });
     } else {
@@ -67,7 +67,7 @@ exports.destroy = function (req, res) {
   playlist.remove(function (err) {
     if (err) {
       return res.send({
-        errors: err.errors,
+        errors: err,
         playlist: playlist,
         status: 500
       });
@@ -85,7 +85,7 @@ exports.show = function (req, res) {
 };
 
 /**
- * List of playlist
+ * List all playlists for the user
  */
 exports.all = function (req, res) {
   Playlist.find({user: req.profile._id})
@@ -94,7 +94,7 @@ exports.all = function (req, res) {
     .exec(function (err, playlists) {
       if (err) {
         return res.send({
-          errors: err.errors,
+          errors: err,
           status: 500
         });
       } else {
@@ -102,3 +102,61 @@ exports.all = function (req, res) {
       }
     });
 };
+
+/**
+ * List of playlist
+ */
+exports.query = function (req, res) {
+
+  var featured = req.query.featured;
+  var limit = parseInt(req.query.limit, 10);
+
+  if (limit === undefined || isNaN(limit) || limit <= 0) {
+    limit = 5;
+  } else if (limit > 100) {
+    limit = 100;
+  }
+
+  Playlist.aggregate([
+    { $unwind: "$items" },
+    { $group: { _id: "$_id", count: { $sum: 1 }, user: { $first: "$user" }, name: { $first: "$name" }, created: { $first: "$created" } } },
+    { $sort: { count: -1 } },
+    { $limit: limit }
+  ],
+    function (err, results) {
+      if (err) {
+        return res.send({
+          errors: err,
+          status: 500
+        });
+      } else {
+        // Populate the playlist with the username
+        var promise = Playlist.populate(results, { path: 'user', select: 'username' });
+        promise.then(function (playlists) {
+          return res.jsonp(playlists);
+        }).end();
+      }
+    });
+};
+
+
+/*
+ // Number of playlists items by user
+ db.playlists.aggregate(
+ { $unwind: "$items" },
+ { $group: { _id: "$user", number: { $sum: 1 } } }
+ );
+
+ // Number of playlist by user
+ db.playlists.aggregate(
+ { $group: { _id: "$user", total: { $sum: 1 } } }
+ );
+
+ // Number of playlists items
+ db.playlists.aggregate(
+ { $unwind: "$items" },
+ { $group: { _id: "$_id", count: { $sum: 1 }, user: { $first: "$user" }, name: { $first: "$name" }, created: { $first: "$created" } } },
+ { $sort: { count: -1 } },
+ { $limit : 5 }
+ );
+ */

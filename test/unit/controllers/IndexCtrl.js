@@ -5,10 +5,10 @@ describe('Index', function () {
 
   describe('Controller', function () {
 
-    var scope, controller;
+    var scope, controller, playlistServices;
 
     // Init controller
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(inject(function ($rootScope, $controller, _playlistServices_) {
       var scopeController = $rootScope.$new();
       $controller('MainCtrl', {
         $scope: scopeController});
@@ -18,10 +18,11 @@ describe('Index', function () {
       };
 
       scope = $rootScope.$new();
+      playlistServices = _playlistServices_;
     }));
 
     // The main controller test
-    describe('Door Controller Init', function () {
+    describe('Index Controller Init', function () {
 
       // init controller for test
       beforeEach(inject(function ($controller) {
@@ -34,6 +35,13 @@ describe('Index', function () {
         expect(scope.initPageTitle).not.toHaveBeenCalled();
         scope.init();
         expect(scope.initPageTitle).toHaveBeenCalledWith();
+      }));
+
+      it('should call the getFeaturedPlaylists method', inject(function () {
+        spyOn(playlistServices, 'getFeaturedPlaylists');
+        expect(playlistServices.getFeaturedPlaylists).not.toHaveBeenCalled();
+        scope.init();
+        expect(playlistServices.getFeaturedPlaylists).toHaveBeenCalledWith();
       }));
     });
   });
