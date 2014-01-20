@@ -80,7 +80,6 @@ describe('Playlists', function () {
       });
 
       it('should call the getUserPlaylists method and set the playlists', function () {
-
         spyOn(scope.playlistServices, 'getUserPlaylists').andCallFake(function (userId, done) {
           done(playlistsMock);
         });
@@ -88,6 +87,33 @@ describe('Playlists', function () {
         expect(scope.playlists).toEqual([]);
         scope.init();
         expect(scope.playlists).toBe(playlistsMock);
+      });
+
+      it('should call the getUserPlaylists method and set the playlists', function () {
+        spyOn(scope.playlistServices, 'getUserPlaylists').andCallFake(function (userId, done) {
+          done(playlistsMock);
+        });
+        $routeParams.userId = 123;
+        expect(scope.playlists).toEqual([]);
+        scope.init();
+        expect(scope.playlists).toBe(playlistsMock);
+      });
+
+      it('should call the selectPlaylist method when there is a $routeParams.playlistId', function () {
+        spyOn(scope.playlistServices, 'getUserPlaylists').andCallFake(function (userId, done) {
+          done(playlistsMock);
+        });
+        spyOn(scope, 'selectPlaylist').andCallThrough();
+
+        var routeParamPlaylist = 'a0212fdfsd42fd';
+
+        expect(scope.selectPlaylist).not.toHaveBeenCalled();
+        $routeParams.userId = 123;
+        $routeParams.playlistId = routeParamPlaylist;
+        expect(scope.selectedPlaylistId).toBeUndefined();
+        scope.init();
+        expect(scope.selectPlaylist).toHaveBeenCalledWith(routeParamPlaylist);
+        expect(scope.selectedPlaylistId).toBe(routeParamPlaylist);
       });
     });
 

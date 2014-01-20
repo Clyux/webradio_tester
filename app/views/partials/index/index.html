@@ -4,7 +4,7 @@
 <div class="row">
     <ol class="list-unstyled">
         <li data-ng-repeat="playlist in featuredPlaylists">
-            <i class="glyphicon glyphicon-user"></i> <a href="/{{playlist.user.username}}/playlists">{{playlist.user.username}} - {{playlist.name}} ({{playlist.count}})</a>
+            <i class="glyphicon glyphicon-user"></i> <a href="/{{playlist.user.username}}/playlists/{{playlist._id}}">{{playlist.user.username}} - {{playlist.name}} ({{playlist.count}})</a>
         </li>
     </ol>
 </div>
