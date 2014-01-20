@@ -27,13 +27,8 @@ angular.module('septWebRadioServices')
 
         SC.get('/tracks', { q: $search }, self.resolveGetTracks);
 
-        // Get the promise object
-        var promise = self.deferred.promise;
-        promise.then(function (response) {
-          return response;
-        });
-        // And return the promise object
-        return promise;
+        // Get and return the promise object
+        return self.deferred.promise;
       };
 
       this.resolveGetTracks = function (response) {
