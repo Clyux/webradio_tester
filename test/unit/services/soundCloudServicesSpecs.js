@@ -44,7 +44,7 @@ describe('Sound Cloud Services', function () {
       }));
 
       it('should return an user', inject(function () {
-        var mockUser = {user:'User Name'};
+        var mockUser = {user: 'User Name'};
         soundCloudServices.soundCloudUser = mockUser;
         expect(soundCloudServices.getUser()).toBe(mockUser);
       }));
@@ -62,7 +62,7 @@ describe('Sound Cloud Services', function () {
       }));
 
       it('should return Log Out', inject(function () {
-        soundCloudServices.soundCloudUser = {user:'User Name'};
+        soundCloudServices.soundCloudUser = {user: 'User Name'};
         expect(soundCloudServices.isConnected()).toBeTruthy();
       }));
     });
@@ -85,7 +85,7 @@ describe('Sound Cloud Services', function () {
       it('should set the token', inject(function () {
         var token = 'fgdfg623gdf';
         spyOn(SC, 'accessToken').andReturn(token);
-        spyOn(SC, 'connect').andCallFake(function(callback){
+        spyOn(SC, 'connect').andCallFake(function (callback) {
           callback();
         });
 
@@ -99,7 +99,7 @@ describe('Sound Cloud Services', function () {
       it('should set the cookie SC_Token', inject(function () {
         var token = 'fgdfg623gdf';
         spyOn(SC, 'accessToken').andReturn(token);
-        spyOn(SC, 'connect').andCallFake(function(callback){
+        spyOn(SC, 'connect').andCallFake(function (callback) {
           callback();
         });
 
@@ -129,7 +129,7 @@ describe('Sound Cloud Services', function () {
       }));
 
       it('should call the me method', inject(function () {
-        spyOn(SC, 'connect').andCallFake(function(callback){
+        spyOn(SC, 'connect').andCallFake(function (callback) {
           callback();
         });
 
@@ -208,7 +208,7 @@ describe('Sound Cloud Services', function () {
 
       describe('meCallBack', function () {
         it('should set the user inside the session and the service', inject(function () {
-          var mockUser = {user:'User Name'};
+          var mockUser = {user: 'User Name'};
 
           soundCloudServices.me();
 
@@ -222,7 +222,7 @@ describe('Sound Cloud Services', function () {
 
 
         it('should call the deferred method with the new user', inject(function () {
-          var mockUser = {user:'User Name'};
+          var mockUser = {user: 'User Name'};
 
           soundCloudServices.me();
 
@@ -235,5 +235,46 @@ describe('Sound Cloud Services', function () {
       });
     });
 
+    describe('getTracks', function () {
+
+      it('should create the correct array and call the SC.get method', inject(function () {
+        var trackIds = [1, 2, 3];
+        var trackIdsStr = trackIds.join(',');
+
+        spyOn(SC, 'get');
+        expect(SC.get).not.toHaveBeenCalled();
+        soundCloudServices.getTracks(trackIds);
+        expect(SC.get).toHaveBeenCalledWith('/tracks', { ids: trackIdsStr }, soundCloudServices.getTracksCallBack);
+      }));
+
+      describe('getTracksCallBack', function () {
+        it('should call the resolve with the correct result', inject(function () {
+          var tracks = [
+            {track: 1},
+            {track: 2}
+          ];
+          var promise = soundCloudServices.getTracks([1, 2, 3]);
+
+          spyOn(soundCloudServices.getTracksDeferred, 'resolve');
+          expect(soundCloudServices.getTracksDeferred.resolve).not.toHaveBeenCalled();
+
+          soundCloudServices.getTracksCallBack(tracks);
+          expect(soundCloudServices.getTracksDeferred.resolve).toHaveBeenCalledWith(tracks);
+        }));
+      });
+
+      it('should resolve the promise with the correct response', inject(function () {
+        var tracks = [
+          {track: 1},
+          {track: 2}
+        ];
+        var promise = soundCloudServices.getTracks([1, 2, 3]);
+
+        promise.then(function (response) {
+          expect(response).toBe(tracks);
+        });
+        callDeferred(soundCloudServices.getTracksDeferred, scope, tracks);
+      }));
+    });
   });
 });

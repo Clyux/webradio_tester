@@ -147,7 +147,7 @@ describe('Application Services', function () {
 
         callDeferred(meDefer, scope, user);
 
-        promise.then(function(result){
+        promise.then(function (result) {
           expect(result).toBe(user);
         });
       }));

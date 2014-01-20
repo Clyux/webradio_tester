@@ -73,15 +73,8 @@ angular.module('septWebRadioServices')
         // Call the SoundCloud api in order to get the user
         SC.get('/me', self.meCallBack);
 
-        // Get the promise object
-        var promise = self.meDeferred.promise;
-
-        promise.then(function (response) {
-          return response;
-        });
-
-        // And return the promise object
-        return promise;
+        // Get and return the promise object
+        return self.meDeferred.promise;
       };
 
       this.meCallBack = function (response) {
@@ -99,15 +92,8 @@ angular.module('septWebRadioServices')
         // Call the SoundCloud api in order to get the user
         SC.get('/tracks', { ids: trackIdsStr }, self.getTracksCallBack);
 
-        // Get the promise object
-        var promise = self.getTracksDeferred.promise;
-
-        promise.then(function (response) {
-          return response;
-        });
-
-        // And return the promise object
-        return promise;
+        // Get and return the promise object
+        return self.getTracksDeferred.promise;
       };
 
       this.getTracksCallBack = function (response) {
